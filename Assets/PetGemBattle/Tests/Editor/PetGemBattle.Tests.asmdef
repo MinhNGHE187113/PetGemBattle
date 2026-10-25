@@ -1,0 +1,6 @@
+{
+  "name": "PetGemBattle.Tests",
+  "references": ["PetGemBattle"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

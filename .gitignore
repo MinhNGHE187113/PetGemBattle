@@ -1,0 +1,54 @@
+# Unity regenerates these folders locally.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Build outputs and local snapshots.
+/[Bb]uild/
+/[Bb]uilds/
+/[Bb]ackups/
+*.apk
+*.aab
+*.unitypackage
+sysinfo.txt
+
+# IDE and Unity-generated solutions.
+/.vs/
+/.idea/
+/.vscode/
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.opendb
+*.VC.db
+*.pdb
+*.mdb
+*.tmp
+*.bak
+*.orig
+*.log
+
+# Local credentials/signing files.
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.keystore
+*.jks
+
+# OS metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep Assets/**/*.meta: Unity needs their GUIDs.

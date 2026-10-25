@@ -1,0 +1,975 @@
+fileFormatVersion: 2
+guid: 4cf12a6170630f846a9e12f8501bf327
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2615622099624047435
+    second: starter-metal_0
+  - first:
+      213: 7462365294111299854
+    second: starter-metal_1
+  - first:
+      213: 1357514742539354098
+    second: starter-metal_2
+  - first:
+      213: -6680220691308413163
+    second: starter-metal_3
+  - first:
+      213: -7893916866757057488
+    second: starter-metal_4
+  - first:
+      213: 4325995385197710034
+    second: starter-metal_5
+  - first:
+      213: 3704083100387328202
+    second: starter-metal_6
+  - first:
+      213: -786453191996142115
+    second: starter-metal_7
+  - first:
+      213: 7972680368385648003
+    second: starter-metal_8
+  - first:
+      213: -6069304440720420179
+    second: starter-metal_9
+  - first:
+      213: -7498307504272207403
+    second: starter-metal_10
+  - first:
+      213: 5951536869673503111
+    second: starter-metal_11
+  - first:
+      213: -9052595048223370883
+    second: starter-metal_12
+  - first:
+      213: 5161587029573212981
+    second: starter-metal_13
+  - first:
+      213: -1621683981084749173
+    second: starter-metal_14
+  - first:
+      213: 7232941709212926682
+    second: starter-metal_15
+  - first:
+      213: 387077503521536883
+    second: starter-metal_16
+  - first:
+      213: 4297834953865859275
+    second: starter-metal_17
+  - first:
+      213: 584631161145814888
+    second: starter-metal_18
+  - first:
+      213: 3608539344680534659
+    second: starter-metal_19
+  - first:
+      213: -3978270054099170619
+    second: starter-metal_20
+  - first:
+      213: -3472150817183967643
+    second: starter-metal_21
+  - first:
+      213: -3805994116354450883
+    second: starter-metal_22
+  - first:
+      213: 7534044734994879261
+    second: starter-metal_23
+  - first:
+      213: 2818141051734928897
+    second: starter-metal_24
+  - first:
+      213: 2518349073974556911
+    second: starter-metal_25
+  - first:
+      213: -729616337048855742
+    second: starter-metal_26
+  - first:
+      213: -3603681471325105343
+    second: starter-metal_27
+  - first:
+      213: -7737952674731954272
+    second: starter-metal_28
+  - first:
+      213: 8927203617353020152
+    second: starter-metal_29
+  - first:
+      213: -9075066063972565691
+    second: starter-metal_30
+  - first:
+      213: 3081580692808714471
+    second: starter-metal_31
+  - first:
+      213: 8948530321976826716
+    second: starter-metal_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: starter-metal_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 546
+        width: 743
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b43b0c2017e8c4420800000000000000
+      internalID: 2615622099624047435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_1
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 1173
+        width: 10
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0915bb92b5af8760800000000000000
+      internalID: 7462365294111299854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_2
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 1142
+        width: 182
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fff966477cd6d210800000000000000
+      internalID: 1357514742539354098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_3
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 1124
+        width: 41
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51ff851bca61b43a0800000000000000
+      internalID: -6680220691308413163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_4
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 449
+        width: 493
+        height: 695
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0342b76fe6c237290800000000000000
+      internalID: -7893916866757057488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_5
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1122
+        width: 25
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2da40baf1e5090c30800000000000000
+      internalID: 4325995385197710034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_6
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1124
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac04d1964fb876330800000000000000
+      internalID: 3704083100387328202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_7
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 1121
+        width: 29
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddd099a1df4f515f0800000000000000
+      internalID: -786453191996142115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_8
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 1106
+        width: 42
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3856b51dd86a4ae60800000000000000
+      internalID: 7972680368385648003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_9
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 1102
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da2982984cf75cba0800000000000000
+      internalID: -6069304440720420179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_10
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 1100
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d195377d09a0f790800000000000000
+      internalID: -7498307504272207403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_11
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 1066
+        width: 6
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7898788104b189250800000000000000
+      internalID: 5951536869673503111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_12
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 1065
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d719f2f24c8be5280800000000000000
+      internalID: -9052595048223370883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 777
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b99fe5e04a1a740800000000000000
+      internalID: 5161587029573212981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_14
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 716
+        width: 43
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b829081e20f9e79e0800000000000000
+      internalID: -1621683981084749173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_15
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 640
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad24ebaa922906460800000000000000
+      internalID: 7232941709212926682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_16
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 642
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37b32f940fc2f5500800000000000000
+      internalID: 387077503521536883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_17
+      rect:
+        serializedVersion: 2
+        x: 715
+        y: 628
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc09e60ae1af4ab30800000000000000
+      internalID: 4297834953865859275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_18
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 22
+        width: 703
+        height: 523
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f68bc81f60d1800800000000000000
+      internalID: 584631161145814888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_19
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 505
+        width: 9
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38244b54a6b141230800000000000000
+      internalID: 3608539344680534659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_20
+      rect:
+        serializedVersion: 2
+        x: 1107
+        y: 515
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ca48dca6785ac8c0800000000000000
+      internalID: -3978270054099170619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_21
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 427
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 566da2f5a3170dfc0800000000000000
+      internalID: -3472150817183967643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_22
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 29
+        width: 444
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3a577524846e2bc0800000000000000
+      internalID: -3805994116354450883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_23
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 381
+        width: 34
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d139547f4cd4e8860800000000000000
+      internalID: 7534044734994879261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_24
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 353
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10e2b9bfa5c0c1720800000000000000
+      internalID: 2818141051734928897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_25
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 326
+        width: 10
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe8ffa6d329f2f220800000000000000
+      internalID: 2518349073974556911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_26
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 329
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24b91ef9ec1efd5f0800000000000000
+      internalID: -729616337048855742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_27
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 294
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14392028bc62dfdc0800000000000000
+      internalID: -3603681471325105343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_28
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 234
+        width: 33
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0af61dd2a054d9490800000000000000
+      internalID: -7737952674731954272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_29
+      rect:
+        serializedVersion: 2
+        x: 1125
+        y: 254
+        width: 12
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f2b8e1446cc3eb70800000000000000
+      internalID: 8927203617353020152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_30
+      rect:
+        serializedVersion: 2
+        x: 1146
+        y: 238
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54d76bf1f73ee0280800000000000000
+      internalID: -9075066063972565691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_31
+      rect:
+        serializedVersion: 2
+        x: 1148
+        y: 233
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e8c09d2059f3ca20800000000000000
+      internalID: 3081580692808714471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: starter-metal_32
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 165
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5b9d3f9ae09f2c70800000000000000
+      internalID: 8948530321976826716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      starter-metal_0: 2615622099624047435
+      starter-metal_1: 7462365294111299854
+      starter-metal_10: -7498307504272207403
+      starter-metal_11: 5951536869673503111
+      starter-metal_12: -9052595048223370883
+      starter-metal_13: 5161587029573212981
+      starter-metal_14: -1621683981084749173
+      starter-metal_15: 7232941709212926682
+      starter-metal_16: 387077503521536883
+      starter-metal_17: 4297834953865859275
+      starter-metal_18: 584631161145814888
+      starter-metal_19: 3608539344680534659
+      starter-metal_2: 1357514742539354098
+      starter-metal_20: -3978270054099170619
+      starter-metal_21: -3472150817183967643
+      starter-metal_22: -3805994116354450883
+      starter-metal_23: 7534044734994879261
+      starter-metal_24: 2818141051734928897
+      starter-metal_25: 2518349073974556911
+      starter-metal_26: -729616337048855742
+      starter-metal_27: -3603681471325105343
+      starter-metal_28: -7737952674731954272
+      starter-metal_29: 8927203617353020152
+      starter-metal_3: -6680220691308413163
+      starter-metal_30: -9075066063972565691
+      starter-metal_31: 3081580692808714471
+      starter-metal_32: 8948530321976826716
+      starter-metal_4: -7893916866757057488
+      starter-metal_5: 4325995385197710034
+      starter-metal_6: 3704083100387328202
+      starter-metal_7: -786453191996142115
+      starter-metal_8: 7972680368385648003
+      starter-metal_9: -6069304440720420179
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

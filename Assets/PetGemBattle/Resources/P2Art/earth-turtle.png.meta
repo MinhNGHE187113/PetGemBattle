@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: b4ba44150edb8e047976be85a89e3b49
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2361280461629395383
+    second: earth-turtle_0
+  - first:
+      213: 5458512196999395745
+    second: earth-turtle_1
+  - first:
+      213: -7303875166132742653
+    second: earth-turtle_2
+  - first:
+      213: 821978709959820552
+    second: earth-turtle_3
+  - first:
+      213: -8914034211603664616
+    second: earth-turtle_4
+  - first:
+      213: -5301506838625777615
+    second: earth-turtle_5
+  - first:
+      213: 8794332145585698848
+    second: earth-turtle_6
+  - first:
+      213: 7293605911354601857
+    second: earth-turtle_7
+  - first:
+      213: -6853010178075200152
+    second: earth-turtle_8
+  - first:
+      213: 551631841857821339
+    second: earth-turtle_9
+  - first:
+      213: -8965375200732541953
+    second: earth-turtle_10
+  - first:
+      213: -1406647013318658222
+    second: earth-turtle_11
+  - first:
+      213: -5674662174949328537
+    second: earth-turtle_12
+  - first:
+      213: -1608171534716120079
+    second: earth-turtle_13
+  - first:
+      213: 5994970857181619200
+    second: earth-turtle_14
+  - first:
+      213: 6810582871749042079
+    second: earth-turtle_15
+  - first:
+      213: 3421128017679653783
+    second: earth-turtle_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: earth-turtle_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 602
+        width: 656
+        height: 634
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94e62854eeb0b3fd0800000000000000
+      internalID: -2361280461629395383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_1
+      rect:
+        serializedVersion: 2
+        x: 701
+        y: 566
+        width: 540
+        height: 648
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a939483ce780cb40800000000000000
+      internalID: 5458512196999395745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_2
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 1147
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3065cd6eb3c63aa90800000000000000
+      internalID: -7303875166132742653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_3
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 1138
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 805c61c1841486b00800000000000000
+      internalID: 821978709959820552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_4
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 1104
+        width: 24
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8113fa5fc1dfa4480800000000000000
+      internalID: -8914034211603664616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_5
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 1130
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 138086d6e934d66b0800000000000000
+      internalID: -5301506838625777615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_6
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 1074
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0283f66fd7ebb0a70800000000000000
+      internalID: 8794332145585698848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_7
+      rect:
+        serializedVersion: 2
+        x: 1093
+        y: 1084
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181faf5eee7183560800000000000000
+      internalID: 7293605911354601857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_8
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 592
+        width: 31
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 865f0b54d8735e0a0800000000000000
+      internalID: -6853010178075200152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_9
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 602
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9adabccc3ac7a700800000000000000
+      internalID: 551631841857821339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_10
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 586
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb8d3a61c6949380800000000000000
+      internalID: -8965375200732541953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_11
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 23
+        width: 746
+        height: 572
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 257f6ce7ef59a7ce0800000000000000
+      internalID: -1406647013318658222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_12
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 586
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 769bcc941dc8f31b0800000000000000
+      internalID: -5674662174949328537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_13
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 580
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f3d9577280aea9e0800000000000000
+      internalID: -1608171534716120079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_14
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 562
+        width: 27
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 004212d5b3a623350800000000000000
+      internalID: 5994970857181619200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_15
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 33
+        width: 468
+        height: 522
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9f16ffa90d048e50800000000000000
+      internalID: 6810582871749042079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earth-turtle_16
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 15
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79b9ee06ec94a7f20800000000000000
+      internalID: 3421128017679653783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      earth-turtle_0: -2361280461629395383
+      earth-turtle_1: 5458512196999395745
+      earth-turtle_10: -8965375200732541953
+      earth-turtle_11: -1406647013318658222
+      earth-turtle_12: -5674662174949328537
+      earth-turtle_13: -1608171534716120079
+      earth-turtle_14: 5994970857181619200
+      earth-turtle_15: 6810582871749042079
+      earth-turtle_16: 3421128017679653783
+      earth-turtle_2: -7303875166132742653
+      earth-turtle_3: 821978709959820552
+      earth-turtle_4: -8914034211603664616
+      earth-turtle_5: -5301506838625777615
+      earth-turtle_6: 8794332145585698848
+      earth-turtle_7: 7293605911354601857
+      earth-turtle_8: -6853010178075200152
+      earth-turtle_9: 551631841857821339
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

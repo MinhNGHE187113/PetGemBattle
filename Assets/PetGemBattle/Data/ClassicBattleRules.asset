@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251ae173c0f98fa43b125bd3c6e00bdb, type: 3}
+  m_Name: ClassicBattleRules
+  m_EditorClassIdentifier: PetGemBattle::PetGemBattle.BattleRules
+  attackMultiplier: 1.8
+  defenseMultiplier: 0.5
+  swordExtraMultiplier: 0.35
+  swordBaseRage: 10
+  swordExtraRage: 4
+  specialRageCost: 60
+  specialMultiplier: 1.75
+  criticalChance: 0.15
+  criticalExtraChance: 0.05
+  evolvedCriticalBonus: 0.05
+  criticalChanceCap: 0.4
+  criticalMultiplier: 1.7
+  healBasePercent: 0.04
+  healExtraPercent: 0.015
+  maxHealPercent: 0.1
+  shieldBasePercent: 0.03
+  shieldExtraPercent: 0.01
+  maxShieldPercent: 0.2
+  suddenDeathAfterRounds: 15
+  suddenDeathStepRounds: 2
+  suddenDeathStep: 0.1
+  suddenDeathMaxBonus: 0.6
+  maxRounds: 30
+  manaPerGem: 8
+  ragePerGem: 7
+  maxMana: 100
+  maxRage: 100
+  comboStep: 0.25
+  hpDrainChance: 0.3
+  rageDrainChance: 0.25
+  shieldDrainChance: 0.25
+  drainExtraChance: 0.05
+  hpDrainChanceCap: 0.55
+  resourceDrainChanceCap: 0.5
+  hpDrainPercent: 0.08
+  hpDrainMaxPercent: 0.12
+  rageDrainPercent: 0.25
+  shieldDrainPercent: 0.3
+  manaCardGain: 20
+  rageCardGain: 20
+  manaCardUses: 2
+  rageCardUses: 2
+  evolutionManaCost: 80
+  evolutionHpMultiplier: 1.4
+  evolutionAttackMultiplier: 1.35
+  evolutionDefenseMultiplier: 1.2
+  evolutionHealPercent: 0.4
+  swapSeconds: 0.18
+  clearSeconds: 0.22
+  fallSeconds: 0.3
+  effectSeconds: 0.55
+  evolutionSeconds: 1.8
+  aiDelay: 0.75
+  turnSeconds: 30
+  maxCascadeWaves: 100
+  player:
+    name: Hỏa Long Chiến Thần
+    art: FireDragon
+    element: 3
+    level: 1
+    maxHp: 300
+    attack: 25
+    defense: 8
+    skills:
+    - title: Fireball
+      effect: 0
+      cost: 30
+      power: 25
+    - title: Recovery
+      effect: 1
+      cost: 25
+      power: 25
+    - title: Pet Ultimate
+      effect: 2
+      cost: 100
+      power: 40
+  enemy:
+    name: Lôi Băng Thần Thú
+    art: ThunderFrost
+    element: 2
+    level: 1
+    maxHp: 300
+    attack: 25
+    defense: 8
+    skills:
+    - title: Fireball
+      effect: 0
+      cost: 30
+      power: 25
+    - title: Recovery
+      effect: 1
+      cost: 25
+      power: 25
+    - title: Pet Ultimate
+      effect: 2
+      cost: 100
+      power: 40
+

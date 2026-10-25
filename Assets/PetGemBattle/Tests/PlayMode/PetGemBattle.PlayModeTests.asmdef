@@ -1,0 +1,5 @@
+{
+  "name": "PetGemBattle.PlayModeTests",
+  "references": ["PetGemBattle", "Unity.ugui"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

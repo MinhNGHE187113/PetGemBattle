@@ -1,0 +1,5 @@
+{
+  "name": "PetGemBattle",
+  "references": ["Unity.InputSystem", "Unity.ugui"],
+  "autoReferenced": true
+}

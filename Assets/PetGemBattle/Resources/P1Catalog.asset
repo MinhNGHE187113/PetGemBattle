@@ -1,0 +1,438 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2159fdda9edce4bb3da6ed740a2aeb, type: 3}
+  m_Name: P1Catalog
+  m_EditorClassIdentifier: PetGemBattle::PetGemBattle.P1Catalog
+  pets:
+  - id: wood-1
+    title: "M\u1EA7m Miu"
+    description: "M\xE8o nh\u1ECF nu\xF4i m\u1EA7m xanh tr\xEAn \u0111\xF4i tai."
+    element: 1
+    rarity: 0
+    hp: 245
+    attack: 22
+    defense: 6
+    speed: 18
+    rig: 0
+    artSheet: wood-1
+    forms: []
+    crit: 0.15
+  - id: wood-2
+    title: "L\xE1 L\xF9n"
+    description: "\u1EBEch l\xE1 tr\xF2n, th\xEDch nh\u1EA3y b\xEAn su\u1ED1i."
+    element: 1
+    rarity: 0
+    hp: 260
+    attack: 24
+    defense: 7
+    speed: 17
+    rig: 1
+    artSheet: wood-2
+    forms:
+    - minLevel: 4
+      displayName: "\u1EBEch L\xE1 Hi\u1EC7p S\u0129"
+      artSheet: wood-2-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    crit: 0.15
+  - id: wood-3
+    title: "N\u1EA5m N\u1EA5p"
+    description: "N\u1EA5m tinh ngh\u1ECBch \u1EA9n d\u01B0\u1EDBi nh\u1EEFng t\xE1n
+      c\xE2y."
+    element: 1
+    rarity: 0
+    hp: 280
+    attack: 26
+    defense: 8
+    speed: 19
+    rig: 2
+    artSheet: wood-3
+    forms:
+    - minLevel: 7
+      displayName: "N\u1EA5m \u1EA2o \u1EA2nh"
+      artSheet: wood-3-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    crit: 0.15
+  - id: wood-4
+    title: "D\xE2y D\u1EBBo"
+    description: "Th\u1EB1n l\u1EB1n \u0111u\xF4i d\xE2y leo d\u1EBBo dai."
+    element: 1
+    rarity: 1
+    hp: 315
+    attack: 28
+    defense: 9
+    speed: 22
+    rig: 3
+    artSheet: wood-4
+    forms:
+    - minLevel: 4
+      displayName: "Long \u0110\u1EB1ng Non"
+      artSheet: wood-4-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    crit: 0.15
+  - id: wood-5
+    title: Hoa Gai
+    description: "Nh\xEDm hoa b\u1EA3o v\u1EC7 r\u1EEBng b\u1EB1ng gai ng\u1ECDc."
+    element: 1
+    rarity: 1
+    hp: 330
+    attack: 31
+    defense: 10
+    speed: 21
+    rig: 4
+    artSheet: wood-5
+    forms:
+    - minLevel: 7
+      displayName: "Hoa Gi\xE1p V\u1EC7"
+      artSheet: wood-5-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    crit: 0.15
+  - id: wood-6
+    title: "Linh H\u01B0\u01A1u"
+    description: "H\u01B0\u01A1u non mang \xE1nh s\xE1ng tr\xEAn s\u1EEBng l\xE1."
+    element: 1
+    rarity: 1
+    hp: 345
+    attack: 32
+    defense: 11
+    speed: 24
+    rig: 5
+    artSheet: wood-6
+    forms:
+    - minLevel: 4
+      displayName: "H\u01B0\u01A1u Linh Th\u1EE7 H\u1ED9"
+      artSheet: wood-6-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    crit: 0.15
+  - id: wood-7
+    title: "C\u1ED5 Th\u1EE5 V\u1EC7 Th\u1EA7n"
+    description: "Ng\u01B0\u1EDDi b\u1EA3o v\u1EC7 c\u1ED5 th\u1EE5, d\xF9ng r\u1EC5
+      tr\xF3i k\u1EBB \u0111\u1ECBch."
+    element: 1
+    rarity: 2
+    hp: 450
+    attack: 38
+    defense: 14
+    speed: 27
+    rig: 6
+    artSheet: wood-7
+    forms:
+    - minLevel: 4
+      displayName: "C\u1ED5 Th\u1EE5 Gi\xE1p V\u1EC7"
+      artSheet: wood-7-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+      speed: 2
+    - minLevel: 7
+      displayName: "C\u1ED5 Th\u1EE5 V\u01B0\u01A1ng Mi\u1EC7n"
+      artSheet: wood-7-form2
+      hp: 1.1
+      attack: 1.12
+      defense: 1.08
+      speed: 2
+    crit: 0.15
+  - id: starter-metal
+    title: "Kim Mi\xEAu"
+    description: "B\u1EA1n \u0111\u1ED3ng h\xE0nh b\u1EADc C, b\u1ED9 gi\xE1p Kim
+      kh\u1EAFc M\u1ED9c."
+    element: 0
+    rarity: 0
+    hp: 260
+    attack: 24
+    defense: 6
+    speed: 18
+    rig: 7
+    artSheet: starter-metal
+    forms: []
+    crit: 0.15
+  - id: fire-lion
+    title: "H\u1ECFa L\xE2n Nh\xED"
+    description: "Linh th\xFA H\u1ECFa \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
+      P2."
+    element: 3
+    rarity: 1
+    hp: 325
+    attack: 31
+    defense: 8
+    speed: 23
+    rig: 8
+    artSheet: fire-lion
+    forms: []
+    crit: 0.15
+  - id: metal-bird
+    title: "Thi\u1EBFt \u0110i\u1EC3u"
+    description: "Linh th\xFA Kim \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
+      P2."
+    element: 0
+    rarity: 1
+    hp: 310
+    attack: 30
+    defense: 10
+    speed: 25
+    rig: 9
+    artSheet: metal-bird
+    forms: []
+    crit: 0.15
+  - id: water-otter
+    title: "Th\u1EE7y Ly"
+    description: "Linh th\xFA Th\u1EE7y \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
+      P2."
+    element: 2
+    rarity: 1
+    hp: 335
+    attack: 28
+    defense: 10
+    speed: 24
+    rig: 10
+    artSheet: water-otter
+    forms: []
+    crit: 0.15
+  - id: earth-turtle
+    title: Sa Quy
+    description: "Linh th\xFA Th\u1ED5 \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
+      P2."
+    element: 4
+    rarity: 1
+    hp: 350
+    attack: 28
+    defense: 12
+    speed: 20
+    rig: 11
+    artSheet: earth-turtle
+    forms: []
+    crit: 0.15
+  stages:
+  - number: 1
+    stoneGrade: 1
+    bonusGrade: 1
+    petId: wood-1
+    bonusChance: 0.25
+    hpMultiplier: 1
+    encounter:
+      hp: 440
+      recommendedLevel: 1
+      outgoingScale: 0.52
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 2
+    stoneGrade: 2
+    bonusGrade: 1
+    petId: wood-2
+    bonusChance: 0.25
+    hpMultiplier: 1.025
+    encounter:
+      hp: 530
+      recommendedLevel: 1
+      outgoingScale: 0.53999996
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 3
+    stoneGrade: 3
+    bonusGrade: 2
+    petId: wood-3
+    bonusChance: 0.2
+    hpMultiplier: 1.05
+    encounter:
+      hp: 630
+      recommendedLevel: 2
+      outgoingScale: 0.56
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 4
+    stoneGrade: 4
+    bonusGrade: 3
+    petId: wood-4
+    bonusChance: 0.2
+    hpMultiplier: 1.075
+    encounter:
+      hp: 760
+      recommendedLevel: 3
+      outgoingScale: 0.58
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 5
+    stoneGrade: 5
+    bonusGrade: 4
+    petId: wood-5
+    bonusChance: 0.15
+    hpMultiplier: 1.1
+    encounter:
+      hp: 900
+      recommendedLevel: 4
+      outgoingScale: 0.59999996
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 6
+    stoneGrade: 6
+    bonusGrade: 5
+    petId: wood-6
+    bonusChance: 0.15
+    hpMultiplier: 1.125
+    encounter:
+      hp: 1070
+      recommendedLevel: 5
+      outgoingScale: 0.62
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  - number: 7
+    stoneGrade: 7
+    bonusGrade: 6
+    petId: wood-7
+    bonusChance: 0.1
+    hpMultiplier: 1.15
+    encounter:
+      hp: 1270
+      recommendedLevel: 6
+      outgoingScale: 0.65
+      normalCap: 0.24
+      specialCap: 0.3
+      awakenThreshold: 0.3
+      awakenAttack: 1.18
+      awakenDefense: 1.08
+      awakenShield: 0.08
+      awakenSeconds: 1.2
+  rarities:
+  - rarity: 0
+    hp: 260
+    attack: 24
+    defense: 6
+    speed: 18
+  - rarity: 1
+    hp: 320
+    attack: 29
+    defense: 9
+    speed: 22
+  - rarity: 2
+    hp: 420
+    attack: 36
+    defense: 13
+    speed: 26
+  - rarity: 3
+    hp: 540
+    attack: 44
+    defense: 18
+    speed: 31
+  - rarity: 4
+    hp: 700
+    attack: 54
+    defense: 24
+    speed: 37
+  - rarity: 5
+    hp: 920
+    attack: 68
+    defense: 31
+    speed: 44
+  advantages:
+  - attacker: 0
+    target: 1
+  - attacker: 1
+    target: 4
+  - attacker: 4
+    target: 2
+  - attacker: 2
+    target: 3
+  - attacker: 3
+    target: 0
+  advantage: 1.25
+  disadvantage: 0.85
+  hpGrowth: 0.1
+  attackGrowth: 0.09
+  defenseGrowth: 0.07
+  speedGrowth: 2
+  maxLevel: 7
+  p2Enabled: 1
+  islands:
+  - id: wood
+    title: "M\u1ED9c Tinh"
+    description: "R\u1EC5 c\u1ED5 th\u1EE5 \xB7 7 boss \u0111ang ch\u1EDD"
+    previewPetId: wood-7
+    art: island-wood
+    element: 1
+    playable: 1
+    recommendedLevel: 1
+  - id: fire
+    title: "H\u1ECFa Tinh"
+    description: "N\xFAi l\u1EEDa h\u1ED5 ph\xE1ch \xB7 Coming Soon"
+    previewPetId: fire-lion
+    art: island-fire
+    element: 3
+    playable: 0
+    recommendedLevel: 1
+  - id: metal
+    title: Kim Tinh
+    description: "Th\xE0nh l\u0169y tinh th\u1EA1ch \xB7 Coming Soon"
+    previewPetId: metal-bird
+    art: island-metal
+    element: 0
+    playable: 0
+    recommendedLevel: 1
+  - id: water
+    title: "Th\u1EE7y Tinh"
+    description: "San h\xF4 v\xE0 th\xE1c n\u01B0\u1EDBc \xB7 Coming Soon"
+    previewPetId: water-otter
+    art: island-water
+    element: 2
+    playable: 0
+    recommendedLevel: 1
+  - id: earth
+    title: "Th\u1ED5 Tinh"
+    description: "T\xE0n t\xEDch sa m\u1EA1c \xB7 Coming Soon"
+    previewPetId: earth-turtle
+    art: island-earth
+    element: 4
+    playable: 0
+    recommendedLevel: 1
