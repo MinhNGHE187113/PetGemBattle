@@ -21,11 +21,11 @@ namespace PetGemBattle.Tests
         private PetState Actor(int atk=25)=>new PetState(new PetDefinition{attack=atk,element=Element.Wood});
         [Test] public void P2_02_FiveIslandsOnlyWoodPlayable(){Assert.That(catalog.islands.Length,Is.EqualTo(5));Assert.That(catalog.islands.Count(i=>i.playable),Is.EqualTo(1));Assert.That(catalog.islands.Single(i=>i.playable).element,Is.EqualTo(Element.Wood));}
         [Test] public void P2_06_FullCollectionHasAllElementsOnce(){Assert.That(progress.Data.pets.Count,Is.EqualTo(catalog.pets.Length));Assert.That(progress.Data.pets.Select(p=>catalog.Pet(p.id).element).Distinct().Count(),Is.EqualTo(5));Assert.That(progress.Data.pets.All(p=>p.level==1),Is.True);}
-        [Test] public void P2_07_ReloadDoesNotDuplicateAndKeepsEquipped(){progress.Select("water-otter");var loaded=new ProgressionService(catalog,save,mode);Assert.That(loaded.Data.pets.Count,Is.EqualTo(12));Assert.That(loaded.Data.activePetId,Is.EqualTo("water-otter"));}
-        [Test] public void P2_08_EquippedStatsAndFormComeFromSameDefinition(){progress.Owned("wood-2").level=4;progress.Select("wood-2");var stats=catalog.Stats(progress.Data.activePetId,progress.Owned(progress.Data.activePetId).level);Assert.That(stats.artSheet,Is.EqualTo("wood-2-form1"));Assert.That(stats.permanentForm,Is.EqualTo(1));}
-        [Test] public void P2_09_MamMiuNeverChangesForm(){var p=catalog.Stats("wood-1",7);Assert.That(p.permanentForm,Is.Zero);Assert.That(p.maxHp,Is.EqualTo(392));Assert.That(p.artSheet,Is.EqualTo("wood-1"));}
-        [Test] public void P2_10_FrogLvFourGetsSingleFormBonus(){var p=catalog.Stats("wood-2",4);Assert.That(p.maxHp,Is.EqualTo(379));Assert.That(p.attack,Is.EqualTo(35));Assert.That(p.defense,Is.EqualTo(9));Assert.That(p.speed,Is.EqualTo(25));Assert.That(p.name,Is.EqualTo("Ếch Lá Hiệp Sĩ"));}
-        [Test] public void P2_11_TreeHasTwoMilestonesWithoutCompoundingOnReads(){var a=catalog.Stats("wood-7",4);Assert.That(a.permanentForm,Is.EqualTo(1));for(int i=0;i<20;i++){var p=catalog.Stats("wood-7",7);Assert.That(new[]{p.maxHp,p.attack,p.defense,p.speed},Is.EqualTo(new[]{887,78,24,43}));Assert.That(p.permanentForm,Is.EqualTo(2));}}
+        [Test] public void P2_07_ReloadDoesNotDuplicateAndKeepsEquipped(){progress.Select("water-otter");var loaded=new ProgressionService(catalog,save,mode);Assert.That(loaded.Data.pets.Count,Is.EqualTo(catalog.pets.Length));Assert.That(loaded.Data.activePetId,Is.EqualTo("water-otter"));}
+        [Test] public void P2_08_EquippedStatsAndFormComeFromSameDefinition(){progress.Owned("wood-2").level=4;progress.Select("wood-2");var stats=catalog.Stats(progress.Data.activePetId,progress.Owned(progress.Data.activePetId).level);Assert.That(stats.artSheet,Is.EqualTo("p3-wood-2-form1"));Assert.That(stats.permanentForm,Is.EqualTo(1));}
+        [Test] public void P2_09_MamMiuNeverChangesForm(){var p=catalog.Stats("wood-1",7);Assert.That(p.permanentForm,Is.Zero);Assert.That(p.maxHp,Is.EqualTo(392));Assert.That(p.artSheet,Is.EqualTo("p3-wood-1"));}
+        [Test] public void P2_10_FrogLvFourGetsSingleFormBonus(){var p=catalog.Stats("wood-2",4);Assert.That(p.maxHp,Is.EqualTo(379));Assert.That(p.attack,Is.EqualTo(35));Assert.That(p.defense,Is.EqualTo(9));Assert.That(p.name,Is.EqualTo("Ếch Lá Hiệp Sĩ"));}
+        [Test] public void P2_11_TreeHasOnlyTheLevelSevenEvolutionWithoutCompoundingOnReads(){Assert.That(catalog.Stats("wood-7",4).permanentForm,Is.Zero);for(int i=0;i<20;i++){var p=catalog.Stats("wood-7",7);Assert.That(new[]{p.maxHp,p.attack,p.defense},Is.EqualTo(new[]{887,78,24}));Assert.That(p.permanentForm,Is.EqualTo(1));}}
         [Test] public void P2_12_WrongElementStoneCannotUpgrade(){progress.Data.stones[ProgressionService.StoneIndex(Element.Fire,2)]=1;Assert.That(progress.Upgrade("wood-1",1,"wrong"),Is.False);Assert.That(progress.StoneCount(Element.Fire,2),Is.EqualTo(1));}
         [Test] public void P2_13_DoubleClickConsumesOneStone(){progress.SeedDemoStones();Assert.That(progress.Upgrade("wood-1",1,"upgrade"),Is.True);Assert.That(progress.Upgrade("wood-1",1,"upgrade"),Is.False);Assert.That(progress.StoneCount(Element.Wood,2),Is.EqualTo(1));}
         [Test] public void P2_14_BossHpIncreasingAndOwnedBaseUnaffected(){int[] expected={440,530,630,760,900,1070,1270};for(int i=1;i<=7;i++)Assert.That(catalog.Stats("wood-"+i,1,true,i).maxHp,Is.EqualTo(expected[i-1]));Assert.That(catalog.Stats("wood-7",1).maxHp,Is.EqualTo(450));}
@@ -54,7 +54,7 @@ namespace PetGemBattle.Tests
         [Test] public void P2_26_ArtLibraryHasEveryBaseAndForm(){foreach(var p in catalog.pets){Assert.That(P2ArtLibrary.Get(p.artSheet),Is.Not.Null,p.id);foreach(var form in p.forms??new EvolutionFormDefinition[0])Assert.That(P2ArtLibrary.Get(form.artSheet),Is.Not.Null,form.artSheet);}for(int i=0;i<7;i++)Assert.That(P2ArtLibrary.Get("stones",i),Is.Not.Null);}
         [Test] public void P2_SeparatedArtUsesPersistentSilhouetteGeometry()
         {
-            foreach(var p in catalog.pets)for(int i=0;i<4;i++)Assert.That(P2ArtLibrary.Geometry(P2ArtLibrary.Get(p.artSheet,i)).vertices.Length,Is.GreaterThan(4),p.id+" part "+i);
+            foreach(var p in catalog.pets)if(!p.artSheet.StartsWith("p3-"))for(int i=0;i<4;i++)Assert.That(P2ArtLibrary.Geometry(P2ArtLibrary.Get(p.artSheet,i)).vertices.Length,Is.GreaterThan(4),p.id+" part "+i);
             var go=new GameObject("ContourTest",typeof(RectTransform),typeof(UnityEngine.UI.Image),typeof(P2SilhouetteMesh));
             try
             {
@@ -64,11 +64,74 @@ namespace PetGemBattle.Tests
             finally{UnityEngine.Object.DestroyImmediate(go);}
         }
         [Test] public void P2_27_DemoConquestNeverDuplicatesFinalBoss(){int count=progress.Data.pets.Count;for(int i=1;i<=7;i++)progress.Reward(i,BattleResult.Victory,"win-"+i,new Roll());Assert.That(progress.Data.pets.Count,Is.EqualTo(count));Assert.That(progress.StoneCount(Element.Wood,7),Is.EqualTo(1));Assert.That(progress.Data.rewardHistory[0],Does.Contain("Đã chinh phục"));}
-        [Test] public void P2_28_LvSevenFormAndStonesSurviveReload(){progress.SeedDemoStones();for(int lv=1;lv<7;lv++)Assert.That(progress.Upgrade("wood-7",lv,"up-"+lv),Is.True);progress.Select("wood-7");var again=new ProgressionService(catalog,save,mode);Assert.That(again.Owned("wood-7").level,Is.EqualTo(7));Assert.That(catalog.Stats("wood-7",7).artSheet,Is.EqualTo("wood-7-form2"));Assert.That(again.StoneCount(Element.Wood,7),Is.EqualTo(1));}
+        [Test] public void P2_28_LvSevenFormAndStonesSurviveReload(){progress.SeedDemoStones();for(int lv=1;lv<7;lv++)Assert.That(progress.Upgrade("wood-7",lv,"up-"+lv),Is.True);progress.Select("wood-7");var again=new ProgressionService(catalog,save,mode);Assert.That(again.Owned("wood-7").level,Is.EqualTo(7));Assert.That(catalog.Stats("wood-7",7).artSheet,Is.EqualTo("p3-wood-7-form1"));Assert.That(again.StoneCount(Element.Wood,7),Is.EqualTo(1));}
         [Test] public void P2_29_BattleAwakeningDoesNotMutatePermanentForm(){var definition=catalog.Stats("wood-7",7);var pet=new PetState(definition);pet.AddMana(80,rules);CardSystem.Use(pet,CardKind.Evolution,rules);Assert.That(pet.MaxHp,Is.EqualTo(BattleMath.Round(887*1.4f)));Assert.That(definition.maxHp,Is.EqualTo(887));Assert.That(new PetState(catalog.Stats("wood-7",7)).MaxHp,Is.EqualTo(887));}
-        [Test] public void P2_SeedAndResetRequireFreshTransaction(){Assert.That(progress.SeedDemoStones(),Is.True);Assert.That(progress.SeedDemoStones(),Is.False);progress.ResetDemo();Assert.That(progress.Data.pets.Count,Is.EqualTo(12));Assert.That(progress.Data.stones.Sum(),Is.Zero);}
+        [Test] public void P3_LegendaryHasOneAppearanceButCanGainLevels()
+        {
+            foreach(var id in new[]{"metal-ss","fire-ss","water-ss","jade-serpent","storm-tiger"})
+            {
+                var species=catalog.Pet(id);
+                Assert.That(species.rarity,Is.EqualTo(PetRarity.SS));
+                Assert.That(species.forms,Is.Empty,id);
+                Assert.That(catalog.Sheet(id,1),Is.EqualTo(catalog.Sheet(id,7)),id);
+                Assert.That(catalog.Stats(id,7).attack,Is.GreaterThan(catalog.Stats(id,1).attack),id);
+                var pet=new PetState(catalog.Stats(id,1));pet.AddMana(100,rules);
+                Assert.That(CardSystem.CanUse(pet,CardKind.Evolution,rules),Is.False,id);
+            }
+        }
+        [Test] public void P3_LegendaryBirdTrioIsFixedSSForms()
+        {
+            foreach(var id in new[]{"metal-eagle-s","water-bird-s","golden-wing-ss"})
+            {
+                var species=catalog.Pet(id);
+                Assert.That(species,Is.Not.Null,id);
+                Assert.That(species.rarity,Is.EqualTo(PetRarity.SS),id);
+                Assert.That(progress.Owned(id),Is.Not.Null,id);
+                Assert.That(catalog.Stats(id,1).permanentForm,Is.Zero,id);
+                Assert.That(species.forms,Is.Empty,id);
+                Assert.That(catalog.Sheet(id,1),Is.EqualTo(catalog.Sheet(id,7)),id);
+                Assert.That(P3ArtLibrary.Get(catalog.Sheet(id,1)),Is.Not.Null,id);
+            }
+            Assert.That(catalog.Pet("water-bird-s").element,Is.EqualTo(Element.Fire));
+        }
+        [Test] public void P3_BossAwakeningAdvancesExactlyOneDrawing()
+        {
+            Assert.That(P3ArtLibrary.NextFormSheet("p3-wood-7"),Is.EqualTo("p3-wood-7-form1"));
+            Assert.That(P3ArtLibrary.NextFormSheet("p3-wood-7-form1"),Is.Null);
+            Assert.That(catalog.Forms("wood-7",4),Is.Empty);
+            Assert.That(catalog.Forms("wood-7",7).Length,Is.EqualTo(1));
+            Assert.That(catalog.Forms("fire-lion-s",4),Is.Empty);
+            Assert.That(catalog.Forms("fire-lion-s",7).Length,Is.EqualTo(1));
+            Assert.That(catalog.pets.All(p=>(p.forms??System.Array.Empty<EvolutionFormDefinition>()).Length<=1),Is.True,"Every evolution chain has at most two total forms.");
+        }
+        [Test] public void P3_RemasterLoadsEverySpeciesAndEvolutionSprite(){foreach(var p in catalog.pets){Assert.That(P3ArtLibrary.Get(catalog.Sheet(p.id,1)),Is.Not.Null,p.id+" base");foreach(var form in p.forms??System.Array.Empty<EvolutionFormDefinition>())Assert.That(P3ArtLibrary.Get(form.artSheet),Is.Not.Null,p.id+" "+form.artSheet);}}
+        [Test] public void P2_SeedAndResetRequireFreshTransaction(){Assert.That(progress.SeedDemoStones(),Is.True);Assert.That(progress.SeedDemoStones(),Is.False);progress.ResetDemo();Assert.That(progress.Data.pets.Count,Is.EqualTo(catalog.pets.Length));Assert.That(progress.Data.stones.Sum(),Is.Zero);}
         [Test] public void P2_MigrateP1KeepsLevelAndActivePet(){var old=PlayerSave.Fresh();old.pets.Add(new OwnedPet{id="wood-2",level=4});old.activePetId="wood-2";save.Write(old);var next=new ProgressionService(catalog,save,mode);Assert.That(next.Data.schemaVersion,Is.EqualTo(2));Assert.That(next.Data.activePetId,Is.EqualTo("wood-2"));Assert.That(next.Owned("wood-2").level,Is.EqualTo(4));}
         [Test] public void P2_NormalModeStartsWithStarterAndCaptures(){mode.DemoFullCollection=false;progress.ResetDemo();Assert.That(progress.Data.pets.Count,Is.EqualTo(1));progress.Reward(1,BattleResult.Victory,"campaign",new Roll());Assert.That(progress.Owned("wood-1"),Is.Not.Null);}
         [Test] public void P2_FinalMultipliersRoundOnlyAtEnd(){var a=Actor();var b=Actor();Assert.That(BattleCombat.SwordDamage(a,b,3,1,rules,true,true),Is.EqualTo(161));}
+        [Test] public void P3_BonusGemKeepsItsMultiplierThroughFall()
+        {
+            var board=new MatchBoard(73);var values=new int[64];var boosts=new int[64];
+            for(int y=0;y<8;y++)for(int x=0;x<8;x++){values[y*8+x]=(x+y)%6;boosts[y*8+x]=1;}
+            values[0]=values[1]=values[2]=(int)GemKind.Sword;boosts[2]=3;boosts[8]=4;
+            board.Load(values,boosts);
+            var group=board.FindMatches().Single(g=>g.Kind==GemKind.Sword && g.Cells.Contains(new Cell(0,0)));
+            Assert.That(group.PhysicalCount,Is.EqualTo(3));Assert.That(group.Units,Is.EqualTo(5));
+            board.ClearAndRefill(new List<MatchGroup>{group});
+            Assert.That(board.Multiplier(0,0),Is.EqualTo(4));
+        }
+        [Test] public void P3_SignatureSpendsBothResourcesAndHasTwoTurnCooldown()
+        {
+            var actor=new PetState(catalog.Stats("metal-ss",1));var target=new PetState(catalog.Stats("wood-s",1));
+            actor.AddMana(100,rules);actor.AddRage(100,rules);
+            var report=CardSystem.Use(actor,CardKind.Signature,rules,target,1.5f);
+            Assert.That(report,Is.Not.Null);Assert.That(report.SpecialAttacks,Is.EqualTo(1));
+            Assert.That(report.ManaSpent,Is.EqualTo(60));Assert.That(report.RageSpent,Is.EqualTo(65));
+            Assert.That(report.Damage,Is.GreaterThan(0));Assert.That(actor.SignatureCooldown,Is.EqualTo(3));
+            actor.BeginTurn();actor.AddMana(100,rules);actor.AddRage(100,rules);
+            Assert.That(CardSystem.CanUse(actor,CardKind.Signature,rules),Is.False);
+            actor.BeginTurn();Assert.That(CardSystem.CanUse(actor,CardKind.Signature,rules),Is.False);
+            actor.BeginTurn();Assert.That(CardSystem.CanUse(actor,CardKind.Signature,rules),Is.True);
+        }
     }
 }

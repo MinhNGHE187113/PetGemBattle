@@ -108,7 +108,7 @@ namespace PetGemBattle
         public IEnumerable<OwnedPet> Filter(int element=-1,int rarity=-1,string sort="Lv",bool activeOnly=false)
         {
             var list=Data.pets.Where(p=>(element<0 || (int)Catalog.Pet(p.id).element==element) && (rarity<0 || (int)Catalog.Pet(p.id).rarity==rarity) && (!activeOnly || p.id==Data.activePetId));
-            return list.OrderByDescending(p=>sort=="Bậc" ? (int)Catalog.Pet(p.id).rarity : sort=="HP" ? Catalog.Stats(p.id,p.level).maxHp : sort=="ATK" ? Catalog.Stats(p.id,p.level).attack : sort=="SPD" ? Catalog.Stats(p.id,p.level).speed : p.level).ThenBy(p=>p.id);
+            return list.OrderByDescending(p=>sort=="Bậc" ? (int)Catalog.Pet(p.id).rarity : sort=="HP" ? Catalog.Stats(p.id,p.level).maxHp : sort=="ATK" ? Catalog.Stats(p.id,p.level).attack : p.level).ThenBy(p=>p.id);
         }
     }
 }

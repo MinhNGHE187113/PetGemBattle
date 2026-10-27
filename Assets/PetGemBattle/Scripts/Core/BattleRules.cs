@@ -29,7 +29,9 @@ namespace PetGemBattle
         public BossEncounterProfile bossProfile;
         public int rig=-1;
         public PetRarity rarity;
-        public int speed=18;
+        public string signatureName,signatureDescription;
+        public int signatureManaCost,signatureRageCost;
+        public float signaturePower;
         public float baseCritChance=.15f;
         public string name = "Hỏa Long Chiến Thần";
         public string art = "FireDragon";
@@ -113,14 +115,14 @@ namespace PetGemBattle
         [Min(1)] public float evolutionDefenseMultiplier = 1.2f;
         [Range(0,1)] public float evolutionHealPercent = .4f;
         [Header("Presentation and safety")]
-        [Min(.01f)] public float swapSeconds = .18f;
-        [Min(.01f)] public float clearSeconds = .24f;
-        [Min(.01f)] public float fallSeconds = .30f;
-        [Min(.01f)] public float effectSeconds = .55f;
-        [Min(.01f)] public float normalAttackSeconds = .7f;
-        [Min(.01f)] public float specialAttackSeconds = 1.4f;
-        [Min(.01f)] public float evolutionSeconds = 1.8f;
-        [Min(.01f)] public float aiDelay = .75f;
+        [Min(.01f)] public float swapSeconds = .24f;
+        [Min(.01f)] public float clearSeconds = .34f;
+        [Min(.01f)] public float fallSeconds = .42f;
+        [Min(.01f)] public float effectSeconds = .9f;
+        [Min(.01f)] public float normalAttackSeconds = 1.25f;
+        [Min(.01f)] public float specialAttackSeconds = 2.35f;
+        [Min(.01f)] public float evolutionSeconds = 2.4f;
+        [Min(.01f)] public float aiDelay = 1.1f;
         [Min(1)] public float turnSeconds = 30;
         [Min(1)] public int maxCascadeWaves = 100;
         [Header("Pet loadouts (elements are metadata for now)")]

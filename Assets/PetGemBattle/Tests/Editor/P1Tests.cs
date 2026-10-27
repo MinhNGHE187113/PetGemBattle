@@ -25,8 +25,8 @@ namespace PetGemBattle.Tests
         [TestCase(Element.Metal,Element.Wood,1.25f)] [TestCase(Element.Wood,Element.Metal,.85f)] [TestCase(Element.Fire,Element.Wood,1f)]
         [TestCase(Element.Water,Element.Fire,1.25f)] [TestCase(Element.Earth,Element.Water,1.25f)] [TestCase(Element.Fire,Element.Metal,1.25f)] [TestCase(Element.Wood,Element.Earth,1.25f)]
         public void P1_ElementPairs(Element a,Element b,float expected){Assert.That(catalog.Multiplier(a,b),Is.EqualTo(expected));}
-        [Test] public void P1_T04_AllSixRaritiesAndSpeciesValidate(){catalog.ValidateContent();for(int i=1;i<6;i++){Assert.That(catalog.rarities[i].hp,Is.GreaterThan(catalog.rarities[i-1].hp));Assert.That(catalog.rarities[i].speed,Is.GreaterThan(catalog.rarities[i-1].speed));}}
-        [Test] public void P1_LevelSevenUsesBaseStats(){var p=catalog.pets[3];p.hp=320;p.attack=29;p.defense=9;p.speed=22;var s=catalog.Stats(p.id,7);Assert.That(new[]{s.maxHp,s.attack,s.defense,s.speed},Is.EqualTo(new[]{512,45,13,34}));}
+        [Test] public void P1_T04_AllSixRaritiesAndSpeciesValidate(){catalog.ValidateContent();for(int i=1;i<6;i++){Assert.That(catalog.rarities[i].hp,Is.GreaterThan(catalog.rarities[i-1].hp));Assert.That(catalog.rarities[i].attack,Is.GreaterThan(catalog.rarities[i-1].attack));}}
+        [Test] public void P1_LevelSevenUsesBaseStats(){var p=catalog.pets[3];p.hp=320;p.attack=29;p.defense=9;var s=catalog.Stats(p.id,7);Assert.That(new[]{s.maxHp,s.attack,s.defense},Is.EqualTo(new[]{512,45,13}));}
         [Test] public void P1_T05_WrongElementCannotUpgrade(){Win(1);progress.Data.stones[ProgressionService.StoneIndex(Element.Fire,2)]=1;Assert.That(progress.Upgrade("wood-1",1,"up"),Is.False);Assert.That(progress.StoneCount(Element.Fire,2),Is.EqualTo(1));}
         [Test] public void P1_T06_UpgradeConsumesCorrectStoneAndSaves(){Win(1);Win(2);Assert.That(progress.Upgrade("wood-1",1,"up"),Is.True);Assert.That(progress.Owned("wood-1").level,Is.EqualTo(2));Assert.That(progress.StoneCount(Element.Wood,2),Is.Zero);Assert.That(save.Load().pets.Single(p=>p.id=="wood-1").level,Is.EqualTo(2));}
         [Test] public void P1_T07_LevelSevenNeverConsumes(){Win(1);progress.Owned("wood-1").level=7;progress.Data.stones[13]=2;Assert.That(progress.Upgrade("wood-1",7,"up"),Is.False);Assert.That(progress.Data.stones[13],Is.EqualTo(2));}
@@ -54,10 +54,10 @@ namespace PetGemBattle.Tests
                 for(int seed=0;seed<30;seed++)
                 {
                     var board=new MatchBoard(seed);var rng=new SeededBattleRandom(seed);var a=new PetState(catalog.Stats(stage==1 ? "starter-metal" : "wood-"+Math.Max(1,stage-1),Math.Min(7,Math.Max(1,stage-1))));var b=new PetState(catalog.Stats("wood-"+stage,1,true,stage));
-                    bool player=a.Definition.speed>=b.Definition.speed;int turn=0;BattleResult result=BattleResult.Ongoing;
+                    bool player=true;int turn=0;BattleResult result=BattleResult.Ongoing;
                     while(result==BattleResult.Ongoing && turn<60)
                     {
-                        var actor=player ? a : b;var target=player ? b : a;actor.BeginTurn();var card=BattleAI.ChooseCard(actor,target,rules);if(card.HasValue)CardSystem.Use(actor,card.Value,rules);
+                        var actor=player ? a : b;var target=player ? b : a;actor.BeginTurn();var card=BattleAI.ChooseCard(actor,target,rules);if(card.HasValue)CardSystem.Use(actor,card.Value,rules,target);
                         if(board.LegalMoves().Count==0)board.ShufflePlayable();Assert.That(board.TrySwap(BattleAI.ChooseMove(board,actor,target,rules,turn/2)),Is.True);
                         var groups=new List<CollectedGroup>();for(int wave=1;wave<=100;wave++){var found=board.FindMatches();if(found.Count==0)break;foreach(var group in found)groups.Add(new CollectedGroup(group,wave));board.ClearAndRefill(found);if(wave==100)board.GeneratePlayable();}
                         foreach(var step in CombatTurnPlan.Prepare(actor,target,groups,rules,rng,turn/2))step.Apply(actor,target);

@@ -20,10 +20,11 @@ namespace PetGemBattle
         private Font font;
         private Text footer;
         private Sprite backdrop;
+        private Texture2D backdropSource;
         private readonly Stack<string> screens=new Stack<string>();
         private string selectedPet="starter-metal",sort="Lv",message="",battleId,rewardText;
         private int elementFilter=-1,rarityFilter=-1,bagElement=1,stage=1,rewardSeed;
-        private bool activeOnly,practice;
+        private bool activeOnly,practice,lobbyNavExpanded=true;
         private GameObject battleObject;
         private BattleRules battleRules;
         private BattleResult lastResult;
@@ -31,6 +32,7 @@ namespace PetGemBattle
         {
             if(catalog==null)catalog=Resources.Load<P1Catalog>("P1Catalog");
             if(catalog==null){Debug.LogError("P1Catalog missing: run Tools/Pet Gem Battle/Open P1 Home");return;}
+            if(catalog.p2Enabled)P2Content.Upgrade(catalog);
             catalog.ValidateContent();var save=new SaveGameService(SavePathOverride??Path.Combine(Application.persistentDataPath,"p1-save.json"),catalog);
             Progress=new ProgressionService(catalog,save,catalog.p2Enabled ? Resources.Load<GameModeConfig>("GameModeConfig") : null);selectedPet=Progress.Data.activePetId;message=save.Notice??"";
             font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -57,11 +59,18 @@ namespace PetGemBattle
         }
         private Button Button(Transform parent,string label,Vector2 at,Vector2 size,Action action,bool enabled=true)
         {
-            var p=Panel(parent,label,at,size,enabled ? new Color(.12f,.32f,.28f,.97f) : new Color(.15f,.19f,.22f,.9f));p.raycastTarget=true;
-            var outline=p.gameObject.AddComponent<Outline>();outline.effectColor=enabled ? new Color(.65f,.85f,.4f) : Color.gray;outline.effectDistance=new Vector2(1,-1);
+            bool textOnly=catalog!=null && catalog.p2Enabled;
+            var p=Panel(parent,label,at,size,textOnly ? new Color(1,1,1,.001f) : enabled ? new Color(.12f,.32f,.28f,.97f) : new Color(.15f,.19f,.22f,.9f));p.raycastTarget=true;
+            var outline=p.gameObject.AddComponent<Outline>();outline.effectColor=textOnly ? Color.clear : enabled ? new Color(.65f,.85f,.4f) : Color.gray;outline.effectDistance=new Vector2(1,-1);
             var b=p.gameObject.AddComponent<Button>();b.targetGraphic=p;b.interactable=enabled;b.onClick.AddListener(()=>{if(b.interactable){P2Click();Safe(action);}});var nav=b.navigation;nav.mode=Navigation.Mode.None;b.navigation=nav;
             if(!enabled){var hint=p.gameObject.AddComponent<HomeHint>();hint.Show=()=>{if(footer!=null)footer.text=label.Contains("Coming Soon") ? label.Replace('\n',' ')+" · Chưa mở trong bản này." : label;};hint.Hide=()=>{if(footer!=null)footer.text=message;};}
-            Text(p.transform,label,Vector2.zero,size-Vector2.one*8,18,enabled ? Color.white : new Color(.6f,.65f,.65f));return b;
+            var labelText=Text(p.transform,label,Vector2.zero,size-Vector2.one*8,18,enabled ? Color.white : new Color(.6f,.65f,.65f));
+            if(textOnly)
+            {
+                labelText.fontStyle=FontStyle.Bold;
+                var stroke=labelText.gameObject.AddComponent<Outline>();stroke.effectColor=new Color(.01f,.06f,.10f,1);stroke.effectDistance=new Vector2(2,-2);
+            }
+            return b;
         }
         private ArticulatedPet Pet(Transform parent,string id,Vector2 at,float scale,bool silhouette=false,int previewLevel=0)
         {
@@ -71,7 +80,7 @@ namespace PetGemBattle
             if(prefab!=null)
             {
                 var model=Instantiate(prefab,rect,false).GetComponent<P2PetPrefab>();
-                if(silhouette)model.GetComponent<PaintedPetRig>().Silhouette=true;
+                if(silhouette && model.GetComponent<PaintedPetRig>()!=null)model.GetComponent<PaintedPetRig>().Silhouette=true;
                 return model.Rig;
             }
             var rig=rect.gameObject.AddComponent<ArticulatedPet>();rig.Build(definition.rig,true,silhouette ? new Color(.09f,.16f,.16f) : P1Catalog.ElementColor(definition.element),catalog.Sheet(id,previewLevel>0 ? previewLevel : Progress.Owned(id)?.level??1));
@@ -83,13 +92,26 @@ namespace PetGemBattle
         {
             if(root==null)return;root.gameObject.SetActive(true);foreach(Transform child in root){child.gameObject.SetActive(false);Destroy(child.gameObject);}
             var bg=Panel(root,"ForestBackdrop",Vector2.zero,new Vector2(1660,950),new Color(.12f,.28f,.22f));
-            var texture=Resources.Load<Texture2D>(catalog.p2Enabled ? "P2Art/lobby" : "BattleArt/TempleArena");if(texture!=null){if(backdrop==null)backdrop=Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),new Vector2(.5f,.5f));bg.sprite=backdrop;bg.color=catalog.p2Enabled ? Color.white : new Color(.8f,1,.8f,.5f);if(catalog.p2Enabled)bg.gameObject.AddComponent<LobbyParallax>();}
-            Panel(root,"SafePanel",Vector2.zero,new Vector2(1560,860),catalog.p2Enabled ? new Color(.025f,.09f,.09f,.22f) : new Color(.025f,.09f,.09f,.91f));
-            if(catalog.p2Enabled){Panel(root,"HeaderGlass",new Vector2(0,378),new Vector2(1560,122),new Color(.02f,.13f,.16f,.87f));Panel(root,"FooterGlass",new Vector2(0,-416),new Vector2(1560,40),new Color(.02f,.13f,.16f,.85f));}
-            Text(root,catalog.p2Enabled ? "PET ARENA  ·  THIÊN CẢNH NGŨ HÀNH" : "PET ARENA CLASSIC  ·  RỪNG MẦM",new Vector2(0,398),new Vector2(1000,50),30,new Color(.9f,1,.6f));
-            Text(root,"Nhà huấn luyện  ·  Ải "+Progress.Data.clearedStages.Count+"/7  ·  Tổng đá "+Progress.Data.stones.Sum(),new Vector2(0,352),new Vector2(1100,30),19);
-            Button(root,"‹ QUAY LẠI",new Vector2(-665,396),new Vector2(170,42),Back,CurrentScreen!="Home" && CurrentScreen!="Result");
-            Button(root,"SẢNH",new Vector2(665,396),new Vector2(170,42),Home);
+            var texture=Resources.Load<Texture2D>(catalog.p2Enabled && CurrentScreen=="Home" ? "P3Art/lobby-map" : catalog.p2Enabled ? "P2Art/lobby" : "BattleArt/TempleArena");
+            if(texture==null && catalog.p2Enabled && CurrentScreen=="Home")texture=Resources.Load<Texture2D>("P2Art/lobby");
+            if(texture!=null){if(backdrop==null || backdropSource!=texture){if(backdrop!=null)Destroy(backdrop);backdrop=Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),new Vector2(.5f,.5f));backdropSource=texture;}bg.sprite=backdrop;bg.color=catalog.p2Enabled ? Color.white : new Color(.8f,1,.8f,.5f);if(catalog.p2Enabled && CurrentScreen!="Home")bg.gameObject.AddComponent<LobbyParallax>();}
+            Panel(root,"SafePanel",Vector2.zero,new Vector2(1560,860),catalog.p2Enabled ? new Color(.025f,.09f,.09f,CurrentScreen=="Home" ? .05f : .22f) : new Color(.025f,.09f,.09f,.91f));
+            if(catalog.p2Enabled)
+            {
+                bool lobby=CurrentScreen=="Home";
+                if(!lobby && CurrentScreen!="Pets")Panel(root,"HeaderGlass",new Vector2(0,378),new Vector2(1560,122),new Color(.02f,.09f,.17f,.87f));
+                if(!lobby)Panel(root,"FooterGlass",new Vector2(0,-416),new Vector2(1560,40),new Color(.02f,.13f,.16f,.85f));
+                if(!lobby && CurrentScreen!="Pets")Text(root,"PET ARENA  ·  THIÊN CẢNH NGŨ HÀNH",new Vector2(0,398),new Vector2(900,48),30,new Color(.9f,1,.6f));
+                if(!lobby && CurrentScreen!="Pets")Text(root,"Nhà huấn luyện  ·  Ải "+Progress.Data.clearedStages.Count+"/7  ·  Tổng đá "+Progress.Data.stones.Sum(),new Vector2(0,352),new Vector2(1100,30),19);
+                if(!lobby && CurrentScreen!="Result" && CurrentScreen!="Pets")Button(root,"‹ TRỞ LẠI",new Vector2(-665,396),new Vector2(170,42),Back);
+            }
+            else
+            {
+                Text(root,"PET ARENA CLASSIC  ·  RỪNG MẦM",new Vector2(0,398),new Vector2(1000,50),30,new Color(.9f,1,.6f));
+                Text(root,"Nhà huấn luyện  ·  Ải "+Progress.Data.clearedStages.Count+"/7  ·  Tổng đá "+Progress.Data.stones.Sum(),new Vector2(0,352),new Vector2(1100,30),19);
+                Button(root,"‹ QUAY LẠI",new Vector2(-665,396),new Vector2(170,42),Back,CurrentScreen!="Home" && CurrentScreen!="Result");
+                Button(root,"SẢNH",new Vector2(665,396),new Vector2(170,42),Home);
+            }
             content=Rect(root,"Screen_"+CurrentScreen,new Vector2(0,-15),new Vector2(1500,690));
             if(catalog.p2Enabled && DrawP2Screen()){footer=Text(root,message,new Vector2(0,-412),new Vector2(1430,36),16,new Color(1,.84f,.45f));return;}
             switch(CurrentScreen)
@@ -97,9 +119,9 @@ namespace PetGemBattle
                 case "Home":DrawHome();break;case "Island":DrawIsland();break;case "Prepare":DrawPrepare();break;
                 case "Pets":DrawPets();break;case "Detail":DrawDetail();break;case "Upgrade":DrawUpgrade();break;case "Bag":DrawBag();break;case "Book":DrawBook();break;case "Result":DrawResult();break;case "Cards":DrawCards();break;
             }
-            footer=Text(root,message,new Vector2(0,-412),new Vector2(1430,36),16,new Color(1,.84f,.45f));
+            footer=Text(root,message,new Vector2(0,catalog.p2Enabled && CurrentScreen=="Home" ? -439 : -412),new Vector2(1430,28),16,new Color(1,.84f,.45f));
         }
-        private string Stats(PetDefinition p)=>"HP "+p.maxHp+"   ATK "+p.attack+"   DEF "+p.defense+"   SPD "+p.speed;
+        private string Stats(PetDefinition p)=>"HP "+p.maxHp+"   ATK "+p.attack+"   DEF "+p.defense;
         private void DrawHome()
         {
             if(catalog.p2Enabled){DrawP2Lobby();return;}
@@ -135,7 +157,7 @@ namespace PetGemBattle
             Text(content,boss.name+" · Mộc\n"+Stats(boss),new Vector2(360,-180),new Vector2(650,72),21);
             float multi=catalog.Multiplier(player.element,boss.element);
             Text(content,multi>1 ? "KHẮC CHẾ +25%" : multi<1 ? "BỊ KHẮC −15%" : "TƯƠNG KHẮC TRUNG TÍNH",new Vector2(0,160),new Vector2(450,65),24,new Color(1,.85f,.4f));
-            Text(content,player.speed>=boss.speed ? "BẠN ĐI TRƯỚC" : "BOSS ĐI TRƯỚC",new Vector2(0,85),new Vector2(430,45),24);
+            Text(content,"BẠN ĐI TRƯỚC · LƯỢT LUÂN PHIÊN",new Vector2(0,85),new Vector2(520,45),24);
             if(catalog.p2Enabled)Text(content,"Khuyên dùng Lv"+catalog.stages[stage-1].encounter.recommendedLevel+"+\nBoss thức tỉnh khi HP ≤30%",new Vector2(0,-25),new Vector2(420,95),19);
             Button(content,"ĐỔI PET",new Vector2(-230,-290),new Vector2(300,58),()=>Navigate("Pets"));
             Button(content,"BẮT ĐẦU",new Vector2(230,-290),new Vector2(300,58),StartBattle);
@@ -145,7 +167,7 @@ namespace PetGemBattle
             if(catalog.p2Enabled){DrawP2Collection();return;}
             Button(content,"Hệ: "+(elementFilter<0 ? "Tất cả" : P1Catalog.ElementName((Element)elementFilter)),new Vector2(-500,285),new Vector2(260,42),()=>{elementFilter=(elementFilter+2)%6-1;Render();});
             Button(content,"Bậc: "+(rarityFilter<0 ? "Tất cả" : ((PetRarity)rarityFilter).ToString()),new Vector2(-210,285),new Vector2(250,42),()=>{rarityFilter=(rarityFilter+2)%7-1;Render();});
-            Button(content,"Sắp xếp: "+sort,new Vector2(75,285),new Vector2(250,42),()=>{string[] options={"Lv","Bậc","HP","ATK","SPD"};sort=options[(Array.IndexOf(options,sort)+1)%5];Render();});
+            Button(content,"Sắp xếp: "+sort,new Vector2(75,285),new Vector2(250,42),()=>{string[] options={"Lv","Bậc","HP","ATK"};sort=options[(Array.IndexOf(options,sort)+1)%4];Render();});
             Button(content,activeOnly ? "Đang xuất chiến" : "Tất cả sở hữu",new Vector2(390,285),new Vector2(300,42),()=>{activeOnly=!activeOnly;Render();});
             int i=0;foreach(var owned in Progress.Filter(elementFilter,rarityFilter,sort,activeOnly))
             {
@@ -170,7 +192,7 @@ namespace PetGemBattle
             if(catalog.p2Enabled){DrawP2Upgrade();return;}
             var owned=Progress.Owned(selectedPet);var p=catalog.Pet(selectedPet);var before=catalog.Stats(selectedPet,owned.level);bool max=owned.level>=7;int next=Math.Min(7,owned.level+1);var after=catalog.Stats(selectedPet,next);
             Pet(content,selectedPet,new Vector2(-380,10),1.25f);Text(content,p.title+" · Lv"+owned.level+" → "+next,new Vector2(245,250),new Vector2(900,60),31);
-            Text(content,"HP  "+before.maxHp+" → "+after.maxHp+"\nATK  "+before.attack+" → "+after.attack+"\nDEF  "+before.defense+" → "+after.defense+"\nSPD  "+before.speed+" → "+after.speed,new Vector2(245,85),new Vector2(700,230),29);
+            Text(content,"HP  "+before.maxHp+" → "+after.maxHp+"\nATK  "+before.attack+" → "+after.attack+"\nDEF  "+before.defense+" → "+after.defense,new Vector2(245,85),new Vector2(700,180),29);
             int count=Progress.StoneCount(p.element,next);string cost="Đá "+P1Catalog.ElementName(p.element)+" Lv"+next;
             P1Art.Part(content,"UpgradeStone",P1Art.Stone(next),new Vector2(30,-100),new Vector2(80,80),P1Catalog.ElementColor(p.element));
             Text(content,max ? "ĐÃ ĐẠT CẤP TỐI ĐA" : "Cần 1 "+cost+" · Đang có "+count,new Vector2(300,-100),new Vector2(600,75),22);

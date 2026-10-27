@@ -1,0 +1,637 @@
+fileFormatVersion: 2
+guid: 56f798ceec105d64c94f6b19f59c1a1c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6186304656729674868
+    second: 007_wood-7_form-1_0
+  - first:
+      213: 4353686051347768057
+    second: 007_wood-7_form-1_1
+  - first:
+      213: -8707739225977142596
+    second: 007_wood-7_form-1_2
+  - first:
+      213: 5514674375358716774
+    second: 007_wood-7_form-1_3
+  - first:
+      213: -4355621263993251724
+    second: 007_wood-7_form-1_4
+  - first:
+      213: 5591296269002609023
+    second: 007_wood-7_form-1_5
+  - first:
+      213: -855748162362833350
+    second: 007_wood-7_form-1_6
+  - first:
+      213: -8309308065439676545
+    second: 007_wood-7_form-1_7
+  - first:
+      213: -8924869755879370490
+    second: 007_wood-7_form-1_8
+  - first:
+      213: 5994550734046265442
+    second: 007_wood-7_form-1_9
+  - first:
+      213: -2350910082335811583
+    second: 007_wood-7_form-1_10
+  - first:
+      213: -6482927939145614034
+    second: 007_wood-7_form-1_11
+  - first:
+      213: 3922242002409698618
+    second: 007_wood-7_form-1_12
+  - first:
+      213: -3489772634082539754
+    second: 007_wood-7_form-1_13
+  - first:
+      213: 5984167960334019205
+    second: 007_wood-7_form-1_14
+  - first:
+      213: -3155532599178978577
+    second: 007_wood-7_form-1_15
+  - first:
+      213: 4031422679143433951
+    second: 007_wood-7_form-1_16
+  - first:
+      213: 302131528997057164
+    second: 007_wood-7_form-1_17
+  - first:
+      213: -6676955730574641007
+    second: 007_wood-7_form-1_18
+  - first:
+      213: -2507553549331265193
+    second: 007_wood-7_form-1_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 726
+        width: 101
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47497b01f4b2ad550800000000000000
+      internalID: 6186304656729674868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_1
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 694
+        width: 98
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f2282a95666b6c30800000000000000
+      internalID: 4353686051347768057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_2
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 708
+        width: 168
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb2c5ee3f45e72780800000000000000
+      internalID: -8707739225977142596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_3
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 787
+        width: 50
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b943b502f088c40800000000000000
+      internalID: 5514674375358716774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_4
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 704
+        width: 20
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4785b879989bd83c0800000000000000
+      internalID: -4355621263993251724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_5
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 702
+        width: 136
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f711edb2556489d40800000000000000
+      internalID: 5591296269002609023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_6
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 724
+        width: 47
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a368b2d8495cf14f0800000000000000
+      internalID: -855748162362833350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_7
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 763
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f770e2ec6586fac80800000000000000
+      internalID: -8309308065439676545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_8
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 739
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 601de263e3e742480800000000000000
+      internalID: -8924869755879370490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_9
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 743
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26082e2d12ce03350800000000000000
+      internalID: 5994550734046265442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_10
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 733
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1085d7b5cb3ef5fd0800000000000000
+      internalID: -2350910082335811583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_11
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 837
+        width: 64
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2d35ca23630806a0800000000000000
+      internalID: -6482927939145614034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_12
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 753
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a353fbcf15a9e6630800000000000000
+      internalID: 3922242002409698618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_13
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 708
+        width: 102
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61781a66746d19fc0800000000000000
+      internalID: -3489772634082539754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_14
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 789
+        width: 14
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58aabffed090c0350800000000000000
+      internalID: 5984167960334019205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_15
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 837
+        width: 66
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fea95ccd1db4534d0800000000000000
+      internalID: -3155532599178978577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_16
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 777
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd64cc9319d72f730800000000000000
+      internalID: 4031422679143433951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_17
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 858
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c82b05d5603613400800000000000000
+      internalID: 302131528997057164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_18
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 23
+        width: 788
+        height: 672
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 198f61a9320b653a0800000000000000
+      internalID: -6676955730574641007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 007_wood-7_form-1_19
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 642
+        width: 6
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75907dc1551633dd0800000000000000
+      internalID: -2507553549331265193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      007_wood-7_form-1_0: 6186304656729674868
+      007_wood-7_form-1_1: 4353686051347768057
+      007_wood-7_form-1_10: -2350910082335811583
+      007_wood-7_form-1_11: -6482927939145614034
+      007_wood-7_form-1_12: 3922242002409698618
+      007_wood-7_form-1_13: -3489772634082539754
+      007_wood-7_form-1_14: 5984167960334019205
+      007_wood-7_form-1_15: -3155532599178978577
+      007_wood-7_form-1_16: 4031422679143433951
+      007_wood-7_form-1_17: 302131528997057164
+      007_wood-7_form-1_18: -6676955730574641007
+      007_wood-7_form-1_19: -2507553549331265193
+      007_wood-7_form-1_2: -8707739225977142596
+      007_wood-7_form-1_3: 5514674375358716774
+      007_wood-7_form-1_4: -4355621263993251724
+      007_wood-7_form-1_5: 5591296269002609023
+      007_wood-7_form-1_6: -855748162362833350
+      007_wood-7_form-1_7: -8309308065439676545
+      007_wood-7_form-1_8: -8924869755879370490
+      007_wood-7_form-1_9: 5994550734046265442
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

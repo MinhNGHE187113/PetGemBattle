@@ -36,7 +36,7 @@ namespace PetGemBattle.Tests
         [UnityTest] public IEnumerator P2_01_02_03_LobbyChallengeAndWoodMap()
         {
             yield return HomeFixture();var home=host.GetComponent<HomeController>();Assert.That(home.CurrentScreen,Is.EqualTo("Home"));Assert.That(host.GetComponentsInChildren<GemInput>(),Is.Empty);
-            host.GetComponentsInChildren<Button>().Single(b=>b.name.StartsWith("KHIÊU CHIẾN")).onClick.Invoke();yield return null;
+            host.GetComponentsInChildren<Button>().Single(b=>b.name=="World_ĐẤU TRƯỜNG").onClick.Invoke();yield return null;
             Assert.That(home.CurrentScreen,Is.EqualTo("Challenges"));Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name.StartsWith("Island_")),Is.EqualTo(5));
             host.GetComponentsInChildren<Button>().Single(b=>b.name=="KHÁM PHÁ · 7 ẢI").onClick.Invoke();yield return null;Assert.That(home.CurrentScreen,Is.EqualTo("Island"));Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name=="StagePedestal"),Is.EqualTo(7));
         }
@@ -53,16 +53,26 @@ namespace PetGemBattle.Tests
         [UnityTest] public IEnumerator P2_05_06_CollectionAndComingSoon()
         {
             yield return HomeFixture();var home=host.GetComponent<HomeController>();
-            foreach(var button in host.GetComponentsInChildren<Button>().Where(b=>b.name.Contains("Coming Soon"))){Assert.That(button.interactable,Is.False);button.onClick.Invoke();}
-            Assert.That(home.CurrentScreen,Is.EqualTo("Home"));Assert.That(home.Progress.Data.pets.Count,Is.EqualTo(12));
+            var future=new[]{"VÒNG QUAY","SỰ KIỆN","NẠP THẺ","ƯU ĐÃI ĐẦU"};
+            foreach(string label in future)
+            {
+                var shortcut=host.GetComponentsInChildren<RectTransform>().Single(r=>r.name=="Shortcut_"+label);
+                Assert.That(shortcut.GetComponent<Button>(),Is.Null);
+            }
+            var viewport=host.GetComponentsInChildren<ScrollRect>().Single(s=>s.name=="QuickShortcutViewport");
+            Assert.That(viewport.content.rect.width,Is.GreaterThan(viewport.viewport.rect.width));
+            Assert.That(home.CurrentScreen,Is.EqualTo("Home"));Assert.That(home.Progress.Data.pets.Count,Is.EqualTo(home.catalog.pets.Length));
             home.Navigate("Pets");yield return null;Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name.StartsWith("Pet_")),Is.EqualTo(8));
-            host.GetComponentsInChildren<Button>().Single(b=>b.name=="TIẾP ›").onClick.Invoke();yield return null;Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name.StartsWith("Pet_")),Is.EqualTo(4));
+            host.GetComponentsInChildren<Button>().Single(b=>b.name=="TIẾP ›").onClick.Invoke();yield return null;Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name.StartsWith("Pet_")),Is.EqualTo(Math.Min(8,home.catalog.pets.Length-8)));
         }
         [UnityTest] public IEnumerator P2_08_PermanentFormUsedInBattleAndHome()
         {
             yield return HomeFixture();var home=host.GetComponent<HomeController>();home.Progress.Owned("wood-7").level=7;home.Progress.Select("wood-7");home.Home();yield return null;
-            Assert.That(host.GetComponentsInChildren<Text>().Any(t=>t.text=="Cổ Thụ Vương Miện"),Is.True);
-            home.StartBattle();yield return null;var session=UnityEngine.Object.FindFirstObjectByType<BattleController>();Assert.That(session.Player.Definition.artSheet,Is.EqualTo("wood-7-form2"));Assert.That(session.Player.MaxHp,Is.EqualTo(887));home.Home();
+            Assert.That(host.GetComponentsInChildren<Text>().Any(t=>t.text.Contains("Cổ Thụ Vương Miện")),Is.True);
+            var companion=host.GetComponentsInChildren<RectTransform>().Single(r=>r.name=="Preview_wood-7");
+            Assert.That(companion.GetComponent<P3PetRig>(),Is.Not.Null);
+            Assert.That(companion.GetComponentsInChildren<Image>().Single(i=>i.name=="OriginalSprite").sprite.name,Is.EqualTo("p3-wood-7-form1"));
+            home.StartBattle();yield return null;var session=UnityEngine.Object.FindFirstObjectByType<BattleController>();Assert.That(session.Player.Definition.artSheet,Is.EqualTo("p3-wood-7-form1"));Assert.That(session.Player.MaxHp,Is.EqualTo(887));home.Home();
         }
         [UnityTest] public IEnumerator P2_20_TransformationInsertedWithoutExtraTurn()
         {
@@ -90,8 +100,11 @@ namespace PetGemBattle.Tests
             home.Progress.Owned("wood-2").level=4;home.Progress.Data.unlockedStage=2;home.Navigate("Island");yield return null;
             host.GetComponentsInChildren<Button>().Single(b=>b.name.StartsWith("2. Lá Lùn")).onClick.Invoke();yield return null;
             Assert.That(home.CurrentScreen,Is.EqualTo("Prepare"));
-            var boss=host.GetComponentsInChildren<P2PetPrefab>().Single(p=>p.sheet.StartsWith("wood-2"));
-            Assert.That(boss.sheet,Is.EqualTo("wood-2"));Assert.That(home.Progress.Owned("wood-2").level,Is.EqualTo(4));
+            var boss=host.GetComponentsInChildren<RectTransform>().Single(r=>r.name=="Preview_wood-2");
+            Assert.That(boss.GetComponent<P3PetRig>(),Is.Not.Null);
+            var sprite=boss.GetComponentsInChildren<Image>().Single(i=>i.name=="OriginalSprite").sprite;
+            Assert.That(sprite,Is.Not.Null);Assert.That(sprite.name,Is.EqualTo("p3-wood-2"));
+            Assert.That(home.Progress.Owned("wood-2").level,Is.EqualTo(4));
         }
         [UnityTest] public IEnumerator P2_21_DeadBossNeverAwakens()
         {
@@ -119,23 +132,26 @@ namespace PetGemBattle.Tests
         {
             yield return HomeFixture();var home=host.GetComponent<HomeController>();home.Progress.SeedDemoStones();int stones=home.Progress.Data.stones.Sum();home.Navigate("ConfirmReset");yield return null;
             host.GetComponentsInChildren<Button>().Single(b=>b.name=="HỦY").onClick.Invoke();yield return null;Assert.That(home.Progress.Data.stones.Sum(),Is.EqualTo(stones));
-            home.Navigate("ConfirmReset");yield return null;host.GetComponentsInChildren<Button>().Single(b=>b.name=="XÁC NHẬN").onClick.Invoke();yield return null;Assert.That(home.Progress.Data.stones.Sum(),Is.Zero);Assert.That(home.Progress.Data.pets.Count,Is.EqualTo(12));
+            home.Navigate("ConfirmReset");yield return null;host.GetComponentsInChildren<Button>().Single(b=>b.name=="XÁC NHẬN").onClick.Invoke();yield return null;Assert.That(home.Progress.Data.stones.Sum(),Is.Zero);Assert.That(home.Progress.Data.pets.Count,Is.EqualTo(home.catalog.pets.Length));
         }
         [UnityTest] public IEnumerator P2_BestiaryLevelAndFormFiltersChangeResults()
         {
             yield return HomeFixture();var home=host.GetComponent<HomeController>();home.Progress.Owned("wood-7").level=7;home.Navigate("Book");yield return null;
-            host.GetComponentsInChildren<Button>().Single(b=>b.name=="Form: Tất cả").onClick.Invoke();yield return null;
-            Assert.That(host.GetComponentsInChildren<RectTransform>().Any(r=>r.name=="Pet_wood-7"),Is.False);
-            host.GetComponentsInChildren<Button>().Single(b=>b.name=="Form: Gốc").onClick.Invoke();yield return null;
+            host.GetComponentsInChildren<Button>().Single(b=>b.name.StartsWith("Form:")).onClick.Invoke();yield return null;
+            host.GetComponentsInChildren<Button>().Single(b=>b.name=="Đã tiến hóa").onClick.Invoke();yield return null;
             Assert.That(host.GetComponentsInChildren<RectTransform>().Count(r=>r.name.StartsWith("Pet_")),Is.EqualTo(1));
             Assert.That(host.GetComponentsInChildren<RectTransform>().Any(r=>r.name=="Pet_wood-7"),Is.True);
-            host.GetComponentsInChildren<Button>().Single(b=>b.name=="Lv: Tất cả").onClick.Invoke();yield return null;
+            host.GetComponentsInChildren<Button>().Single(b=>b.name.StartsWith("Lv:")).onClick.Invoke();yield return null;
+            host.GetComponentsInChildren<Button>().Single(b=>b.name=="1").onClick.Invoke();yield return null;
             Assert.That(host.GetComponentsInChildren<RectTransform>().Any(r=>r.name.StartsWith("Pet_")),Is.False);
         }
         [UnityTest] public IEnumerator P2_ArtworkHasIndependentPartsAndEvents()
         {
-            Assert.That(host.GetComponentsInChildren<PaintedPetRig>().Length,Is.EqualTo(2));var rig=host.GetComponentsInChildren<PaintedPetRig>().First();var head=rig.transform.Find("PaintedRig/PaintedHead");var tail=rig.transform.Find("PaintedRig/TailOrMantle");var first=head.localRotation;var second=tail.localRotation;
-            yield return new WaitForSeconds(.2f);Assert.That(head.localRotation,Is.Not.EqualTo(first));Assert.That(tail.localRotation,Is.Not.EqualTo(second));
+            Assert.That(host.GetComponentsInChildren<P3PetRig>().Length,Is.EqualTo(2));
+            Assert.That(host.GetComponentsInChildren<P3SoftMotion>().Length,Is.EqualTo(2));
+            var figure=host.GetComponentsInChildren<P3PetRig>().First().transform.Find("P3OriginalPet");
+            Assert.That(figure,Is.Not.Null);var first=figure.localPosition;
+            yield return new WaitForSeconds(.2f);Assert.That(figure.localPosition,Is.Not.EqualTo(first));
         }
     }
 }

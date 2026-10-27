@@ -16,215 +16,581 @@ MonoBehaviour:
   - id: wood-1
     title: "M\u1EA7m Miu"
     description: "M\xE8o nh\u1ECF nu\xF4i m\u1EA7m xanh tr\xEAn \u0111\xF4i tai."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 0
     hp: 245
     attack: 22
     defense: 6
-    speed: 18
     rig: 0
-    artSheet: wood-1
+    artSheet: p3-wood-1
     forms: []
     crit: 0.15
   - id: wood-2
     title: "L\xE1 L\xF9n"
     description: "\u1EBEch l\xE1 tr\xF2n, th\xEDch nh\u1EA3y b\xEAn su\u1ED1i."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 0
     hp: 260
     attack: 24
     defense: 7
-    speed: 17
     rig: 1
-    artSheet: wood-2
+    artSheet: p3-wood-2
     forms:
     - minLevel: 4
       displayName: "\u1EBEch L\xE1 Hi\u1EC7p S\u0129"
-      artSheet: wood-2-form1
+      artSheet: p3-wood-2-form1
       hp: 1.12
       attack: 1.18
       defense: 1.1
-      speed: 2
     crit: 0.15
   - id: wood-3
     title: "N\u1EA5m N\u1EA5p"
     description: "N\u1EA5m tinh ngh\u1ECBch \u1EA9n d\u01B0\u1EDBi nh\u1EEFng t\xE1n
       c\xE2y."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 0
     hp: 280
     attack: 26
     defense: 8
-    speed: 19
     rig: 2
-    artSheet: wood-3
+    artSheet: p3-wood-3
     forms:
     - minLevel: 7
       displayName: "N\u1EA5m \u1EA2o \u1EA2nh"
-      artSheet: wood-3-form1
+      artSheet: p3-wood-3-form1
       hp: 1.12
       attack: 1.18
       defense: 1.1
-      speed: 2
     crit: 0.15
   - id: wood-4
     title: "D\xE2y D\u1EBBo"
     description: "Th\u1EB1n l\u1EB1n \u0111u\xF4i d\xE2y leo d\u1EBBo dai."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 1
     hp: 315
     attack: 28
     defense: 9
-    speed: 22
     rig: 3
-    artSheet: wood-4
+    artSheet: p3-wood-4
     forms:
     - minLevel: 4
       displayName: "Long \u0110\u1EB1ng Non"
-      artSheet: wood-4-form1
+      artSheet: p3-wood-4-form1
       hp: 1.12
       attack: 1.18
       defense: 1.1
-      speed: 2
     crit: 0.15
   - id: wood-5
     title: Hoa Gai
     description: "Nh\xEDm hoa b\u1EA3o v\u1EC7 r\u1EEBng b\u1EB1ng gai ng\u1ECDc."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 1
     hp: 330
     attack: 31
     defense: 10
-    speed: 21
     rig: 4
-    artSheet: wood-5
+    artSheet: p3-wood-5
     forms:
     - minLevel: 7
       displayName: "Hoa Gi\xE1p V\u1EC7"
-      artSheet: wood-5-form1
+      artSheet: p3-wood-5-form1
       hp: 1.12
       attack: 1.18
       defense: 1.1
-      speed: 2
     crit: 0.15
   - id: wood-6
     title: "Linh H\u01B0\u01A1u"
     description: "H\u01B0\u01A1u non mang \xE1nh s\xE1ng tr\xEAn s\u1EEBng l\xE1."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 1
     hp: 345
     attack: 32
     defense: 11
-    speed: 24
     rig: 5
-    artSheet: wood-6
+    artSheet: p3-wood-6
     forms:
     - minLevel: 4
       displayName: "H\u01B0\u01A1u Linh Th\u1EE7 H\u1ED9"
-      artSheet: wood-6-form1
+      artSheet: p3-wood-6-form1
       hp: 1.12
       attack: 1.18
       defense: 1.1
-      speed: 2
     crit: 0.15
   - id: wood-7
     title: "C\u1ED5 Th\u1EE5 V\u1EC7 Th\u1EA7n"
     description: "Ng\u01B0\u1EDDi b\u1EA3o v\u1EC7 c\u1ED5 th\u1EE5, d\xF9ng r\u1EC5
       tr\xF3i k\u1EBB \u0111\u1ECBch."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 1
     rarity: 2
     hp: 450
     attack: 38
     defense: 14
-    speed: 27
     rig: 6
-    artSheet: wood-7
+    artSheet: p3-wood-7
     forms:
-    - minLevel: 4
-      displayName: "C\u1ED5 Th\u1EE5 Gi\xE1p V\u1EC7"
-      artSheet: wood-7-form1
-      hp: 1.12
-      attack: 1.18
-      defense: 1.1
-      speed: 2
     - minLevel: 7
       displayName: "C\u1ED5 Th\u1EE5 V\u01B0\u01A1ng Mi\u1EC7n"
-      artSheet: wood-7-form2
-      hp: 1.1
-      attack: 1.12
-      defense: 1.08
-      speed: 2
+      artSheet: p3-wood-7-form1
+      hp: 1.232
+      attack: 1.3216
+      defense: 1.188
     crit: 0.15
   - id: starter-metal
     title: "Kim Mi\xEAu"
     description: "B\u1EA1n \u0111\u1ED3ng h\xE0nh b\u1EADc C, b\u1ED9 gi\xE1p Kim
       kh\u1EAFc M\u1ED9c."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 0
     rarity: 0
     hp: 260
     attack: 24
     defense: 6
-    speed: 18
     rig: 7
-    artSheet: starter-metal
+    artSheet: p3-starter-metal
     forms: []
     crit: 0.15
   - id: fire-lion
     title: "H\u1ECFa L\xE2n Nh\xED"
     description: "Linh th\xFA H\u1ECFa \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
       P2."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 3
     rarity: 1
     hp: 325
     attack: 31
     defense: 8
-    speed: 23
     rig: 8
-    artSheet: fire-lion
+    artSheet: p3-fire-lion
     forms: []
     crit: 0.15
   - id: metal-bird
     title: "Thi\u1EBFt \u0110i\u1EC3u"
     description: "Linh th\xFA Kim \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
       P2."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 0
     rarity: 1
     hp: 310
     attack: 30
     defense: 10
-    speed: 25
     rig: 9
-    artSheet: metal-bird
+    artSheet: p3-metal-bird
     forms: []
     crit: 0.15
   - id: water-otter
     title: "Th\u1EE7y Ly"
     description: "Linh th\xFA Th\u1EE7y \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
       P2."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 2
     rarity: 1
     hp: 335
     attack: 28
     defense: 10
-    speed: 24
     rig: 10
-    artSheet: water-otter
+    artSheet: p3-water-otter
     forms: []
     crit: 0.15
   - id: earth-turtle
     title: Sa Quy
     description: "Linh th\xFA Th\u1ED5 \xB7 \u0111\u1ED3ng h\xE0nh th\u1EED nghi\u1EC7m
       P2."
+    skillName: 
+    skillDescription: 
+    skillManaCost: 30
+    skillRageCost: 35
     element: 4
     rarity: 1
     hp: 350
     attack: 28
     defense: 12
-    speed: 20
     rig: 11
-    artSheet: earth-turtle
+    artSheet: p3-earth-turtle
     forms: []
     crit: 0.15
+  - id: wood-s
+    title: "B\xEDch Phong K\u1EF3 L\xE2n"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "V\u1EA1n Di\u1EC7p Phong \u1EA4n"
+    skillDescription: "S\u1EEBng qu\xE9t l\xE1 t\u1EA1o d\u1EA5u \u1EA5n phong \u1EA5n."
+    skillManaCost: 50
+    skillRageCost: 55
+    element: 1
+    rarity: 3
+    hp: 600
+    attack: 52
+    defense: 21
+    rig: 0
+    artSheet: p3-wood-s
+    forms:
+    - minLevel: 4
+      displayName: "B\xEDch Phong K\u1EF3 L\xE2n \xB7 Chi\u1EBFn Th\u1EC3"
+      artSheet: p3-wood-s-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+    crit: 0.18
+  - id: water-s
+    title: "Tri\u1EC1u Ca Long Ng\u01B0"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "H\u1EA3i Tri\u1EC1u C\u1EEDu Kh\xFAc"
+    skillDescription: "L\u01B0\u1EE3n qua ch\xEDn v\xF2ng s\xF3ng r\u1ED3i \u0111\xE1nh
+      b\u1EADt m\u1EE5c ti\xEAu."
+    skillManaCost: 50
+    skillRageCost: 55
+    element: 2
+    rarity: 3
+    hp: 560
+    attack: 54
+    defense: 19
+    rig: 0
+    artSheet: p3-water-s
+    forms:
+    - minLevel: 7
+      displayName: "Tri\u1EC1u Ca Long Ng\u01B0 \xB7 Chi\u1EBFn Th\u1EC3"
+      artSheet: p3-water-s-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+    crit: 0.18
+  - id: earth-s
+    title: "S\u01A1n Nham B\u1EC7 V\u1EC7"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "S\u01A1n M\u1EA1ch Quy\u1EC1n"
+    skillDescription: "N\u1EAFm \u0111\u1EA5m \u0111\xE1 m\u1EDF v\u1EBFt n\u1EE9t
+      d\u01B0\u1EDBi ch\xE2n \u0111\u1ECBch."
+    skillManaCost: 50
+    skillRageCost: 55
+    element: 4
+    rarity: 3
+    hp: 650
+    attack: 45
+    defense: 28
+    rig: 0
+    artSheet: p3-earth-s
+    forms:
+    - minLevel: 4
+      displayName: "S\u01A1n Nham B\u1EC7 V\u1EC7 \xB7 Chi\u1EBFn Th\u1EC3"
+      artSheet: p3-earth-s-form1
+      hp: 1.12
+      attack: 1.18
+      defense: 1.1
+    crit: 0.18
+  - id: metal-ss
+    title: "B\u1EA1ch Kim C\u1EF1 T\xEA"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "Thi\xEAn Kim Tr\u1EA5n S\xE1t"
+    skillDescription: "S\u1EEBng pha l\xEA t\xEDch \u0111i\u1EC7n xuy\xEAn qua chi\u1EBFn
+      tr\u01B0\u1EDDng."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 0
+    rarity: 4
+    hp: 820
+    attack: 66
+    defense: 30
+    rig: 0
+    artSheet: p3-metal-ss
+    forms: []
+    crit: 0.22
+  - id: fire-ss
+    title: "H\u1ECFa V\u1EABn Chimera"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "H\u1ECFa V\u1EABn Gi\xE1ng Th\u1EBF"
+    skillDescription: "H\xF3a th\xE0nh thi\xEAn th\u1EA1ch l\u1EEDa v\xE0 gi\xE1ng
+      xu\u1ED1ng."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 3
+    rarity: 4
+    hp: 760
+    attack: 74
+    defense: 25
+    rig: 0
+    artSheet: p3-fire-ss
+    forms: []
+    crit: 0.22
+  - id: water-ss
+    title: "Thi\xEAn H\u1EA3i C\u1EF1 K\xECnh"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "Thi\xEAn Tri\u1EC1u L\u01B0u Quang"
+    skillDescription: "C\xE1 \u0111u\u1ED1i th\u1EA7n tri\u1EC7u h\u1ED3i l\u01B0\u1EE1i
+      s\xF3ng \xE1nh s\xE1ng."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 2
+    rarity: 4
+    hp: 780
+    attack: 68
+    defense: 27
+    rig: 0
+    artSheet: p3-water-ss
+    forms: []
+    crit: 0.22
+  - id: sun-rooster
+    title: "D\u01B0\u01A1ng K\xEA V\u1EC7 Nh\u1EADt"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Nh\u1EADt Lu\xE2n Tr\u1EA3m"
+    skillDescription: "Qu\u1EA1t \u0111u\xF4i r\u1EF1c s\xE1ng lao qua m\u1EE5c ti\xEAu."
+    skillManaCost: 40
+    skillRageCost: 45
+    element: 3
+    rarity: 2
+    hp: 510
+    attack: 46
+    defense: 17
+    rig: 0
+    artSheet: p3-sun-rooster
+    forms: []
+    crit: 0.14
+  - id: moon-rabbit
+    title: "Nguy\u1EC7t Th\u1ECF Tinh"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Tr\u0103ng Khuy\u1EBFt \u1EA2nh"
+    skillDescription: "V\u1EBD m\u1ED9t cung tr\u0103ng \u0111\u1EA9y l\xF9i \u0111\u1ED1i
+      th\u1EE7."
+    skillManaCost: 50
+    skillRageCost: 55
+    element: 2
+    rarity: 3
+    hp: 610
+    attack: 53
+    defense: 21
+    rig: 0
+    artSheet: p3-moon-rabbit
+    forms: []
+    crit: 0.18
+  - id: coral-crab
+    title: "San H\xF4 C\u1EF1 Gi\xE1p"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Song C\xE0ng S\xF3ng V\u1ED7"
+    skillDescription: "Hai c\xE0ng san h\xF4 k\u1EB9p l\u1EA5y m\u1EE5c ti\xEAu."
+    skillManaCost: 40
+    skillRageCost: 45
+    element: 2
+    rarity: 1
+    hp: 455
+    attack: 35
+    defense: 19
+    rig: 0
+    artSheet: p3-coral-crab
+    forms: []
+    crit: 0.12
+  - id: jade-serpent
+    title: "Thanh Long L\u01B0u Giang"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Long H\xE0 Ph\xE1 Thi\xEAn"
+    skillDescription: "Th\xE2n r\u1ED3ng qu\u1EA5n n\u01B0\u1EDBc v\xE0 ng\u1ECDc
+      b\xEDch tung \u0111\xF2n."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 1
+    rarity: 4
+    hp: 795
+    attack: 69
+    defense: 28
+    rig: 0
+    artSheet: p3-jade-serpent
+    forms: []
+    crit: 0.22
+  - id: fire-monkey
+    title: "X\xEDch Vi\xEAn H\u1ECFa V\u0169"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "H\u1EA7u V\u01B0\u01A1ng Li\xEAn K\xEDch"
+    skillDescription: "Li\xEAn ho\xE0n quy\u1EC1n r\u1EF1c l\u1EEDa b\u1EA5t ng\u1EDD."
+    skillManaCost: 40
+    skillRageCost: 45
+    element: 3
+    rarity: 2
+    hp: 485
+    attack: 49
+    defense: 15
+    rig: 0
+    artSheet: p3-fire-monkey
+    forms: []
+    crit: 0.16
+  - id: star-pig
+    title: "Tinh Tr\u01B0 H\xE2n Hoan"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Tinh T\xFA B\u1EA3o H\u1ED9"
+    skillDescription: "G\u1ECDi v\xEC sao nh\u1ECF ch\u1EB7n m\u1ED9t ph\u1EA7n \u0111\xF2n
+      \u0111\xE1nh."
+    skillManaCost: 40
+    skillRageCost: 45
+    element: 4
+    rarity: 1
+    hp: 495
+    attack: 33
+    defense: 19
+    rig: 0
+    artSheet: p3-star-pig
+    forms: []
+    crit: 0.1
+  - id: storm-tiger
+    title: "L\xF4i H\u1ED5 Thi\xEAn Uy"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "Thi\xEAn L\xF4i H\u1ED5 Ph\xE1ch"
+    skillDescription: "Tia ch\u1EDBp xanh x\xE9 ngang chi\u1EBFn tr\u01B0\u1EDDng."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 0
+    rarity: 4
+    hp: 765
+    attack: 74
+    defense: 25
+    rig: 0
+    artSheet: p3-storm-tiger
+    forms: []
+    crit: 0.24
+  - id: abyss-angler
+    title: "\u0110\u0103ng Ng\u01B0 V\u1EF1c S\xE2u"
+    description: "Linh th\xFA nguy\xEAn b\u1EA3n t\u1EEB nh\u1EEFng mi\u1EC1n tr\u1EDDi,
+      r\u1EEBng v\xE0 bi\u1EC3n c\u1EE7a Pet Arena."
+    skillName: "H\u1EA3i \u0110\u0103ng U Minh"
+    skillDescription: "\u0110\xE8n c\xE2u d\u1EE5 m\u1EE5c ti\xEAu v\xE0o l\xE0n
+      s\xF3ng t\u1ED1i."
+    skillManaCost: 40
+    skillRageCost: 45
+    element: 2
+    rarity: 2
+    hp: 525
+    attack: 44
+    defense: 18
+    rig: 0
+    artSheet: p3-abyss-angler
+    forms: []
+    crit: 0.15
+  - id: metal-eagle-s
+    title: "Ng\xE2n D\u1EF1c Thi\xEAn \u01AFng"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "Thi\xEAn \u01AFng Ph\xE1 Gi\u1EDBi"
+    skillDescription: "\u0110\xF4i c\xE1nh tinh th\u1EC3 x\xE9 to\u1EA1c chi\u1EBFn
+      tuy\u1EBFn."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 0
+    rarity: 4
+    hp: 900
+    attack: 82
+    defense: 34
+    rig: 0
+    artSheet: p3-metal-eagle-s
+    forms: []
+    crit: 0.22
+  - id: fire-lion-s
+    title: "Vi\xEAm Tinh S\u01B0"
+    description: "Linh th\xFA b\u1EADc S \xB7 ti\u1EBFn h\xF3a qua hai h\xECnh
+      th\xE1i Lv1 v\xE0 Lv7."
+    skillName: "Vi\xEAm C\u1EA7u B\u1EA1o K\xEDch"
+    skillDescription: "Qu\u1EA3 c\u1EA7u dung nham n\u1ED5 tung \u1EDF \u0111i\u1EC3m
+      tr\xFAng."
+    skillManaCost: 50
+    skillRageCost: 55
+    element: 3
+    rarity: 3
+    hp: 605
+    attack: 57
+    defense: 20
+    rig: 0
+    artSheet: p3-fire-lion-s
+    forms:
+    - minLevel: 7
+      displayName: "Vi\xEAm Tinh S\u01B0 \xB7 Ch\xE2n Th\u1EC3"
+      artSheet: p3-fire-lion-s-form1
+      hp: 1.232
+      attack: 1.3216
+      defense: 1.188
+    crit: 0.18
+  - id: water-bird-s
+    title: "X\xEDch Vi\xEAm Th\u1EA7n \u0110i\u1EC3u"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "X\xEDch Vi\xEAm Thi\xEAn V\u0169"
+    skillDescription: "L\xF4ng v\u0169 h\xF3a th\xE0nh m\u01B0a l\u1EEDa qu\xE9t
+      kh\u1EAFp chi\u1EBFn tr\u01B0\u1EDDng."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 3
+    rarity: 4
+    hp: 875
+    attack: 84
+    defense: 30
+    rig: 0
+    artSheet: p3-water-bird-s
+    forms: []
+    crit: 0.22
+  - id: golden-wing-ss
+    title: "Kim Quang Th\u1EA7n \u0110i\u1EC3u"
+    description: "Linh th\xFA huy\u1EC1n tho\u1EA1i Pet Arena \xB7 h\xECnh th\xE1i
+      t\u1ED1i th\u01B0\u1EE3ng ngay t\u1EEB \u0111\u1EA7u."
+    skillName: "Kim V\u0169 Thi\xEAn Ph\xE1n"
+    skillDescription: "Tri\u1EC7u h\u1ED3i v\u0169 ki\u1EBFm \xE1nh v\xE0ng gi\xE1ng
+      xu\u1ED1ng m\u1EE5c ti\xEAu."
+    skillManaCost: 60
+    skillRageCost: 65
+    element: 0
+    rarity: 4
+    hp: 920
+    attack: 80
+    defense: 36
+    rig: 0
+    artSheet: p3-golden-wing-ss
+    forms: []
+    crit: 0.22
   stages:
   - number: 1
     stoneGrade: 1
@@ -242,7 +608,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 2
     stoneGrade: 2
     bonusGrade: 1
@@ -259,7 +625,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 3
     stoneGrade: 3
     bonusGrade: 2
@@ -276,7 +642,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 4
     stoneGrade: 4
     bonusGrade: 3
@@ -293,7 +659,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 5
     stoneGrade: 5
     bonusGrade: 4
@@ -310,7 +676,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 6
     stoneGrade: 6
     bonusGrade: 5
@@ -327,7 +693,7 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   - number: 7
     stoneGrade: 7
     bonusGrade: 6
@@ -344,38 +710,32 @@ MonoBehaviour:
       awakenAttack: 1.18
       awakenDefense: 1.08
       awakenShield: 0.08
-      awakenSeconds: 1.2
+      awakenSeconds: 2
   rarities:
   - rarity: 0
     hp: 260
     attack: 24
     defense: 6
-    speed: 18
   - rarity: 1
     hp: 320
     attack: 29
     defense: 9
-    speed: 22
   - rarity: 2
     hp: 420
     attack: 36
     defense: 13
-    speed: 26
   - rarity: 3
     hp: 540
     attack: 44
     defense: 18
-    speed: 31
   - rarity: 4
     hp: 700
     attack: 54
     defense: 24
-    speed: 37
   - rarity: 5
     hp: 920
     attack: 68
     defense: 31
-    speed: 44
   advantages:
   - attacker: 0
     target: 1
@@ -392,7 +752,6 @@ MonoBehaviour:
   hpGrowth: 0.1
   attackGrowth: 0.09
   defenseGrowth: 0.07
-  speedGrowth: 2
   maxLevel: 7
   p2Enabled: 1
   islands:

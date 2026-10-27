@@ -9,6 +9,7 @@ namespace PetGemBattle
         public static CardKind? ChooseCard(PetState actor,PetState target,BattleRules rules)
         {
             if(CardSystem.CanUse(actor,CardKind.Evolution,rules))return CardKind.Evolution;
+            if(CardSystem.CanUse(actor,CardKind.Signature,rules) && target.Hp>0)return CardKind.Signature;
             if((actor.EvolutionLevel==1 || (rules.specialManaCost>0 && actor.Mana<rules.specialManaCost)) && CardSystem.CanUse(actor,CardKind.Mana,rules))return CardKind.Mana;
             if(CardSystem.CanUse(actor,CardKind.Rage,rules) && actor.Rage<rules.specialRageCost)return CardKind.Rage;
             return null;

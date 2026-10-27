@@ -46,6 +46,7 @@ namespace PetGemBattle
         public PetAnimationEvents Events {get;private set;}
         private Animator animator;
         private PaintedPetRig painted;
+        private P3PetRig p3;
         private RectTransform body,head,tail,earL,earR,armL,armR,footL,footR,eyeL,eyeR,crown;
         private Image[] coloredParts;private Color[] originalColors;
         private int species;private bool left,evolved;private PetPose pose;private float elapsed,duration=1;
@@ -54,6 +55,7 @@ namespace PetGemBattle
             Events=gameObject.AddComponent<PetAnimationEvents>();
             var controller=Resources.Load<RuntimeAnimatorController>("P1PetAnimator");
             if(controller!=null){animator=gameObject.AddComponent<Animator>();animator.runtimeAnimatorController=controller;animator.cullingMode=AnimatorCullingMode.AlwaysAnimate;}
+            if(P3ArtLibrary.Get(artSheet)!=null){p3=gameObject.AddComponent<P3PetRig>();p3.Build(artSheet,left,tint,Events);return;}
             if(P2ArtLibrary.Get(artSheet)!=null){painted=gameObject.AddComponent<PaintedPetRig>();painted.Build(artSheet,left,Events);return;}
             this.species=species;this.left=left;
             body=P1Art.Part(transform,"Body",P1Art.Circle,new Vector2(0,-25),new Vector2(species==3 ? 220 : 170,190),tint).rectTransform;
@@ -88,9 +90,9 @@ namespace PetGemBattle
             if(species==0 || species==4 || species==7)P1Art.Part(head,"Sprout",P1Art.Leaf,new Vector2(0,95),new Vector2(38,80),species==7 ? new Color(1,.83f,.35f) : new Color(.6f,.95f,.35f),-25);
             crown=P1Art.Part(head,"EvolvedCrown",P1Art.Stone(7),new Vector2(0,118),new Vector2(180,100),new Color(1,.85f,.36f)).rectTransform;crown.gameObject.SetActive(false);
         }
-        public void SetPose(PetPose value,float seconds){painted?.SetPose(value,seconds);pose=value;duration=Mathf.Max(.01f,seconds);elapsed=0;if(Events!=null)Events.phase=0;if(animator!=null){animator.speed=1/duration;animator.Play(value.ToString(),0,0);}}
-        public void SetBossAwaken(){painted?.BossAwaken();SetPose(PetPose.Evolution,1.2f);}
-        public void ResetForm(){painted?.ResetForm();evolved=false;if(crown!=null)crown.gameObject.SetActive(false);SetPose(PetPose.Idle,1);}
+        public void SetPose(PetPose value,float seconds){painted?.SetPose(value,seconds);p3?.SetPose(value,seconds);pose=value;duration=Mathf.Max(.01f,seconds);elapsed=0;if(Events!=null)Events.phase=0;if(animator!=null){animator.speed=1/duration;animator.Play(value.ToString(),0,0);}}
+        public void SetBossAwaken(){painted?.BossAwaken();p3?.BossAwaken();SetPose(PetPose.Evolution,1.2f);}
+        public void ResetForm(){painted?.ResetForm();p3?.ResetForm();evolved=false;if(crown!=null)crown.gameObject.SetActive(false);SetPose(PetPose.Idle,1);}
         private void Update()
         {
             if(body==null)return;if(coloredParts==null){coloredParts=body.GetComponentsInChildren<Image>(true);originalColors=new Color[coloredParts.Length];for(int i=0;i<coloredParts.Length;i++)originalColors[i]=coloredParts[i].color;}elapsed+=Time.deltaTime;float t=Mathf.Clamp01(animator!=null && pose!=PetPose.Idle ? Events.phase : elapsed/duration),idle=Mathf.Sin(Time.time*2.6f),strike=Mathf.Sin(t*Mathf.PI);bool attack=pose==PetPose.Attack||pose==PetPose.Special;

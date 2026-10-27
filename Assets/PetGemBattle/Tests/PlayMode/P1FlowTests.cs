@@ -28,10 +28,10 @@ namespace PetGemBattle.Tests
             throw new Exception("No sword move");
         }
         private void Move(BoardMove m){var inputs=host.GetComponentsInChildren<GemInput>();inputs.Single(g=>g.Cell.Equals(m.A)).Click(m.A);inputs.Single(g=>g.Cell.Equals(m.B)).Click(m.B);}
-        [UnityTest] public IEnumerator P1_T13_FasterEnemyStartsAndAlternates()
+        [UnityTest] public IEnumerator P1_T13_PlayerStartsAndAlternates()
         {
-            rules.enemy.speed=50;battle.RestartBattle();Assert.That(battle.IsPlayerTurn,Is.False);
-            yield return Until(()=>battle.Turn==2);Assert.That(battle.IsPlayerTurn,Is.True);Assert.That(battle.CompletedRounds,Is.Zero);
+            battle.RestartBattle();Assert.That(battle.IsPlayerTurn,Is.True);
+            Move(SwordMove());yield return Until(()=>battle.Turn==2);Assert.That(battle.IsPlayerTurn,Is.False);Assert.That(battle.CompletedRounds,Is.Zero);
         }
         [UnityTest] public IEnumerator P1_T14_CollectionHasNoDamageAndBoardHidesBeforeImpact()
         {

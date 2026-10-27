@@ -16,11 +16,16 @@ namespace PetGemBattle
         private readonly RectTransform[,] tiles=new RectTransform[8,8];
         private Text status,detail,history,turnLabel,timerLabel,comboLabel,roundStatus,resultDetails;
         private PetPanel playerPanel,enemyPanel;
-        private readonly Button[] cards=new Button[3];
-        private readonly Text[] cardDetails=new Text[3];
+        private readonly Button[] cards=new Button[4];
+        private readonly Text[] cardDetails=new Text[4];
+        private GameObject rhythmPanel;
+        private Text rhythmTitle,rhythmPattern,rhythmTiming;
+        private RectTransform rhythmCursor;
         private GameObject resultPanel,pausePanel;
         private readonly List<CanvasGroup> boardGroups=new List<CanvasGroup>();
         private Text speedLabel,collectionLabel;
+        private readonly Text[] collectionCounts=new Text[6];
+        private readonly Image[] collectionIcons=new Image[6];
         private bool activePlayer;
         private P1Catalog elementTable;
         private bool combatStage;
@@ -73,25 +78,38 @@ namespace PetGemBattle
             timerLabel=Label(root,"30",new Vector2(0,380),new Vector2(100,65),43,new Color(1,.88f,.51f));
             Label(root,"GIÂY",new Vector2(0,344),new Vector2(100,24),12,Gold);
             turnLabel=Label(root,"LƯỢT CỦA BẠN",new Vector2(0,304),new Vector2(510,30),18,Color.white);
-            var cardDock=Border(root,"CardDock",new Vector2(0,-348),new Vector2(536,144),Ink,Gold);
-            Label(cardDock,"THẺ CHIẾN THUẬT  ·  TỐI ĐA 1 THẺ / LƯỢT",new Vector2(0,59),new Vector2(510,24),12,Gold);
-            string[] titles={"TIẾP MANA","KHƠI NỘ","TIẾN HÓA"};int[] iconKinds={(int)GemKind.Mana,(int)GemKind.Rage,(int)GemKind.Shield};
-            for(int i=0;i<3;i++)
+            var cardDock=Border(root,"CardDock",new Vector2(0,-348),new Vector2(780,150),Ink,Gold);
+            Label(cardDock,"THẺ CHIẾN THUẬT  ·  TỐI ĐA 1 THẺ / LƯỢT",new Vector2(0,61),new Vector2(740,24),13,Gold);
+            string[] titles={"TIẾP MANA","KHƠI NỘ","TIẾN HÓA",player.signatureName??"TUYỆT KỸ"};int[] iconKinds={(int)GemKind.Mana,(int)GemKind.Rage,(int)GemKind.Shield,(int)GemKind.Sword};
+            for(int i=0;i<4;i++)
             {
                 int index=i;Color tint=PlaceholderArt.Colors[iconKinds[i]];
-                var card=Border(cardDock,"Card_"+(CardKind)i,new Vector2((i-1)*171,-10),new Vector2(158,107),new Color(.045f,.10f,.16f),tint);
+                var cardImage=Panel(cardDock,"Card_"+(CardKind)i,new Vector2((i-1.5f)*188,-10),new Vector2(176,112),i==3 ? new Color(.17f,.09f,.26f,.98f) : new Color(.045f,.10f,.16f));
+                cardImage.sprite=P1Art.Circle;
+                var card=cardImage.rectTransform;
+                var trim=card.gameObject.AddComponent<Outline>();trim.effectColor=i==3 ? Gold : tint;trim.effectDistance=new Vector2(2,-2);
                 cards[i]=card.gameObject.AddComponent<Button>();cards[i].targetGraphic=card.GetComponent<Image>();
                 card.GetComponent<Image>().raycastTarget=true;
                 var colors=cards[i].colors;colors.highlightedColor=new Color(1,.9f,.65f);colors.disabledColor=new Color(.25f,.28f,.33f);cards[i].colors=colors;
                 var nav=cards[i].navigation;nav.mode=Navigation.Mode.None;cards[i].navigation=nav;cards[i].onClick.AddListener(()=>onCard(index));
-                var icon=Panel(card,"CardIcon",new Vector2(-48,22),new Vector2(30,30),tint);icon.sprite=i==2 ? art.Diamond : art.Icons[iconKinds[i]];
-                Label(card,titles[i],new Vector2(12,24),new Vector2(115,26),15,new Color(1,.93f,.73f));
-                cardDetails[i]=Label(card,"",new Vector2(0,-17),new Vector2(150,53),14,new Color(.79f,.88f,.95f));
+                if(i==3)
+                {
+                    var portrait=Panel(card,"ExclusivePetPortrait",new Vector2(48,-8),new Vector2(86,96),new Color(1,1,1,.96f));
+                    portrait.sprite=P3ArtLibrary.Get(player.artSheet)??P2ArtLibrary.Get(player.artSheet);portrait.preserveAspect=true;
+                }
+                else
+                {
+                    var icon=Panel(card,"CardIcon",new Vector2(-48,22),new Vector2(30,30),tint);
+                    icon.sprite=i==2 ? art.Diamond : art.Icons[iconKinds[i]];icon.preserveAspect=true;
+                }
+                var title=Label(card,titles[i],new Vector2(i==3 ? -25 : 12,i==3 ? 30 : 24),new Vector2(i==3 ? 120 : 130,38),i==3 ? 14 : 15,new Color(1,.93f,.73f));
+                if(i==3){title.resizeTextForBestFit=true;title.resizeTextMinSize=10;title.resizeTextMaxSize=14;title.horizontalOverflow=HorizontalWrapMode.Wrap;title.verticalOverflow=VerticalWrapMode.Truncate;}
+                cardDetails[i]=Label(card,"",new Vector2(i==3 ? -37 : 0,i==3 ? -24 : -17),new Vector2(i==3 ? 98 : 160,i==3 ? 49 : 53),i==3 ? 12 : 14,new Color(.79f,.88f,.95f));
             }
             status=Label(root,"",new Vector2(0,-253),new Vector2(700,29),16,new Color(1,.92f,.65f));
-            detail=Label(root,"",new Vector2(550,-336),new Vector2(420,50),15,new Color(.85f,.94f,1));
-            history=Label(root,"",new Vector2(550,-384),new Vector2(420,47),13,new Color(.66f,.8f,.87f));
-            Label(root,"Kéo ngọc hoặc chọn 2 ô liền kề.\nGhép kiếm để đánh và tích Nộ.\nTuyệt kỹ: 60 Nộ + 30 Mana.",new Vector2(-550,-353),new Vector2(410,72),16,new Color(.8f,.88f,.92f));
+            detail=Label(root,"",new Vector2(585,-336),new Vector2(350,50),15,new Color(.85f,.94f,1));
+            history=Label(root,"",new Vector2(585,-384),new Vector2(350,47),13,new Color(.66f,.8f,.87f));
+            Label(root,"Kéo ngọc hoặc chọn 2 ô liền kề.\nGhép kiếm để đánh và tích Nộ.\nTuyệt kỹ: 60 Nộ + 30 Mana.",new Vector2(-580,-353),new Vector2(345,72),15,new Color(.8f,.88f,.92f));
             Label(root,"PET ARENA  /  CLASSIC",new Vector2(-599,-427),new Vector2(340,26),14,Gold);
             roundStatus=Label(root,"ĐẤU TRƯỜNG CỔ  ·  PvE",new Vector2(0,-431),new Vector2(530,24),12,new Color(.59f,.73f,.77f));
             MakeButton(root,"ÂM THANH",new Vector2(382,-426),new Vector2(122,32),()=>audioFx.ToggleMute());
@@ -110,14 +128,56 @@ namespace PetGemBattle
             Label(pauseOverlay.rectTransform,"TẠM DỪNG",new Vector2(0,65),new Vector2(620,75),48,Gold);
             Label(pauseOverlay.rectTransform,"Đồng hồ, AI và hoạt ảnh đã dừng.",Vector2.zero,new Vector2(620,50),22,Color.white);
             MakeButton(pauseOverlay.rectTransform,"TIẾP TỤC",new Vector2(0,-85),new Vector2(230,52),()=>pause?.Invoke());pausePanel.SetActive(false);
+            var rhythm=Border(root,"LegendaryRhythm",Vector2.zero,new Vector2(900,350),new Color(.025f,.055f,.13f,.98f),new Color(.8f,.7f,1));
+            rhythmPanel=rhythm.gameObject;
+            rhythmTitle=Label(rhythm,"TUYỆT KỸ HUYỀN THOẠI",new Vector2(0,120),new Vector2(800,50),30,Gold);
+            rhythmPattern=Label(rhythm,"",new Vector2(0,28),new Vector2(800,90),50,Color.white);
+            const float timingTarget=1.17f/1.8f;
+            Panel(rhythm,"TimingTrack",new Vector2(0,-76),new Vector2(700,18),new Color(.08f,.16f,.28f));
+            Panel(rhythm,"GoodWindow",new Vector2(-350+700*timingTarget,-76),new Vector2(700*(.5f/1.8f),18),new Color(.25f,.68f,1,.6f));
+            Panel(rhythm,"PerfectWindow",new Vector2(-350+700*timingTarget,-76),new Vector2(700*(.16f/1.8f),23),new Color(1,.88f,.36f));
+            var timingPoint=Panel(rhythm,"BrightPoint",new Vector2(-350+700*timingTarget,-76),new Vector2(28,28),Color.white);timingPoint.sprite=P1Art.Circle;
+            var cursor=Panel(rhythm,"TimingCursor",new Vector2(-350,-76),new Vector2(24,34),new Color(.3f,1,1));cursor.sprite=P1Art.Circle;rhythmCursor=cursor.rectTransform;
+            rhythmTiming=Label(rhythm,"",new Vector2(0,-125),new Vector2(820,50),23,new Color(.6f,.9f,1));
+            rhythmPanel.SetActive(false);
             // Keep the authored composition while using the specification's 1920×1080 canvas.
             foreach(RectTransform child in root)
                 if(child.anchorMin==child.anchorMax){child.anchoredPosition*=1.2f;child.localScale*=1.2f;}
         }
         public void SetPaused(bool paused){pausePanel.SetActive(paused);audioFx.SetPaused(paused);}
+        public void ShowRhythm(string skill,string sequence,int entered,bool timing,float progress=0)
+        {
+            if(rhythmPanel==null)return;
+            rhythmPanel.SetActive(true);
+            rhythmTitle.text=skill;
+            var arrows=sequence.Split(' ');var marked=new System.Text.StringBuilder();
+            for(int i=0;i<arrows.Length;i++)
+            {
+                if(i>0)marked.Append(' ');
+                marked.Append(i<entered ? "<color=#6FFFE9>" : i==entered && !timing ? "<color=#FFDB65>" : "<color=#FFFFFF>");
+                marked.Append(arrows[i]).Append("</color>");
+            }
+            rhythmPattern.text=marked.ToString();
+            rhythmCursor.gameObject.SetActive(timing);
+            rhythmCursor.anchoredPosition=new Vector2(-350+700*Mathf.Clamp01(progress),-76);
+            rhythmTiming.text=timing ? "CHẤM SÁNG TỚI VẠCH VÀNG: BẤM SPACE" : "NHẬP 4 HƯỚNG · "+entered+" / "+arrows.Length;
+        }
+        public void HideRhythm(string result)
+        {
+            if(rhythmPanel!=null)rhythmPanel.SetActive(false);
+            if(!string.IsNullOrEmpty(result))Say(result);
+        }
         public void AddSessionControls(Action exit,Action speed)
         {
-            collectionLabel=Label(root,"",new Vector2(0,300),new Vector2(1200,55),23,Gold);collectionLabel.gameObject.SetActive(false);
+            collectionLabel=Label(root,"",new Vector2(0,282),new Vector2(1200,43),22,Gold);collectionLabel.gameObject.SetActive(false);
+            for(int i=0;i<6;i++)
+            {
+                float x=(i-2.5f)*135;
+                collectionIcons[i]=Panel(root,"CollectedGemIcon_"+i,new Vector2(x-30,222),new Vector2(38,38),Color.white);
+                collectionIcons[i].sprite=art.Icons[i];collectionIcons[i].gameObject.SetActive(false);
+                collectionCounts[i]=Label(root,"0",new Vector2(x+20,222),new Vector2(78,38),17,Color.white);
+                collectionCounts[i].gameObject.SetActive(false);
+            }
             var button=MakeButton(root,"x1",new Vector2(-340,-515),new Vector2(90,32),speed);speedLabel=button.GetComponentInChildren<Text>();
             if(exit!=null)MakeButton(root,"VỀ ĐẢO",new Vector2(-520,-515),new Vector2(170,32),exit);
             foreach(RectTransform child in root)
@@ -127,6 +187,7 @@ namespace PetGemBattle
         public IEnumerator SetCombatStage(bool hidden,float seconds)
         {
             combatStage=hidden;collectionLabel.gameObject.SetActive(hidden);
+            for(int i=0;i<6;i++){collectionIcons[i].gameObject.SetActive(hidden);collectionCounts[i].gameObject.SetActive(hidden);}
             foreach(var group in boardGroups)group.blocksRaycasts=false;
             float from=hidden ? 1 : 0,to=hidden ? 0 : 1;
             for(float t=0;t<1;t+=Time.deltaTime/Mathf.Max(.01f,seconds))
@@ -150,7 +211,7 @@ namespace PetGemBattle
                 actor.Pet.SetPose(report.SpecialAttacks>0 ? PetPose.Special : PetPose.Attack,seconds);
                 float from=actor.X*.53f,to=target.X*.53f;
                 var bolt=EffectPanel("WindupProjectile",new Vector2(from,0),new Vector2(100,70),P1Catalog.ElementColor(actor.Definition.element));bolt.sprite=art.Glow;transient.Add(bolt.gameObject);
-                var signature=P2ArtLibrary.Get(actor.Definition.artSheet,3);
+                var signature=P2ArtLibrary.Get(actor.Definition.artSheet,3)??(report.SpecialAttacks>0 ? P3ArtLibrary.Element(actor.Definition.element) : null);
                 if(signature!=null){bolt.sprite=signature;bolt.color=Color.white;bolt.preserveAspect=true;bolt.rectTransform.sizeDelta=new Vector2(report.SpecialAttacks>0 ? 175 : 100,report.SpecialAttacks>0 ? 150 : 85);}
                 float flight=0;while(flight<seconds*.4f || (frameEvents!=null && !impactSeen && flight<seconds*.65f)){float t=Mathf.Clamp01(flight/Mathf.Max(.01f,seconds*.4f));bolt.rectTransform.anchoredPosition=new Vector2(Mathf.Lerp(from,to,t),Mathf.Sin(t*Mathf.PI)*85);flight+=Time.deltaTime;yield return null;}
                 if(frameEvents!=null)frameEvents.Impact-=signal;
@@ -161,13 +222,14 @@ namespace PetGemBattle
                     Float("RỪNG TRÓI BUỘC",to,185,new Color(.5f,1,.6f),29);
                 }
             }
-            impact();yield return AnimateEffect(playerActor,report,attack ? seconds*.6f : seconds);
+            impact();yield return AnimateEffect(playerActor,report,attack ? seconds*.75f : seconds);
         }
         private PetPanel BuildPet(PetDefinition pet,bool left)
         {
             float x=left ? -550 : 550;var petRoot=NewRect(root,left ? "PlayerPet" : "EnemyPet",new Vector2(x,-15),new Vector2(450,500));
             var presentation=petRoot.gameObject.AddComponent<PetPresentation>();presentation.Build(art,pet,left);
             var plaque=Border(root,left ? "PlayerNameplate" : "EnemyNameplate",new Vector2(x,-278),new Vector2(420,58),Ink,Gold);
+            var elementIcon=Panel(plaque,"ElementIcon",new Vector2(-187,0),new Vector2(45,45),P1Catalog.ElementColor(pet.element));elementIcon.sprite=P3ArtLibrary.Element(pet.element);elementIcon.preserveAspect=true;
             Label(plaque,pet.name,new Vector2(0,12),new Vector2(400,28),22,new Color(1,.9f,.65f));
             var p=new PetPanel {Pet=presentation,X=x,Definition=pet};
             p.Form=Label(plaque,"DẠNG I",new Vector2(0,-14),new Vector2(400,23),12,new Color(.68f,.84f,.9f));
@@ -178,6 +240,7 @@ namespace PetGemBattle
         private void BuildHud(PetPanel p,PetDefinition definition,float x)
         {
             var hud=Border(root,x<0 ? "PlayerHUD" : "EnemyHUD",new Vector2(x,373),new Vector2(670,126),Ink,Gold);
+            var icon=Panel(hud,"ElementIcon",new Vector2(-304,43),new Vector2(42,42),P1Catalog.ElementColor(definition.element));icon.sprite=P3ArtLibrary.Element(definition.element);icon.preserveAspect=true;
             Label(hud,(x<0 ? "BẠN  /  " : "ĐỐI THỦ  /  ")+definition.name,new Vector2(0,44),new Vector2(640,30),19,new Color(1,.92f,.75f));
             p.Hp=Bar(hud,"HP",new Vector2(0,12),640,23,PlaceholderArt.Colors[(int)GemKind.Heart]);
             p.Mana=Bar(hud,"MANA",new Vector2(-164,-18),312,16,PlaceholderArt.Colors[(int)GemKind.Mana]);
@@ -215,15 +278,16 @@ namespace PetGemBattle
         {
             activePlayer=playerTurn;elementTable=rules.elements;RefreshPet(playerPanel,player,rules);RefreshPet(enemyPanel,enemy,rules);
             if(rules.specialManaCost>0)foreach(var button in sessionButtons)button.interactable=canAct;
-            for(int i=0;i<3;i++)cards[i].interactable=canAct && CardSystem.CanUse(player,(CardKind)i,rules);
+            for(int i=0;i<4;i++)cards[i].interactable=canAct && CardSystem.CanUse(player,(CardKind)i,rules);
             cardDetails[0].text="+"+rules.manaCardGain+" Mana\nCòn "+Math.Max(0,rules.manaCardUses-player.ManaCardsUsed)+" / "+rules.manaCardUses;
             cardDetails[1].text="+"+rules.rageCardGain+" Nộ\nCòn "+Math.Max(0,rules.rageCardUses-player.RageCardsUsed)+" / "+rules.rageCardUses;
-            cardDetails[2].text=player.EvolutionLevel>1 ? "ĐÃ TIẾN HÓA\nDạng II" : rules.evolutionManaCost+" Mana\nMột lần / trận";
-            for(int i=0;i<3;i++)
+            cardDetails[2].text=player.Definition.rarity==PetRarity.SS ? "HUYỀN THOẠI\nKhông đổi hình" : player.EvolutionLevel>1 ? "ĐÃ TIẾN HÓA\nDạng II" : rules.evolutionManaCost+" Mana\nMột lần / trận";
+            cardDetails[3].text=player.Definition.signatureManaCost+"M  ·  "+player.Definition.signatureRageCost+"N\n"+(player.SignatureCooldown>0 ? "HỒI "+player.SignatureCooldown+" LƯỢT" : player.Definition.rarity==PetRarity.SS ? "NHỊP 4 HƯỚNG" : "TẤN CÔNG");
+            for(int i=0;i<4;i++)
             {
                 string reason=!canAct ? "Chờ lượt / hiệu ứng" : player.SkillUsed ? "Đã dùng thẻ lượt này" :
-                    i==2 && player.EvolutionLevel>1 ? "Đã tiến hóa" : i==2 && player.Mana<rules.evolutionManaCost ? "Thiếu "+(rules.evolutionManaCost-player.Mana)+" Mana" :
-                    !cards[i].interactable ? "Đã đầy / hết lượt dùng" : "";
+                    i==2 && player.Definition.rarity==PetRarity.SS ? "Không cần tiến hóa" : i==2 && player.EvolutionLevel>1 ? "Đã tiến hóa" : i==2 && player.Mana<rules.evolutionManaCost ? "Thiếu "+(rules.evolutionManaCost-player.Mana)+" Mana" :
+                    i==3 && player.SignatureCooldown>0 ? "Hồi "+player.SignatureCooldown+" lượt" : !cards[i].interactable ? "Thiếu tài nguyên" : "";
                 if(reason.Length>0)cardDetails[i].text=cardDetails[i].text.Split('\n')[0]+"\n"+reason;
             }
             turnLabel.text=(playerTurn ? "LƯỢT CỦA BẠN" : "LƯỢT ĐỐI THỦ")+"  /  VÒNG "+Math.Min(completedRounds+1,rules.maxRounds)+" / "+rules.maxRounds;
@@ -237,7 +301,7 @@ namespace PetGemBattle
         {
             SetBar(p.Hp,"HP",pet.Hp,pet.MaxHp);SetBar(p.Mana,"MANA",pet.Mana,rules.maxMana);
             SetBar(p.Rage,"NỘ",pet.Rage,rules.maxRage);SetBar(p.Shield,"GIÁP",pet.Shield,rules.ShieldCap(pet));
-            p.Stats.text="ATK "+pet.Attack.ToString("0.##")+" / DEF "+pet.Defense.ToString("0.##")+" / SPD "+pet.Definition.speed;
+            p.Stats.text="ATK "+pet.Attack.ToString("0.##")+" / DEF "+pet.Defense.ToString("0.##");
             p.Special.text=rules.specialManaCost>0 ? ((pet.Mana>=rules.specialManaCost ? "Đủ Mana" : "Thiếu Mana")+" · "+(pet.Rage>=rules.specialRageCost ? "Đủ Nộ" : "Thiếu Nộ")) : "";
             p.Form.text=(pet.BossAwakened ? "BOSS THỨC TỈNH" : pet.EvolutionLevel==1 ? "DẠNG I" : "DẠNG II  ·  ĐÃ THỨC TỈNH")+"   /   "+P1Catalog.ElementName(pet.Definition.element);
             if(!string.IsNullOrEmpty(pet.Definition.artSheet))p.Form.text="FORM "+pet.Definition.permanentForm+" · "+(pet.BossAwakened ? "BOSS THỨC TỈNH" : pet.EvolutionLevel>1 ? "THẺ THỨC TỈNH" : "THƯỜNG")+" / "+P1Catalog.ElementName(pet.Definition.element);
@@ -292,14 +356,24 @@ namespace PetGemBattle
                 if(tiles[x,y]!=null)
                 {
                     var existing=tiles[x,y];existing.gameObject.SetActive(true);existing.anchoredPosition=Position(cell);existing.localScale=Vector3.one;existing.GetComponent<Image>().sprite=art.Gems[kind];existing.GetComponent<Image>().color=Color.white;
-                    existing.Find("Symbol").GetComponent<Image>().sprite=art.Icons[kind];existing.Find("IconShadow").GetComponent<Image>().sprite=art.Icons[kind];continue;
+                    existing.Find("Symbol").GetComponent<Image>().sprite=art.Icons[kind];existing.Find("IconShadow").GetComponent<Image>().sprite=art.Icons[kind];SetMultiplierBadge(existing,board.Multiplier(x,y));continue;
                 }
                 var tile=Panel(boardRoot,"Gem_"+x+"_"+y,Position(cell),new Vector2(59,59),Color.white);tile.sprite=art.Gems[kind];
                 var shadow=Panel(tile.rectTransform,"IconShadow",new Vector2(1,-2),new Vector2(47,47),new Color(.02f,.05f,.08f,.65f));shadow.sprite=art.Icons[kind];
                 var icon=Panel(tile.rectTransform,"Symbol",Vector2.zero,new Vector2(47,47),Color.white);icon.sprite=art.Icons[kind];
                 var glow=Panel(tile.rectTransform,"GemGlow",new Vector2(-8,12),new Vector2(48,32),new Color(1,1,1,.12f));glow.sprite=art.Glow;
+                var badge=Label(tile.rectTransform,"",new Vector2(18,18),new Vector2(34,26),16,new Color(1,.92f,.43f));badge.name="MultiplierBadge";
+                var border=badge.gameObject.AddComponent<Outline>();border.effectColor=new Color(.04f,.08f,.17f,1);border.effectDistance=new Vector2(2,-2);
+                SetMultiplierBadge(tile.rectTransform,board.Multiplier(x,y));
                 var input=tile.gameObject.AddComponent<GemInput>();input.Cell=cell;input.Click=click;input.Drag=drag;tile.raycastTarget=true;tiles[x,y]=tile.rectTransform;
             }
+        }
+        private static void SetMultiplierBadge(RectTransform tile,int multiplier)
+        {
+            var badge=tile.Find("MultiplierBadge");
+            if(badge==null)return;
+            badge.gameObject.SetActive(multiplier>1);
+            badge.GetComponent<Text>().text="×"+multiplier;
         }
         private void ClearTiles()
         {
@@ -319,8 +393,15 @@ namespace PetGemBattle
         }
         public void Collected(List<CollectedGroup> groups)
         {
-            int[] counts=new int[6];foreach(var group in groups)counts[(int)group.Group.Kind]+=group.Group.Cells.Count;
-            collectionLabel.text="KIẾM "+counts[0]+"  ·  GIÁP "+counts[1]+"  ·  HP "+counts[2]+"  ·  MANA "+counts[3]+"  ·  NỘ "+counts[4]+"  ·  HÚT "+counts[5];
+            int[] physical=new int[6],effective=new int[6];
+            foreach(var group in groups){int kind=(int)group.Group.Kind;physical[kind]+=group.Group.Cells.Count;effective[kind]+=group.Group.Units;}
+            collectionLabel.text=(activePlayer ? "BẠN" : "ĐỐI THỦ")+" ĐÃ GHÉP · SỐ VIÊN THỰC → HIỆU LỰC";
+            for(int i=0;i<6;i++)
+            {
+                collectionCounts[i].text=physical[i]+" → "+effective[i];
+                collectionCounts[i].color=physical[i]>0 ? new Color(1,.95f,.68f) : new Color(.55f,.66f,.74f);
+                collectionIcons[i].color=physical[i]>0 ? Color.white : new Color(.5f,.58f,.65f,.65f);
+            }
         }
         public IEnumerator AnimateClear(List<MatchGroup> groups,float seconds)
         {
@@ -357,7 +438,11 @@ namespace PetGemBattle
             float actorX=combatStage ? actor.X*.53f : actor.X,targetX=combatStage ? target.X*.53f : target.X;
             Color tint=playerActor ? new Color(1,.4f,.08f) : new Color(.2f,.8f,1);
             bool attack=report.NormalAttacks+report.SpecialAttacks>0;
-            bool special=report.SpecialAttacks>0,critical=report.CriticalAttacks>0;audioFx.Play(report,playerActor);
+            bool special=report.SpecialAttacks>0,critical=report.CriticalAttacks>0;
+            bool legendary=special && actor.Definition.rarity==PetRarity.SS;
+            bool richVfx=PlayerPrefs.GetInt("P2ReducedVfx",0)==0;
+            if(legendary)tint=P1Catalog.ElementColor(actor.Definition.element);
+            audioFx.Play(report,playerActor);
             if(report.BossTransformation)actor.Pet.BossAwaken(seconds);
             else if(report.Evolved)actor.Pet.SetPose(PetPose.Evolution,seconds);
             else if(attack && !combatStage)actor.Pet.SetPose(special ? PetPose.Special : PetPose.Attack,seconds);
@@ -373,19 +458,37 @@ namespace PetGemBattle
             if(report.RageStolen+report.ShieldStolen>0 || report.HpStolen>0)Float("HÚT NĂNG LƯỢNG",actorX,145,new Color(.82f,.9f,1),24);
             if(report.BossTransformation)Float("BOSS THỨC TỈNH",actorX,190,new Color(1,.8f,.3f),32);
             if(report.Evolved)Float("THỨC TỈNH  /  DẠNG II",actorX,190,new Color(1,.89f,.45f),30);
-            Image projectile=null,ring=null,slash=null;
+            Image projectile=null,ring=null,slash=null,crest=null,afterimage=null,flash=null;
             var petals=new List<Image>();var petalStarts=new List<Vector2>();
-            var motif=special ? P2ArtLibrary.Get(actor.Definition.artSheet,3) : null;
-            if(motif!=null && PlayerPrefs.GetInt("P2ReducedVfx",0)==0)
+            var rays=new List<Image>();
+            var motif=special ? P2ArtLibrary.Get(actor.Definition.artSheet,3)??P3ArtLibrary.Element(actor.Definition.element) : null;
+            if(motif!=null && richVfx)
             {
-                int count=actor.Definition.rig==6 ? 9 : 6;
+                int count=legendary ? 14 : actor.Definition.rig==6 ? 9 : 6;
                 for(int i=0;i<count;i++)
                 {
                     float angle=(i/(float)count*Mathf.PI*2)+actor.Definition.rig*.31f;
                     var ray=new Vector2(Mathf.Cos(angle),Mathf.Sin(angle));
-                    var petal=EffectPanel("Signature_"+actor.Definition.id,new Vector2(targetX,0),new Vector2(58,82),Color.white);
+                    var petal=EffectPanel("Signature_"+actor.Definition.id,new Vector2(targetX,0),new Vector2(legendary ? 70 : 58,legendary ? 94 : 82),Color.white);
                     petal.sprite=motif;petal.preserveAspect=true;petals.Add(petal);petalStarts.Add(ray);
                 }
+            }
+            if(legendary && richVfx)
+            {
+                var portrait=P3ArtLibrary.Get(actor.Definition.artSheet)??P2ArtLibrary.Get(actor.Definition.artSheet);
+                if(portrait!=null)
+                {
+                    afterimage=EffectPanel("LegendaryAfterimage",new Vector2(actorX,0),new Vector2(290,340),new Color(1,1,1,.36f));
+                    afterimage.sprite=portrait;afterimage.preserveAspect=true;
+                }
+                crest=EffectPanel("LegendaryCrest",new Vector2(targetX,0),new Vector2(350,350),new Color(tint.r,tint.g,tint.b,.8f));crest.sprite=art.Ring;
+                flash=EffectPanel("LegendaryFlash",new Vector2(targetX,0),new Vector2(670,670),new Color(tint.r,tint.g,tint.b,0));flash.sprite=art.Glow;
+                for(int i=0;i<10;i++)
+                {
+                    var ray=EffectPanel("LegendaryRay",new Vector2(targetX,0),new Vector2(320,21),new Color(tint.r,tint.g,tint.b,.48f));
+                    ray.sprite=art.Glow;rays.Add(ray);
+                }
+                Float(actor.Definition.signatureName,targetX,240,Gold,30);
             }
             if(attack)
             {
@@ -401,12 +504,12 @@ namespace PetGemBattle
             {
                 ring=EffectPanel("EffectRing",new Vector2(actorX,0),new Vector2(280,280),(report.BossTransformation || report.Evolved) ? Gold : special ? tint : report.Healing>0 ? PlaceholderArt.Colors[2] : PlaceholderArt.Colors[1]);ring.sprite=art.Ring;transient.Add(ring.gameObject);
             }
-            if(combo>=3 || special || critical){comboLabel.text=special ? (critical ? "ĐẶC BIỆT · CRITICAL!" : "ĐÒN ĐẶC BIỆT") : critical ? "CRITICAL!" : "COMBO "+combo;comboLabel.gameObject.SetActive(true);}
+            if(combo>=3 || special || critical){comboLabel.text=legendary ? actor.Definition.signatureName : special ? (critical ? "ĐẶC BIỆT · CRITICAL!" : "ĐÒN ĐẶC BIỆT") : critical ? "CRITICAL!" : "COMBO "+combo;comboLabel.gameObject.SetActive(true);}
             for(float t=0;t<1;t+=Time.deltaTime/Mathf.Max(.01f,seconds))
             {
                 for(int i=0;i<petals.Count;i++)
                 {
-                    var petal=petals[i];float spread=actor.Definition.rig==6 ? 160*t : 80+125*t;
+                    var petal=petals[i];float spread=legendary ? 45+220*t : actor.Definition.rig==6 ? 160*t : 80+125*t;
                     petal.rectTransform.anchoredPosition=new Vector2(targetX,0)+petalStarts[i]*spread+new Vector2(0,actor.Definition.element==Element.Water ? -t*50 : t*35);
                     petal.rectTransform.localRotation=Quaternion.Euler(0,0,(i*60+t*(actor.Definition.rig%2==0 ? 220 : -130)));
                     petal.rectTransform.localScale=Vector3.one*(.4f+Mathf.Sin(t*Mathf.PI)*.8f);petal.color=new Color(1,1,1,1-t);
@@ -420,6 +523,23 @@ namespace PetGemBattle
                     if(report.DrainGroups>0 && !attack)projectile.rectTransform.localRotation=Quaternion.Euler(0,0,t*540);
                 }
                 if(ring!=null){ring.rectTransform.localScale=Vector3.one*(1+t*1.5f);ring.rectTransform.localRotation=Quaternion.Euler(0,0,t*160);var color=ring.color;color.a=1-t;ring.color=color;}
+                if(afterimage!=null)
+                {
+                    afterimage.rectTransform.anchoredPosition=new Vector2(Mathf.Lerp(actorX,targetX,Mathf.SmoothStep(0,1,t)),Mathf.Sin(t*Mathf.PI)*85);
+                    afterimage.rectTransform.localScale=Vector3.one*(1+.28f*Mathf.Sin(t*Mathf.PI));
+                    afterimage.color=new Color(1,1,1,.38f*Mathf.Sin(t*Mathf.PI));
+                }
+                if(crest!=null){crest.rectTransform.localScale=Vector3.one*(.35f+t*2.2f);crest.rectTransform.localRotation=Quaternion.Euler(0,0,t*320);crest.color=new Color(tint.r,tint.g,tint.b,(1-t)*.9f);}
+                if(flash!=null)flash.color=new Color(tint.r,tint.g,tint.b,Mathf.Pow(Mathf.Sin(t*Mathf.PI),10)*.68f);
+                for(int i=0;i<rays.Count;i++)
+                {
+                    float angle=(i/(float)rays.Count*360)+t*28;
+                    var radial=new Vector2(Mathf.Cos(angle*Mathf.Deg2Rad),Mathf.Sin(angle*Mathf.Deg2Rad));
+                    rays[i].rectTransform.anchoredPosition=new Vector2(targetX,0)+radial*(40+180*t);
+                    rays[i].rectTransform.localRotation=Quaternion.Euler(0,0,angle);
+                    rays[i].rectTransform.localScale=new Vector3(.35f+Mathf.Sin(t*Mathf.PI)*1.2f,1,1);
+                    rays[i].color=new Color(tint.r,tint.g,tint.b,(1-t)*.6f);
+                }
                 if(comboLabel.gameObject.activeSelf)comboLabel.rectTransform.localScale=Vector3.one*(1+Mathf.Sin(t*Mathf.PI)*.08f);
                 yield return null;
             }
@@ -427,6 +547,10 @@ namespace PetGemBattle
             if(slash!=null){ReleaseEffect(slash);}
             if(ring!=null){ReleaseEffect(ring);}comboLabel.gameObject.SetActive(false);
             foreach(var petal in petals)ReleaseEffect(petal);
+            foreach(var ray in rays)ReleaseEffect(ray);
+            if(crest!=null)ReleaseEffect(crest);
+            if(afterimage!=null)ReleaseEffect(afterimage);
+            if(flash!=null)ReleaseEffect(flash);
         }
         public IEnumerator AnnounceSuddenDeath()
         {

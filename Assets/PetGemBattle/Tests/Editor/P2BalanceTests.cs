@@ -26,12 +26,12 @@ namespace PetGemBattle.Tests
                         for(int seed=0;seed<50;seed++)
                         {
                             int level=new[]{1,1,2,3,4,5,6}[stage-1];var a=new PetState(catalog.Stats("metal-bird",level));var b=new PetState(catalog.Stats("wood-"+stage,1,true,stage));
-                            var board=new MatchBoard(seed);var rng=new SeededBattleRandom(seed^0x51A7D);var tie=new SeededBattleRandom(seed^0x3A91);bool player=a.Definition.speed>=b.Definition.speed;int turn=0,swords=0,playerTurns=0;double animation=0;
+                            var board=new MatchBoard(seed);var rng=new SeededBattleRandom(seed^0x51A7D);var tie=new SeededBattleRandom(seed^0x3A91);bool player=true;int turn=0,swords=0,playerTurns=0;double animation=0;
                             BattleResult result=BattleResult.Ongoing;
                             while(result==BattleResult.Ongoing && turn<60)
                             {
                                 var actor=player ? a : b;var target=player ? b : a;actor.BeginTurn();if(player)playerTurns++;
-                                var card=BattleAI.ChooseCard(actor,target,rules);if(card.HasValue){var report=CardSystem.Use(actor,card.Value,rules);animation+=rules.EffectDuration(report);}
+                                var card=BattleAI.ChooseCard(actor,target,rules);if(card.HasValue){var report=CardSystem.Use(actor,card.Value,rules,target);animation+=rules.EffectDuration(report);}
                                 if(board.LegalMoves().Count==0)board.ShufflePlayable();Assert.That(board.TrySwap(BattleAI.ChooseMove(board,actor,target,rules,turn/2,tie)),Is.True);
                                 var collected=new List<CollectedGroup>();animation+=rules.swapSeconds+rules.boardTransitionSeconds*2;
                                 for(int wave=1;wave<=rules.maxCascadeWaves;wave++)

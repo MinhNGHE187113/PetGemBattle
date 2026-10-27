@@ -20,6 +20,7 @@ namespace PetGemBattle
         public static Sprite Get(string key,int part=0)
         {
             if(string.IsNullOrEmpty(key))return null;
+            if(key.StartsWith("p3-"))return part==0 ? P3ArtLibrary.Get(key) : null;
             string id=key+":"+part;if(cache.TryGetValue(id,out var sprite))return sprite;
             if(loaded==null)loaded=Resources.Load<P2ArtLibrary>("P2ArtLibrary");
             var sheet=loaded==null ? null : loaded.sheets.FirstOrDefault(s=>s.key==key);

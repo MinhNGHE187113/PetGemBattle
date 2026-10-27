@@ -59,12 +59,12 @@ MonoBehaviour:
   evolutionAttackMultiplier: 1.35
   evolutionDefenseMultiplier: 1.2
   evolutionHealPercent: 0.4
-  swapSeconds: 0.18
-  clearSeconds: 0.22
-  fallSeconds: 0.3
-  effectSeconds: 0.55
-  evolutionSeconds: 1.8
-  aiDelay: 0.75
+  swapSeconds: 0.24
+  clearSeconds: 0.34
+  fallSeconds: 0.42
+  effectSeconds: 0.9
+  evolutionSeconds: 2.4
+  aiDelay: 1.1
   turnSeconds: 30
   maxCascadeWaves: 100
   player:

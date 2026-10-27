@@ -19,6 +19,7 @@ namespace PetGemBattle
         public int ManaCardsUsed { get; private set; }
         public int RageCardsUsed { get; private set; }
         public bool SkillUsed { get; private set; }
+        public int SignatureCooldown { get; private set; }
         public PetState(PetDefinition definition)
         {
             Definition=definition;MaxHp=Math.Max(1,definition.maxHp);Hp=MaxHp;
@@ -30,7 +31,7 @@ namespace PetGemBattle
             if(state.Definition!=Definition)throw new ArgumentException("Snapshot belongs to another pet.");
             MaxHp=state.MaxHp;Attack=state.Attack;Defense=state.Defense;EvolutionLevel=state.EvolutionLevel;
             Hp=state.Hp;Shield=state.Shield;Mana=state.Mana;Rage=state.Rage;ManaCardsUsed=state.ManaCardsUsed;RageCardsUsed=state.RageCardsUsed;SkillUsed=state.SkillUsed;
-            BossAwakened=state.BossAwakened;
+            BossAwakened=state.BossAwakened;SignatureCooldown=state.SignatureCooldown;
         }
         public int RemoveMana(int amount){int n=Math.Min(Mana,Math.Max(0,amount));Mana-=n;return n;}
         public bool TryBossAwaken(BattleRules rules)
@@ -40,7 +41,7 @@ namespace PetGemBattle
             BossAwakened=true;Attack*=profile.awakenAttack;Defense*=profile.awakenDefense;
             AddShield(BattleMath.Round(MaxHp*profile.awakenShield),rules);return true;
         }
-        public void BeginTurn() { SkillUsed=false; }
+        public void BeginTurn() { SkillUsed=false;if(SignatureCooldown>0)SignatureCooldown--; }
         public int Heal(int amount) { int old=Hp;Hp=Math.Min(MaxHp,Hp+Math.Max(0,amount));return Hp-old; }
         public int AddShield(int amount,BattleRules rules) { int old=Shield;Shield=Math.Min(rules.ShieldCap(this),Shield+Math.Max(0,amount));return Shield-old; }
         public int AddMana(int amount,BattleRules rules) { int old=Mana;Mana=Math.Min(rules.maxMana,Mana+Math.Max(0,amount));return Mana-old; }
@@ -57,6 +58,7 @@ namespace PetGemBattle
             SkillUsed=true;
             if(card==CardKind.Mana)ManaCardsUsed++;
             if(card==CardKind.Rage)RageCardsUsed++;
+            if(card==CardKind.Signature)SignatureCooldown=3;
         }
         internal void Evolve(BattleRules rules)
         {
@@ -85,6 +87,7 @@ namespace PetGemBattle
         public readonly List<BattleEvent> Events=new List<BattleEvent>();
         public int Damage,HpDamage,Absorbed,Healing,Shield,Mana,Rage;
         public int NormalAttacks,SpecialAttacks,CriticalAttacks,RageSpent,ManaSpent,HpStolen,RageStolen,ShieldStolen,DrainGroups;
+        public int PhysicalGems,EffectiveGems;
         public bool BossTransformation;
         public bool HpDrainTriggered,RageDrainTriggered,ShieldDrainTriggered,Evolved;
         public override string ToString()
@@ -92,6 +95,8 @@ namespace PetGemBattle
             var parts=new List<string>();
             if(BossTransformation)parts.Add("BOSS THỨC TỈNH");
             if(ManaSpent>0)parts.Add("Mana −"+ManaSpent);
+            if(RageSpent>0)parts.Add("Nộ −"+RageSpent);
+            if(PhysicalGems>0)parts.Add(PhysicalGems+" ô → "+EffectiveGems+" hiệu lực");
             if(SpecialAttacks>0)parts.Add("ĐẶC BIỆT");
             if(CriticalAttacks>0)parts.Add("CRITICAL! ×"+CriticalAttacks);
             if(HpDamage>0)parts.Add("-"+HpDamage+" HP");
@@ -157,31 +162,33 @@ namespace PetGemBattle
                 if(actor.Hp<=0 || target.Hp<=0)break;
                 int n=0;foreach(var cell in group.Cells)if(counted.Add(cell))n++;
                 if(n<3)continue;
+                int units=group.Units;
+                report.PhysicalGems+=n;report.EffectiveGems+=units;
                 var before=BattleEvent.Capture(actor,target);
-                int bonus=rules.GroupRageBonus(n);
+                int bonus=rules.GroupRageBonus(units);
                 if(!(swordRagePrepaid && group.Kind==GemKind.Sword))report.Rage+=actor.AddRage(bonus,rules);
                 int eventStart=report.Events.Count;
                 switch(group.Kind)
                 {
                     case GemKind.Sword:
                         if(random==null)throw new ArgumentNullException(nameof(random),"Sword resolution requires the battle's seeded RNG.");
-                        if(!swordRagePrepaid)report.Rage+=actor.AddRage(rules.swordBaseRage+rules.swordExtraRage*(n-3),rules);
+                        if(!swordRagePrepaid)report.Rage+=actor.AddRage(rules.swordBaseRage+rules.swordExtraRage*(units-3),rules);
                         bool special=actor.Rage>=rules.specialRageCost && actor.Mana>=rules.specialManaCost;
                         if(special)report.SpecialAttacks++;else report.NormalAttacks++;
                         double roll=random.Next();
-                        bool critical=roll<rules.CriticalChance(actor,n);
+                        bool critical=roll<rules.CriticalChance(actor,units);
                         if(critical)report.CriticalAttacks++;
-                        Deal(target,SwordDamage(actor,target,n,wave,rules,special,critical,completedRounds),report);
+                        Deal(target,SwordDamage(actor,target,units,wave,rules,special,critical,completedRounds),report);
                         if(special){report.RageSpent+=actor.RemoveRage(rules.specialRageCost);report.ManaSpent+=actor.RemoveMana(rules.specialManaCost);}
                         report.Events.Add(BattleEvent.Attack(group.Kind,n,wave,before,actor,target,roll,special,critical));
                         break;
                     case GemKind.Heart:
-                        int heal=Math.Min(BattleMath.Round(actor.MaxHp*(rules.healBasePercent+rules.healExtraPercent*(n-3))*combo),BattleMath.Round(actor.MaxHp*rules.maxHealPercent));
+                        int heal=Math.Min(BattleMath.Round(actor.MaxHp*(rules.healBasePercent+rules.healExtraPercent*(units-3))*combo),BattleMath.Round(actor.MaxHp*rules.maxHealPercent));
                         report.Healing+=actor.Heal(heal);break;
                     case GemKind.Shield:
-                        report.Shield+=actor.AddShield(BattleMath.Round(actor.MaxHp*(rules.shieldBasePercent+rules.shieldExtraPercent*(n-3))*combo),rules);break;
-                    case GemKind.Mana:report.Mana+=actor.AddMana(BattleMath.Round(rules.manaPerGem*n*combo),rules);break;
-                    case GemKind.Rage:report.Rage+=actor.AddRage(BattleMath.Round(rules.ragePerGem*n*combo),rules);break;
+                        report.Shield+=actor.AddShield(BattleMath.Round(actor.MaxHp*(rules.shieldBasePercent+rules.shieldExtraPercent*(units-3))*combo),rules);break;
+                    case GemKind.Mana:report.Mana+=actor.AddMana(BattleMath.Round(rules.manaPerGem*units*combo),rules);break;
+                    case GemKind.Rage:report.Rage+=actor.AddRage(BattleMath.Round(rules.ragePerGem*units*combo),rules);break;
                     case GemKind.Drain:
                         if(random==null)throw new ArgumentNullException(nameof(random),"Drain resolution requires the battle's seeded RNG.");
                         Drain(actor,target,n,combo,rules,random,report);break;

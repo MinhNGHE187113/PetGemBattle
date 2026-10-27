@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: 396c1730f265a6f48b232aae97ae2ed4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8551063337365644272
+    second: 006_wood-6_form-1_0
+  - first:
+      213: 3788062577225873457
+    second: 006_wood-6_form-1_1
+  - first:
+      213: 6230783809288916044
+    second: 006_wood-6_form-1_2
+  - first:
+      213: -3732437926422443110
+    second: 006_wood-6_form-1_3
+  - first:
+      213: -6279087605756080064
+    second: 006_wood-6_form-1_4
+  - first:
+      213: 5807412615537690712
+    second: 006_wood-6_form-1_5
+  - first:
+      213: 4706447285529631157
+    second: 006_wood-6_form-1_6
+  - first:
+      213: -2668782244853015175
+    second: 006_wood-6_form-1_7
+  - first:
+      213: -5111812290216537084
+    second: 006_wood-6_form-1_8
+  - first:
+      213: 6710753434762350358
+    second: 006_wood-6_form-1_9
+  - first:
+      213: -5311476147527999618
+    second: 006_wood-6_form-1_10
+  - first:
+      213: -5040521475226215289
+    second: 006_wood-6_form-1_11
+  - first:
+      213: -1039703721829220238
+    second: 006_wood-6_form-1_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 749
+        width: 77
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f3ab83ccca7ba670800000000000000
+      internalID: 8551063337365644272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_1
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 765
+        width: 20
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 138bf7e08d6e19430800000000000000
+      internalID: 3788062577225873457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_2
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 802
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ccbe8ccd0387650800000000000000
+      internalID: 6230783809288916044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_3
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 787
+        width: 25
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9b05613b77b33cc0800000000000000
+      internalID: -3732437926422443110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_4
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 815
+        width: 70
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040d95137133cd8a0800000000000000
+      internalID: -6279087605756080064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_5
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 771
+        width: 144
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8580f3d3103189050800000000000000
+      internalID: 5807412615537690712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_6
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 763
+        width: 34
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b95810ded8a05140800000000000000
+      internalID: 4706447285529631157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_7
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 766
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97d9aa820b496fad0800000000000000
+      internalID: -2668782244853015175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_8
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 23
+        width: 637
+        height: 737
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 404da2b3ec13f09b0800000000000000
+      internalID: -5111812290216537084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_9
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 708
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61f0e3e91b2612d50800000000000000
+      internalID: 6710753434762350358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_10
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 442
+        width: 69
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7f12a1d598d946b0800000000000000
+      internalID: -5311476147527999618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_11
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 315
+        width: 30
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78cd9629c687c0ab0800000000000000
+      internalID: -5040521475226215289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 006_wood-6_form-1_12
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 472
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 270c7bc39fa3291f0800000000000000
+      internalID: -1039703721829220238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      006_wood-6_form-1_0: 8551063337365644272
+      006_wood-6_form-1_1: 3788062577225873457
+      006_wood-6_form-1_10: -5311476147527999618
+      006_wood-6_form-1_11: -5040521475226215289
+      006_wood-6_form-1_12: -1039703721829220238
+      006_wood-6_form-1_2: 6230783809288916044
+      006_wood-6_form-1_3: -3732437926422443110
+      006_wood-6_form-1_4: -6279087605756080064
+      006_wood-6_form-1_5: 5807412615537690712
+      006_wood-6_form-1_6: 4706447285529631157
+      006_wood-6_form-1_7: -2668782244853015175
+      006_wood-6_form-1_8: -5111812290216537084
+      006_wood-6_form-1_9: 6710753434762350358
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

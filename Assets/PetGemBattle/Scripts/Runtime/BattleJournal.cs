@@ -8,20 +8,20 @@ namespace PetGemBattle
     [Serializable]
     public sealed class BattleJournal
     {
-        public int version=1,seed;
+        public int version=2,seed;
         public string balance;
         public List<Entry> entries=new List<Entry>();
         [Serializable] public sealed class Entry
         {
             public string command;
             public int turn;
-            public int[] board,stats;
+            public int[] board,gemMultipliers,stats;
             public List<BattleEvent> events;
             public List<double> rolls;
         }
         public void Record(string command,int turn,MatchBoard board,PetState player,PetState enemy,BattleReport report=null,List<double> rolls=null)
         {
-            entries.Add(new Entry {command=command,turn=turn,board=board.Snapshot(),stats=BattleEvent.Capture(player,enemy),
+            entries.Add(new Entry {command=command,turn=turn,board=board.Snapshot(),gemMultipliers=board.MultiplierSnapshot(),stats=BattleEvent.Capture(player,enemy),
                 events=report==null ? new List<BattleEvent>() : new List<BattleEvent>(report.Events),rolls=rolls==null ? new List<double>() : new List<double>(rolls)});
         }
         public string Save()

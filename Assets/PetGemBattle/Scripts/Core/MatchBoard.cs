@@ -20,6 +20,9 @@ namespace PetGemBattle
     {
         public GemKind Kind;
         public readonly HashSet<Cell> Cells = new HashSet<Cell>();
+        public int EffectiveCount;
+        public int PhysicalCount => Cells.Count;
+        public int Units => EffectiveCount > 0 ? EffectiveCount : Cells.Count;
     }
     public readonly struct GemFall
     {
@@ -33,9 +36,13 @@ namespace PetGemBattle
     {
         public const int Size = BattleRules.BoardSize;
         private readonly int[,] cells = new int[Size, Size];
+        private readonly byte[,] bonuses = new byte[Size, Size];
         private readonly Random random;
+        private readonly Random bonusRandom;
         public int this[int x, int y] => cells[x, y];
-        public MatchBoard(int seed) { random = new Random(seed); GeneratePlayable(); }
+        public int Multiplier(int x,int y) => bonuses[x,y] == 0 ? 1 : bonuses[x,y];
+        public MatchBoard(int seed) { random = new Random(seed); bonusRandom=new Random(seed ^ 0x53A91); GeneratePlayable(); }
+        private byte RollBonus(){double roll=bonusRandom.NextDouble();return roll<.895 ? (byte)1 : roll<.975 ? (byte)2 : roll<.995 ? (byte)3 : (byte)4;}
         public static bool Inside(Cell c) => c.X >= 0 && c.X < Size && c.Y >= 0 && c.Y < Size;
         public static bool Adjacent(Cell a, Cell b) => Inside(a) && Inside(b) && Math.Abs(a.X-b.X) + Math.Abs(a.Y-b.Y) == 1;
         public void Swap(BoardMove move)
@@ -43,6 +50,7 @@ namespace PetGemBattle
             int old = cells[move.A.X, move.A.Y];
             cells[move.A.X, move.A.Y] = cells[move.B.X, move.B.Y];
             cells[move.B.X, move.B.Y] = old;
+            byte boost=bonuses[move.A.X,move.A.Y];bonuses[move.A.X,move.A.Y]=bonuses[move.B.X,move.B.Y];bonuses[move.B.X,move.B.Y]=boost;
         }
         public bool TrySwap(BoardMove move)
         {
@@ -107,6 +115,7 @@ namespace PetGemBattle
                         groups.RemoveAt(j);
                         j = i; // Restart because the union may now intersect an earlier run.
                     }
+            foreach(var group in groups)foreach(var cell in group.Cells)group.EffectiveCount+=Multiplier(cell.X,cell.Y);
             return groups;
         }
         private static bool Connected(MatchGroup a,MatchGroup b)
@@ -119,7 +128,7 @@ namespace PetGemBattle
         public List<GemFall> ClearAndRefill(List<MatchGroup> groups)
         {
             foreach (var group in groups)
-                foreach (var c in group.Cells) cells[c.X,c.Y] = -1;
+                foreach (var c in group.Cells){cells[c.X,c.Y] = -1;bonuses[c.X,c.Y]=0;}
             var falls = new List<GemFall>();
             for (int x = 0; x < Size; x++)
             {
@@ -128,6 +137,7 @@ namespace PetGemBattle
                     if (cells[x,y] >= 0)
                     {
                         cells[x,target] = cells[x,y];
+                        bonuses[x,target] = bonuses[x,y];
                         falls.Add(new GemFall(new Cell(x,target), y));
                         target++;
                     }
@@ -135,6 +145,7 @@ namespace PetGemBattle
                 while (target < Size)
                 {
                     cells[x,target] = random.Next(BattleRules.GemKinds);
+                    bonuses[x,target] = RollBonus();
                     falls.Add(new GemFall(new Cell(x,target++), spawn++));
                 }
             }
@@ -152,6 +163,7 @@ namespace PetGemBattle
                         while ((x >= 2 && cells[x-1,y] == kind && cells[x-2,y] == kind) ||
                                (y >= 2 && cells[x,y-1] == kind && cells[x,y-2] == kind));
                         cells[x,y] = kind;
+                        bonuses[x,y] = RollBonus();
                     }
             } while (LegalMoves().Count == 0);
         }
@@ -159,11 +171,12 @@ namespace PetGemBattle
         {
             // Preserve the multiset when possible; pathological boards get a fresh deal.
             var values = Snapshot();
+            var boosts = MultiplierSnapshot();
             for (int attempt = 0; attempt < 200; attempt++)
             {
                 for (int i = values.Length-1; i > 0; i--)
-                { int j = random.Next(i+1); int v = values[i]; values[i] = values[j]; values[j] = v; }
-                Load(values);
+                { int j = random.Next(i+1); int v = values[i]; values[i] = values[j]; values[j] = v; int b=boosts[i];boosts[i]=boosts[j];boosts[j]=b; }
+                Load(values,boosts);
                 if (FindMatches().Count == 0 && LegalMoves().Count > 0) return;
             }
             GeneratePlayable();
@@ -174,12 +187,25 @@ namespace PetGemBattle
             for (int y=0; y<Size; y++) for (int x=0; x<Size; x++) values[y*Size+x]=cells[x,y];
             return values;
         }
+        public int[] MultiplierSnapshot()
+        {
+            var values=new int[Size*Size];
+            for(int y=0;y<Size;y++)for(int x=0;x<Size;x++)values[y*Size+x]=Multiplier(x,y);
+            return values;
+        }
         public void Load(int[] values)
         {
+            var boosts=new int[Size*Size];for(int i=0;i<boosts.Length;i++)boosts[i]=1;
+            Load(values,boosts);
+        }
+        public void Load(int[] values,int[] boosts)
+        {
             if (values == null || values.Length != Size*Size) throw new ArgumentException("Board requires 64 cells.");
+            if (boosts == null || boosts.Length != Size*Size) throw new ArgumentException("Board requires 64 multipliers.");
             for (int i=0; i<values.Length; i++)
                 if (values[i] < 0 || values[i] >= BattleRules.GemKinds) throw new ArgumentException("Unknown gem.");
-            for (int y=0; y<Size; y++) for (int x=0; x<Size; x++) cells[x,y]=values[y*Size+x];
+            for (int i=0; i<boosts.Length; i++)if(boosts[i]<1 || boosts[i]>4)throw new ArgumentException("Unknown multiplier.");
+            for (int y=0; y<Size; y++) for (int x=0; x<Size; x++){cells[x,y]=values[y*Size+x];bonuses[x,y]=(byte)boosts[y*Size+x];}
         }
     }
 }

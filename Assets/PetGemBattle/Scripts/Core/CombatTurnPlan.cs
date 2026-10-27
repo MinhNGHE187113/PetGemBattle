@@ -7,7 +7,7 @@ namespace PetGemBattle
     public sealed class CollectedGroup
     {
         public MatchGroup Group;public int Wave;
-        public CollectedGroup(MatchGroup group,int wave){Group=new MatchGroup{Kind=group.Kind};Group.Cells.UnionWith(group.Cells);Wave=wave;}
+        public CollectedGroup(MatchGroup group,int wave){Group=new MatchGroup{Kind=group.Kind,EffectiveCount=group.Units};Group.Cells.UnionWith(group.Cells);Wave=wave;}
     }
     public sealed class CombatStep
     {
@@ -25,7 +25,7 @@ namespace PetGemBattle
                 var report=BattleCombat.ApplyMatches(a,b,new List<MatchGroup>{item.Group},item.Wave,rules,random,completedRounds);Add(result,a,b,report,item.Wave);
             }
             // Prepay all sword rage before any attacks, then spend 60 separately for each special.
-            int gained=0;foreach(var item in groups.Where(g=>g.Group.Kind==GemKind.Sword))gained+=a.AddRage(rules.swordBaseRage+rules.swordExtraRage*(item.Group.Cells.Count-3)+rules.GroupRageBonus(item.Group.Cells.Count),rules);
+            int gained=0;foreach(var item in groups.Where(g=>g.Group.Kind==GemKind.Sword))gained+=a.AddRage(rules.swordBaseRage+rules.swordExtraRage*(item.Group.Units-3)+rules.GroupRageBonus(item.Group.Units),rules);
             if(gained>0)Add(result,a,b,new BattleReport{Rage=gained},1);
             foreach(var item in groups.Where(g=>g.Group.Kind==GemKind.Drain).Concat(groups.Where(g=>g.Group.Kind==GemKind.Sword)))
             {

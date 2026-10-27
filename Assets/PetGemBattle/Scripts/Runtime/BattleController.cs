@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace PetGemBattle
 {
@@ -45,9 +46,9 @@ namespace PetGemBattle
             Board=new MatchBoard(battleSeed);combatRandom=new RecordingBattleRandom(battleSeed^0x51A7D);aiRandom=new SeededBattleRandom(battleSeed^0x3A91);
             Journal=new BattleJournal{seed=battleSeed,balance=JsonUtility.ToJson(rules)};
             Player=new PetState(rules.player);Enemy=new PetState(rules.enemy);
-            selected=null;playerTurn=rules.player.speed>=rules.enemy.speed;Presentation=PresentationPhase.Selecting;Turn=1;CompletedRounds=0;MatchResult=BattleResult.Ongoing;RemainingSeconds=rules.turnSeconds;Phase=TurnPhase.PlayerInput;
+            selected=null;playerTurn=true;Presentation=PresentationPhase.Selecting;Turn=1;CompletedRounds=0;MatchResult=BattleResult.Ongoing;RemainingSeconds=rules.turnSeconds;Phase=TurnPhase.PlayerInput;
             Journal.Record("Start",Turn,Board,Player,Enemy);
-            Player.BeginTurn();view.HideResult();view.DrawBoard(Board);view.SetDetail("Ghép kiếm để tích Nộ. Dùng thẻ tiến hóa khi đủ Mana.");
+            Player.BeginTurn();view.HideResult();view.HideRhythm(null);view.DrawBoard(Board);view.SetDetail("Ghép kiếm để tích Nộ. Dùng thẻ tiến hóa khi đủ Mana.");
             view.Say("Chọn một thẻ hoặc bắt đầu xếp ngọc.");Refresh();
             if(!playerTurn){Enemy.BeginTurn();Phase=TurnPhase.AIThinking;Refresh();StartCoroutine(AITurn());}
         }
@@ -79,7 +80,7 @@ namespace PetGemBattle
         }
         public void UseCard(int index)
         {
-            if(IsPaused || Phase!=TurnPhase.PlayerInput || index<0 || index>2 || !CardSystem.CanUse(Player,(CardKind)index,rules))return;
+            if(IsPaused || Phase!=TurnPhase.PlayerInput || index<0 || index>3 || !CardSystem.CanUse(Player,(CardKind)index,rules))return;
             Phase=TurnPhase.Resolving;selected=null;view.Select(null);Refresh();StartCoroutine(PlayerCard((CardKind)index));
         }
         private IEnumerator PlayerCard(CardKind card)
@@ -90,11 +91,66 @@ namespace PetGemBattle
         }
         private IEnumerator CastCard(PetState actor,CardKind card)
         {
-            var report=CardSystem.Use(actor,card,rules);if(report==null)yield break;
+            float rhythm=1;string grade=null;
+            if(card==CardKind.Signature && actor==Player && actor.Definition.rarity==PetRarity.SS)
+                yield return LegendaryRhythm((value,label)=>{rhythm=value;grade=label;});
+            var target=actor==Player ? Enemy : Player;
+            var report=CardSystem.Use(actor,card,rules,target,rhythm,CompletedRounds);if(report==null)yield break;
             Journal.Record("UseCard "+card,Turn,Board,Player,Enemy,report);
-            string title=card==CardKind.Mana ? "Tiếp Mana" : card==CardKind.Rage ? "Khơi Nộ" : "Tiến Hóa";
+            string title=card==CardKind.Mana ? "Tiếp Mana" : card==CardKind.Rage ? "Khơi Nộ" : card==CardKind.Signature ? actor.Definition.signatureName : "Tiến Hóa";
+            if(grade!=null)view.HideRhythm(grade);
             view.Say((playerTurn ? "Bạn" : "Đối thủ")+" dùng "+title);view.SetDetail(report.ToString());Refresh();
             yield return view.AnimateEffect(playerTurn,report,report.Evolved ? rules.evolutionSeconds : rules.effectSeconds);
+        }
+        private IEnumerator LegendaryRhythm(Action<float,string> done)
+        {
+            const string arrows="↑↓←→";
+            int length=4+Mathf.FloorToInt((float)aiRandom.Next()*3);
+            var pattern=new int[length];var signs=new string[length];
+            for(int i=0;i<length;i++){pattern[i]=Mathf.Clamp(Mathf.FloorToInt((float)aiRandom.Next()*4),0,3);signs[i]=arrows[pattern[i]].ToString();}
+            string sequence=string.Join(" ",signs);
+            view.ShowRhythm(Player.Definition.signatureName,sequence,0,false);
+            float intro=0;while(intro<.7f){if(!IsPaused)intro+=Time.unscaledDeltaTime;yield return null;}
+            float inputTime=0;int entered=0;bool wrong=false;
+            while(inputTime<6f && entered<length && !wrong)
+            {
+                if(!IsPaused)
+                {
+                    inputTime+=Time.unscaledDeltaTime;
+                    int pressed=ReadArrow();
+                    if(pressed>=0){if(pressed!=pattern[entered])wrong=true;else entered++;view.ShowRhythm(Player.Definition.signatureName,sequence,entered,false);}
+                }
+                yield return null;
+            }
+            if(wrong || entered<length){done(.70f,"MISS · ×0,70");yield break;}
+            float timing=0;const float target=1.17f;
+            while(timing<1.8f)
+            {
+                if(!IsPaused)
+                {
+                    timing+=Time.unscaledDeltaTime;
+                    view.ShowRhythm(Player.Definition.signatureName,sequence,entered,true,Mathf.Clamp01(timing/1.8f));
+                    if(Keyboard.current!=null && Keyboard.current.spaceKey.wasPressedThisFrame)
+                    {
+                        float offset=Mathf.Abs(timing-target);
+                        if(offset<=.08f)done(1.50f,"PERFECT · ×1,50");
+                        else if(offset<=.25f)done(1.15f,"GOOD · ×1,15");
+                        else done(.70f,"MISS · ×0,70");
+                        yield break;
+                    }
+                }
+                yield return null;
+            }
+            done(.70f,"MISS · ×0,70");
+        }
+        private static int ReadArrow()
+        {
+            var keys=Keyboard.current;if(keys==null)return -1;
+            if(keys.upArrowKey.wasPressedThisFrame)return 0;
+            if(keys.downArrowKey.wasPressedThisFrame)return 1;
+            if(keys.leftArrowKey.wasPressedThisFrame)return 2;
+            if(keys.rightArrowKey.wasPressedThisFrame)return 3;
+            return -1;
         }
         private IEnumerator ResolveMove(BoardMove move)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 namespace PetGemBattle
 {
     public sealed partial class HomeController
@@ -30,7 +31,7 @@ namespace PetGemBattle
         }
         private bool DrawP2Screen()
         {
-            Button(root,"CÀI ĐẶT",new Vector2(-665,346),new Vector2(170,33),()=>Navigate("Settings"));
+            if(CurrentScreen!="Home" && CurrentScreen!="Pets")Button(root,"CÀI ĐẶT",new Vector2(665,396),new Vector2(170,42),()=>Navigate("Settings"));
             switch(CurrentScreen)
             {
                 case "Challenges":DrawChallenges();return true;
@@ -43,31 +44,116 @@ namespace PetGemBattle
         }
         private void DrawP2Lobby()
         {
-            var owned=Progress.Owned(Progress.Data.activePetId);var stats=catalog.Stats(owned.id,owned.level);
-            Text(content,"HÀNH TRÌNH LINH THÚ",new Vector2(0,287),new Vector2(730,55),34,new Color(1,.91f,.66f));
-            Pet(content,owned.id,new Vector2(0,20),1.18f);
-            var plaque=Glass(content,"EquippedPet",new Vector2(0,-222),new Vector2(620,116));
-            Text(plaque,stats.name,new Vector2(0,32),new Vector2(590,40),28,new Color(1,.93f,.72f));
-            Text(plaque,P1Catalog.ElementName(stats.element)+" · Bậc "+stats.rarity+" · Lv"+stats.level+"/7 · Form "+stats.permanentForm,new Vector2(0,0),new Vector2(590,35),20);
-            Text(plaque,Stats(stats),new Vector2(0,-34),new Vector2(590,32),19);
-            string[] names={"KHO PET","KHO ĐỒ","NÂNG CẤP","SÁCH PET"};string[] pages={"Pets","Bag","Upgrade","Book"};
-            for(int i=0;i<4;i++){int n=i;Button(content,names[i],new Vector2(-535,205-i*108),new Vector2(330,78),()=>{selectedPet=Progress.Data.activePetId;petPage=0;Navigate(pages[n]);});}
-            var challenge=Button(content,"KHIÊU CHIẾN\nNăm thiên đảo đang chờ",new Vector2(530,174),new Vector2(380,126),()=>Navigate("Challenges"));challenge.GetComponentInChildren<Text>().fontSize=25;
-            Button(content,"ĐẤU THỬ",new Vector2(530,32),new Vector2(330,74),()=>{practice=true;stage=1;Navigate("Prepare");});
-            Button(content,"THẺ PHÉP · HƯỚNG DẪN",new Vector2(530,-70),new Vector2(330,74),()=>Navigate("Cards"));
-            Text(content,Progress.Mode!=null && Progress.Mode.DemoFullCollection ? "DEMO OFFLINE · ĐÃ MỞ TOÀN BỘ "+Progress.Data.pets.Count+" PET" : "THU PHỤC LINH THÚ QUA CÁC ẢI",new Vector2(530,-155),new Vector2(410,70),19,new Color(.85f,.96f,.83f));
-            string[] soon={"PvP","Cửa hàng / Triệu hồi","Bang hội","Nhiệm vụ / Xếp hạng"};
-            for(int i=0;i<soon.Length;i++)Button(content,soon[i]+"\nComing Soon",new Vector2((i-1.5f)*345,-335),new Vector2(320,60),()=>{},false);
+            Action arena=()=>Navigate("Challenges");
+            Action pets=()=>{selectedPet=Progress.Data.activePetId;petPage=0;Navigate("Pets");};
+            Action upgrade=()=>{selectedPet=Progress.Data.activePetId;Navigate("Upgrade");};
+            Action book=()=>Navigate("Book");
+            Action practiceAction=()=>{practice=true;stage=1;Navigate("Prepare");};
+            Action bag=()=>Navigate("Bag");
+            Action cardsAction=()=>Navigate("Cards");
+            // The painted island itself is the visual button; keep only its label
+            // and a transparent hit target over each destination.
+            WorldHotspot("SÁCH PET",new Vector2(-520,285),new Vector2(310,165),new Color(1,.87f,.55f),book);
+            WorldHotspot("ĐẤU THỬ",new Vector2(520,285),new Vector2(310,165),new Color(.86f,.91f,1),practiceAction);
+            WorldHotspot("KHO PET",new Vector2(-545,45),new Vector2(325,195),new Color(.48f,1,.64f),pets);
+            WorldHotspot("ĐẤU TRƯỜNG",new Vector2(0,80),new Vector2(390,245),new Color(.52f,.92f,1),arena);
+            WorldHotspot("NÂNG CẤP",new Vector2(545,45),new Vector2(325,195),new Color(1,.63f,.42f),upgrade);
+            WorldHotspot("KHO ĐÁ",new Vector2(-520,-235),new Vector2(325,190),new Color(.65f,.82f,1),bag);
+            WorldHotspot("THẺ PHÉP",new Vector2(520,-235),new Vector2(325,190),new Color(.84f,.64f,1),cardsAction);
+            DrawLobbyNavbar();
+        }
+        private void DrawLobbyNavbar()
+        {
+            var bar=Panel(root,"LobbyNavbar",new Vector2(0,391),new Vector2(1510,112),Color.white);
+            bar.sprite=LobbyNavbarSkin.Bar;
+            bar.type=Image.Type.Sliced;
+            var group=bar.gameObject.AddComponent<CanvasGroup>();
+            var crest=Rect(bar.transform,"ArenaCrest",new Vector2(-655,2),new Vector2(82,82));
+            var outer=Panel(crest,"GoldDiamond",Vector2.zero,new Vector2(52,52),new Color(1,.77f,.29f));
+            outer.rectTransform.localEulerAngles=new Vector3(0,0,45);
+            var inner=Panel(crest,"SapphireDiamond",Vector2.zero,new Vector2(43,43),new Color(.02f,.19f,.45f));
+            inner.rectTransform.localEulerAngles=new Vector3(0,0,45);
+            var gem=Panel(crest,"CyanGem",Vector2.zero,new Vector2(18,42),new Color(.44f,.9f,1));
+            gem.rectTransform.localEulerAngles=new Vector3(0,0,45);
+            var glint=Panel(crest,"GemGlint",new Vector2(-4,8),new Vector2(8,22),new Color(1,1,.93f,.9f));
+            glint.rectTransform.localEulerAngles=new Vector3(0,0,45);
+            var title=Text(bar.transform,"PET ARENA",new Vector2(-450,17),new Vector2(340,46),38,new Color(1,.84f,.42f));
+            title.fontStyle=FontStyle.Bold;
+            title.alignment=TextAnchor.MiddleLeft;
+            var titleOutline=title.gameObject.AddComponent<Outline>();titleOutline.effectColor=new Color(.03f,.06f,.21f);titleOutline.effectDistance=new Vector2(2,-2);
+            var subtitle=Text(bar.transform,"THIÊN CẢNH NGŨ HÀNH",new Vector2(-450,-26),new Vector2(365,32),17,new Color(.75f,.94f,1));
+            subtitle.fontStyle=FontStyle.Bold;
+            subtitle.alignment=TextAnchor.MiddleLeft;
+            Panel(bar.transform,"GoldDivider",new Vector2(-250,0),new Vector2(2,82),new Color(1,.77f,.30f,.8f));
+            var noticePanel=Panel(bar.transform,"NavbarNotice",new Vector2(0,-91),new Vector2(370,44),new Color(.01f,.06f,.13f,0));
+            var noticeText=Text(noticePanel.transform,"",Vector2.zero,new Vector2(360,40),18,new Color(1,.92f,.60f));
+            noticeText.fontStyle=FontStyle.Bold;
+            string[] labels={"SỰ KIỆN","VÒNG QUAY","ĐIỂM DANH","NẠP LẦN ĐẦU","CÀI ĐẶT"};
+            string[] icons={"events","wheel","checkin","first-recharge","settings"};
+            for(int i=0;i<labels.Length;i++)
+            {
+                int index=i;
+                var tile=Panel(bar.transform,"Nav_"+icons[i],new Vector2(-135+i*165,0),new Vector2(142,104),new Color(1,1,1,.001f));tile.raycastTarget=true;
+                var sprite=P3ArtLibrary.NavIcon(icons[i]);
+                if(sprite!=null)
+                {
+                    var icon=P1Art.Part(tile.transform,"Logo",sprite,new Vector2(0,14),new Vector2(69,69),Color.white);
+                    icon.preserveAspect=true;icon.raycastTarget=false;
+                }
+                var caption=Text(tile.transform,labels[i],new Vector2(0,-36),new Vector2(142,28),15,Color.white);
+                caption.fontStyle=FontStyle.Bold;
+                var stroke=caption.gameObject.AddComponent<Outline>();stroke.effectColor=new Color(.01f,.04f,.11f,1);stroke.effectDistance=new Vector2(2,-2);
+                var button=tile.gameObject.AddComponent<Button>();button.targetGraphic=tile;
+                button.onClick.AddListener(()=>
+                {
+                    P2Click();
+                    if(index==4){Navigate("Settings");return;}
+                    noticePanel.color=new Color(.01f,.06f,.13f,.76f);
+                    noticeText.text=labels[index]+" · Sắp mở";
+                });
+                var nav=button.navigation;nav.mode=Navigation.Mode.None;button.navigation=nav;
+            }
+            var toggle=Panel(root,"NavbarToggle",new Vector2(713,392),new Vector2(72,72),Color.white);
+            toggle.sprite=LobbyNavbarSkin.Toggle;
+            toggle.raycastTarget=true;
+            var arrow=Panel(toggle.transform,"Arrow",Vector2.zero,new Vector2(38,38),Color.white);
+            arrow.sprite=LobbyNavbarSkin.Arrow;
+            var toggleButton=toggle.gameObject.AddComponent<Button>();toggleButton.targetGraphic=toggle;
+            var toggleMotion=toggle.gameObject.AddComponent<LobbyNavbarMotion>();
+            toggleMotion.Configure(bar.rectTransform,group,arrow.rectTransform,lobbyNavExpanded);
+            toggleButton.onClick.AddListener(()=>{P2Click();lobbyNavExpanded=!lobbyNavExpanded;toggleMotion.SetExpanded(lobbyNavExpanded);});
+            var toggleNavigation=toggleButton.navigation;toggleNavigation.mode=Navigation.Mode.None;toggleButton.navigation=toggleNavigation;
+        }
+        private void WorldHotspot(string label,Vector2 at,Vector2 size,Color accent,Action action,bool available=true,int icon=-1)
+        {
+            var hit=Panel(content,"World_"+label,at,size,new Color(1,1,1,.008f));hit.sprite=P1Art.Circle;hit.raycastTarget=true;
+            RectTransform emblem=null;
+            if(icon>=0)
+            {
+                var sprite=P3ArtLibrary.LobbyIcon(icon);
+                if(sprite!=null)
+                {
+                    var image=P1Art.Part(hit.transform,"LocationEmblem",sprite,new Vector2(0,18),new Vector2(116,116),Color.white);
+                    image.preserveAspect=true;emblem=image.rectTransform;
+                }
+            }
+            var caption=Text(hit.transform,label,new Vector2(0,-size.y*.32f),new Vector2(size.x+55,45),available ? 23 : 16,available ? Color.white : new Color(.83f,.89f,.94f));
+            var stroke=caption.gameObject.AddComponent<Outline>();stroke.effectColor=new Color(.02f,.07f,.15f,1);stroke.effectDistance=new Vector2(2,-2);
+            var button=hit.gameObject.AddComponent<Button>();button.targetGraphic=hit;button.onClick.AddListener(()=>{P2Click();Safe(action);});
+            var colors=button.colors;colors.normalColor=new Color(1,1,1,.05f);colors.highlightedColor=new Color(accent.r,accent.g,accent.b,.36f);colors.pressedColor=new Color(accent.r,accent.g,accent.b,.55f);button.colors=colors;
+            var motion=hit.gameObject.AddComponent<WorldHotspotMotion>();motion.Configure(emblem,null,accent);
         }
         private void DrawChallenges()
         {
-            Text(content,"KHIÊU CHIẾN · NGŨ HÀNH",new Vector2(0,292),new Vector2(1000,55),32,new Color(1,.92f,.72f));
+            Text(content,"QUẦN ĐẢO LINH THÚ · CHỌN ĐẢO",new Vector2(0,292),new Vector2(1100,55),32,new Color(1,.92f,.72f));
             Text(content,"Kim → Mộc → Thổ → Thủy → Hỏa → Kim  ·  Thuận +25% / ngược −15%",new Vector2(0,237),new Vector2(1400,35),18);
             for(int i=0;i<catalog.islands.Length;i++)
             {
                 int n=i;var island=catalog.islands[i];float x=(i-2)*295;var card=Glass(content,"Island_"+island.id,new Vector2(x,-12),new Vector2(277,425));
+                card.GetComponent<Image>().color=new Color(.035f,.12f,.16f,.88f);card.gameObject.GetComponent<Outline>().effectColor=P1Catalog.ElementColor(island.element);
                 Artwork(card,island.art,new Vector2(0,73),new Vector2(255,215));
-                Text(card,island.title,new Vector2(0,-64),new Vector2(265,45),27,P1Catalog.ElementColor(island.element));
+                P1Art.Part(card,"ElementBadge",P3ArtLibrary.Element(island.element),new Vector2(-102,-62),new Vector2(48,48),P1Catalog.ElementColor(island.element));
+                Text(card,island.title,new Vector2(18,-64),new Vector2(215,45),24,P1Catalog.ElementColor(island.element));
                 Text(card,island.description+"\nLv"+island.recommendedLevel+"+ · "+P1Catalog.ElementName(island.element),new Vector2(0,-121),new Vector2(255,75),18);
                 Button(card,island.playable ? "KHÁM PHÁ · 7 ẢI" : "XEM TRƯỚC",new Vector2(0,-182),new Vector2(250,45),()=>{islandIndex=n;Navigate(island.playable ? "Island" : "IslandPreview");});
             }
@@ -102,16 +188,24 @@ namespace PetGemBattle
         }
         private void DrawP2Collection(bool book=false)
         {
-            Button(content,"Hệ: "+(elementFilter<0 ? "Tất cả" : P1Catalog.ElementName((Element)elementFilter)),new Vector2(-540,290),new Vector2(240,42),()=>{elementFilter=(elementFilter+2)%6-1;petPage=0;Render();});
-            Button(content,"Bậc: "+(rarityFilter<0 ? "Tất cả" : ((PetRarity)rarityFilter).ToString()),new Vector2(-270,290),new Vector2(240,42),()=>{rarityFilter=(rarityFilter+2)%7-1;petPage=0;Render();});
-            Button(content,"Sắp xếp: "+sort,new Vector2(0,290),new Vector2(240,42),()=>{string[] sorts={"Lv","Bậc","HP","ATK","SPD"};sort=sorts[(Array.IndexOf(sorts,sort)+1)%5];Render();});
-            Button(content,"Lv: "+(levelFilter==0 ? "Tất cả" : levelFilter.ToString()),new Vector2(270,290),new Vector2(240,42),()=>{levelFilter=(levelFilter+1)%8;petPage=0;Render();});
-            Button(content,"Form: "+new[]{"Tất cả","Gốc","Đã tiến hóa"}[formFilter],new Vector2(540,290),new Vector2(240,42),()=>{formFilter=(formFilter+1)%3;petPage=0;Render();});
+            if(!book){DrawPetCollection();return;}
+            string[] elements={"Tất cả","Kim","Mộc","Thủy","Hỏa","Thổ"};
+            string[] rarities={"Tất cả","C","B","A","S","SS","SSS"};
+            string[] sorts={"Lv","Bậc","HP","ATK"};
+            string[] levels={"Tất cả","1","2","3","4","5","6","7"};
+            string[] forms={"Tất cả","Gốc","Đã tiến hóa"};
+            Panel(content,"FilterBackdrop",new Vector2(0,290),new Vector2(1490,62),new Color(.01f,.07f,.11f,.54f));
+            DropFilter("Hệ",elements,elementFilter+1,new Vector2(-560,290),i=>{elementFilter=i-1;petPage=0;Render();});
+            DropFilter("Bậc",rarities,rarityFilter+1,new Vector2(-325,290),i=>{rarityFilter=i-1;petPage=0;Render();});
+            DropFilter("Sắp xếp",sorts,Array.IndexOf(sorts,sort),new Vector2(-90,290),i=>{sort=sorts[i];Render();});
+            DropFilter("Lv",levels,levelFilter,new Vector2(145,290),i=>{levelFilter=i;petPage=0;Render();});
+            DropFilter("Form",forms,formFilter,new Vector2(380,290),i=>{formFilter=i;petPage=0;Render();});
+            Button(content,"XÓA LỌC",new Vector2(620,290),new Vector2(170,42),()=>{elementFilter=rarityFilter=-1;levelFilter=formFilter=petPage=0;sort="Lv";Render();});
             var owned=Progress.Filter(elementFilter,rarityFilter,sort).Where(p=>(levelFilter==0||p.level==levelFilter) && (formFilter==0 || (catalog.Forms(p.id,p.level).Length>0)==(formFilter==2))).ToArray();
             var bookPets=catalog.pets.Where(p=>(elementFilter<0 || (int)p.element==elementFilter) && (rarityFilter<0 || (int)p.rarity==rarityFilter))
                 .Select(p=>catalog.Stats(p.id,Progress.Owned(p.id)?.level??1))
                 .Where(p=>(levelFilter==0 || p.level==levelFilter) && (formFilter==0 || (p.permanentForm>0)==(formFilter==2)))
-                .OrderByDescending(p=>sort=="Bậc" ? (int)p.rarity : sort=="HP" ? p.maxHp : sort=="ATK" ? p.attack : sort=="SPD" ? p.speed : p.level).ThenBy(p=>p.id);
+                .OrderByDescending(p=>sort=="Bậc" ? (int)p.rarity : sort=="HP" ? p.maxHp : sort=="ATK" ? p.attack : p.level).ThenBy(p=>p.id);
             var ids=book ? bookPets.Select(p=>p.id).ToArray() : owned.Select(p=>p.id).ToArray();
             int pages=Math.Max(1,(ids.Length+7)/8);petPage=Math.Min(petPage,pages-1);
             for(int slot=0;slot<8 && petPage*8+slot<ids.Length;slot++)
@@ -127,35 +221,76 @@ namespace PetGemBattle
             Button(content,"‹ TRƯỚC",new Vector2(-510,-310),new Vector2(210,43),()=>{petPage--;Render();},petPage>0);
             Button(content,"TIẾP ›",new Vector2(510,-310),new Vector2(210,43),()=>{petPage++;Render();},petPage+1<pages);
         }
+        private void DropFilter(string title,string[] options,int selected,Vector2 at,Action<int> choose)
+        {
+            selected=Mathf.Clamp(selected,0,options.Length-1);
+            Button(content,title+": "+options[selected]+"  ▾",at,new Vector2(220,42),()=>ShowDropFilter(title,options,at,choose));
+        }
+        private void ShowDropFilter(string title,string[] options,Vector2 at,Action<int> choose)
+        {
+            var blocker=Panel(root,"DropdownBlocker",Vector2.zero,new Vector2(1600,900),new Color(.01f,.04f,.09f,.33f));blocker.raycastTarget=true;
+            var close=blocker.gameObject.AddComponent<Button>();close.targetGraphic=blocker;close.onClick.AddListener(()=>Destroy(blocker.gameObject));
+            var popup=Glass(root,"Dropdown_"+title,new Vector2(at.x,at.y-15-options.Length*22),new Vector2(236,options.Length*44+12));
+            popup.SetAsLastSibling();
+            for(int i=0;i<options.Length;i++)
+            {
+                int index=i;
+                Button(popup,options[i],new Vector2(0,(options.Length-1)*22-i*44),new Vector2(218,40),()=>choose(index));
+            }
+        }
         private void DrawP2Detail()
         {
             var owned=Progress.Owned(selectedPet);int level=previewEvolution ? 7 : owned.level;var p=catalog.Stats(selectedPet,level);var species=catalog.Pet(selectedPet);
             Pet(content,selectedPet,new Vector2(-390,20),1.3f,false,level);
-            var panel=Glass(content,"DetailInfo",new Vector2(280,10),new Vector2(840,580));
-            Text(panel,p.name,new Vector2(0,227),new Vector2(800,65),30,new Color(1,.92f,.72f));
-            Text(panel,species.rarity+" · "+P1Catalog.ElementName(p.element)+" · Lv"+level+" · Form "+p.permanentForm+"\n"+species.description+"\n\n"+Stats(p)+"\nChí mạng "+Mathf.RoundToInt(p.baseCritChance*100)+"%",new Vector2(0,65),new Vector2(790,230),23);
+            var panel=CollectionFrame(content,"DetailInfo",new Vector2(280,10),new Vector2(840,580),.96f).rectTransform;
+            CollectionText(panel,p.name,new Vector2(0,232),new Vector2(790,58),30,new Color(1,.92f,.72f));
+            CollectionText(panel,species.rarity+" · "+P1Catalog.ElementName(p.element)+" · Lv"+level+" · Form "+p.permanentForm,
+                new Vector2(0,183),new Vector2(790,40),20,new Color(.8f,.94f,1));
+            Text(panel,species.description,new Vector2(0,131),new Vector2(790,62),20);
+            CollectionText(panel,Stats(p)+"   ·   Chí mạng "+Mathf.RoundToInt(p.baseCritChance*100)+"%",
+                new Vector2(0,67),new Vector2(790,48),22,new Color(.75f,1,.84f));
+            CollectionText(panel,p.signatureName,new Vector2(0,5),new Vector2(790,42),23,new Color(1,.82f,.49f));
+            Text(panel,p.signatureDescription,new Vector2(0,-40),new Vector2(790,50),18);
+            Text(panel,"Tốn "+p.signatureManaCost+" mana  ·  "+p.signatureRageCost+" nộ",
+                new Vector2(0,-82),new Vector2(790,35),18,new Color(.74f,.92f,1));
             string milestones=species.forms==null || species.forms.Length==0 ? "Loài này không đổi form theo Lv." : string.Join(" · ",species.forms.Select(f=>"Lv"+f.minLevel+": "+f.displayName));
-            Text(panel,milestones,new Vector2(0,-100),new Vector2(790,75),19,new Color(.73f,.95f,.78f));
-            Button(panel,previewEvolution ? "XEM FORM ĐANG SỞ HỮU" : "XEM TRƯỚC LV7 / FORM",new Vector2(0,-178),new Vector2(720,44),()=>{previewEvolution=!previewEvolution;Render();});
-            Button(content,"XUẤT CHIẾN",new Vector2(-230,-320),new Vector2(330,55),()=>{Progress.Select(selectedPet);Home();});
-            Button(content,"NÂNG CẤP",new Vector2(230,-320),new Vector2(330,55),()=>Navigate("Upgrade"));
+            Text(panel,milestones,new Vector2(0,-140),new Vector2(790,45),18,new Color(.73f,.95f,.78f));
+            CollectionButton(panel,previewEvolution ? "XEM FORM ĐANG SỞ HỮU" : "XEM TRƯỚC LV7 / FORM",
+                new Vector2(0,-222),new Vector2(690,48),()=>{previewEvolution=!previewEvolution;Render();},
+                species.forms!=null && species.forms.Length>0 && owned.level<catalog.maxLevel);
+            bool active=Progress.Data.activePetId==selectedPet;
+            CollectionButton(content,active ? "ĐANG XUẤT CHIẾN" : "XUẤT CHIẾN",new Vector2(-230,-320),new Vector2(330,55),
+                ()=>{Progress.Select(selectedPet);Home();},!active,new Color(.48f,1,.8f));
+            CollectionButton(content,"NÂNG CẤP",new Vector2(230,-320),new Vector2(330,55),()=>Navigate("Upgrade"),true,new Color(1,.76f,.38f));
         }
         private void DrawP2Upgrade()
         {
             var owned=Progress.Owned(selectedPet);int next=Math.Min(7,owned.level+1);var before=catalog.Stats(selectedPet,owned.level);var after=catalog.Stats(selectedPet,next);bool evolution=before.permanentForm!=after.permanentForm,max=owned.level>=7;
-            var left=Glass(content,"UpgradePortrait",new Vector2(-410,15),new Vector2(620,600));
+            var species=catalog.Pet(selectedPet);
+            var upcomingForm=species.forms==null ? null : species.forms.OrderBy(f=>f.minLevel).FirstOrDefault(f=>f.minLevel>owned.level);
+            bool finalForm=species.forms!=null && species.forms.Length>0 && upcomingForm==null;
+            var left=CollectionFrame(content,"UpgradePortrait",new Vector2(-410,15),new Vector2(620,600),.96f).rectTransform;
             Text(left,before.name,new Vector2(0,252),new Vector2(590,62),27,new Color(1,.92f,.73f));
-            Pet(left,selectedPet,new Vector2(evolution ? -110 : 0,0),evolution ? .8f : 1.0f,false,owned.level);
-            if(evolution){Pet(left,selectedPet,new Vector2(150,27),.85f,false,next);Text(left,"FORM HIỆN TẠI    →    "+after.name,new Vector2(0,-173),new Vector2(590,65),17,new Color(.7f,1,.82f));}
+            Pet(left,selectedPet,new Vector2(upcomingForm!=null ? -145 : 0,0),upcomingForm!=null ? .72f : 1.0f,false,owned.level);
+            if(upcomingForm!=null)
+            {
+                Pet(left,selectedPet,new Vector2(151,20),.76f,false,upcomingForm.minLevel);
+                Text(left,"HIỆN TẠI  →  "+upcomingForm.displayName+" (Lv"+upcomingForm.minLevel+")",new Vector2(0,-173),new Vector2(590,65),17,new Color(.7f,1,.82f));
+            }
+            else if(finalForm)Text(left,"ĐÃ TIẾN HÓA TỐI ĐA",new Vector2(0,-173),new Vector2(590,65),21,new Color(1,.87f,.54f));
+            else Text(left,"KHÔNG CÓ HÌNH THÁI TIẾN HÓA",new Vector2(0,-173),new Vector2(590,65),17,new Color(.7f,1,.82f));
             for(int lv=1;lv<=7;lv++){var dot=P1Art.Part(left,"Level_"+lv,P1Art.Circle,new Vector2((lv-4)*73,-230),new Vector2(48,48),lv<=owned.level ? new Color(.8f,.76f,.4f) : new Color(.16f,.31f,.31f));Text(dot.transform,lv.ToString(),Vector2.zero,new Vector2(40,40),19);}
-            var info=Glass(content,"UpgradeNumbers",new Vector2(335,15),new Vector2(760,600));
+            var info=CollectionFrame(content,"UpgradeNumbers",new Vector2(335,15),new Vector2(760,600),.96f).rectTransform;
             Text(info,max ? "ĐÃ ĐẠT LV7" : "LV"+owned.level+" → LV"+next,new Vector2(0,245),new Vector2(700,55),31);
-            Text(info,"HP    "+before.maxHp+" → "+after.maxHp+"   (+"+(after.maxHp-before.maxHp)+")\nATK  "+before.attack+" → "+after.attack+"   (+"+(after.attack-before.attack)+")\nDEF  "+before.defense+" → "+after.defense+"   (+"+(after.defense-before.defense)+")\nSPD  "+before.speed+" → "+after.speed+"   (+"+(after.speed-before.speed)+")",new Vector2(0,99),new Vector2(710,206),27,new Color(.69f,.98f,.76f));
+            Text(info,max ? "HP  "+before.maxHp+"    ATK  "+before.attack+"    DEF  "+before.defense+"\nĐã đạt cấp độ tối đa." :
+                "HP    "+before.maxHp+" → "+after.maxHp+"   (+"+(after.maxHp-before.maxHp)+")\nATK  "+before.attack+" → "+after.attack+"   (+"+(after.attack-before.attack)+")\nDEF  "+before.defense+" → "+after.defense+"   (+"+(after.defense-before.defense)+")",new Vector2(0,99),new Vector2(710,160),27,new Color(.69f,.98f,.76f));
             StoneArtwork(info,before.element,next,new Vector2(-240,-80),new Vector2(105,100));
             int count=Progress.StoneCount(before.element,next);string required="Đá "+P1Catalog.ElementName(before.element)+" Lv"+next;
             Text(info,max ? "Không tiêu thêm đá" : "Cần 1 "+required+"\nĐang có "+count,new Vector2(70,-80),new Vector2(490,80),21);
+            Text(info,finalForm ? "ĐÃ TIẾN HÓA TỐI ĐA" : upcomingForm!=null ? "Hình thái kế tiếp mở tại Lv"+upcomingForm.minLevel : "Cấp độ tăng chỉ số, không đổi hình thái",
+                new Vector2(0,-160),new Vector2(690,40),19,new Color(.9f,.95f,1));
             int expected=owned.level;string tx=Guid.NewGuid().ToString("N");
-            Button(info,max ? "ĐÃ TỐI ĐA" : count<1 ? "Thiếu "+required : "XÁC NHẬN NÂNG CẤP",new Vector2(0,-222),new Vector2(690,65),()=>{if(Progress.Upgrade(selectedPet,expected,tx)){message=evolution ? "Đã mở "+after.name+"!" : "Đã nâng lên Lv"+next;Render();foreach(var rig in content.GetComponentsInChildren<ArticulatedPet>())StartCoroutine(UpgradeCelebration(rig,evolution));}},!max && count>0);
+            CollectionButton(info,max ? finalForm ? "ĐÃ TIẾN HÓA TỐI ĐA" : "ĐÃ ĐẠT LV7" : count<1 ? "Thiếu "+required : "XÁC NHẬN NÂNG CẤP",new Vector2(0,-222),new Vector2(690,65),()=>{if(Progress.Upgrade(selectedPet,expected,tx)){message=evolution ? "Đã mở "+after.name+"!" : "Đã nâng lên Lv"+next;Render();foreach(var rig in content.GetComponentsInChildren<ArticulatedPet>())StartCoroutine(UpgradeCelebration(rig,evolution));}},!max && count>0);
         }
         private IEnumerator UpgradeCelebration(ArticulatedPet rig,bool evolution)
         {
@@ -194,6 +329,26 @@ namespace PetGemBattle
         {
             if(rect==null || PlayerPrefs.GetInt("P2ReducedVfx",0)==1)return;Vector2 mouse=Mouse.current==null ? Vector2.zero : Mouse.current.position.ReadValue();var at=new Vector2(mouse.x/Mathf.Max(1,Screen.width)-.5f,mouse.y/Mathf.Max(1,Screen.height)-.5f);
             rect.anchoredPosition=Vector2.Lerp(rect.anchoredPosition,start+at*9,Time.unscaledDeltaTime*3);
+        }
+    }
+    public sealed class WorldHotspotMotion : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    {
+        private RectTransform emblem;
+        private Image halo;
+        private Color accent;
+        private bool hovered;
+        public void Configure(RectTransform icon,Image glow,Color color){emblem=icon;halo=glow;accent=color;}
+        public void OnPointerEnter(PointerEventData eventData){hovered=true;}
+        public void OnPointerExit(PointerEventData eventData){hovered=false;}
+        private void Update()
+        {
+            float wave=Mathf.Sin(Time.unscaledTime*2.4f+transform.GetSiblingIndex()*.7f);
+            if(emblem!=null)
+            {
+                emblem.anchoredPosition=new Vector2(0,18+wave*3);
+                emblem.localScale=Vector3.one*(hovered ? 1.12f : 1+wave*.025f);
+            }
+            if(halo!=null)halo.color=new Color(accent.r,accent.g,accent.b,hovered ? .29f : .12f+wave*.025f);
         }
     }
 }
